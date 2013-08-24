@@ -1,16 +1,8 @@
-/// <reference path="libs/typings/requirejs/require.d.ts"/>
-require.config({
-    paths: {
-        'jquery': 'libs/jquery.min',
-        'easel': 'libs/createjs-min'
-    },
-    shim: {
-        jquery: {
-            exports: '$'
-        },
-        easel: {
-            exports: 'createjs'
-        }
-    }
-});
+/// <reference path="models/simulations/simulation.ts"/>
+/// <reference path="views/simulations/simulation.ts"/>
+window.onload = function () {
+    var simulation = new models.simulations.Simulation();
+    var simulationView = new views.simulations.Simulation(document.getElementById('game-layer'), simulation);
+    simulationView.activate();
+};
 //# sourceMappingURL=main.js.map

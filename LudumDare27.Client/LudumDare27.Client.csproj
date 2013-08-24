@@ -20,24 +20,37 @@
     <Content Include="libs\bootstrap.min.js" />
     <Content Include="libs\createjs.min.js" />
     <Content Include="libs\jquery.min.js" />
-    <Content Include="libs\require\require.js" />
-    <Content Include="libs\require\text.js" />
     <Content Include="libs\typings\easeljs\easeljs.d.ts" />
     <Content Include="libs\typings\soundjs\soundjs.d.ts" />
     <Content Include="libs\typings\tweenjs\tweenjs.d.ts" />
-    <Content Include="libs\typings\requirejs\require.d.ts" />
+    <TypeScriptCompile Include="models\simulations\simulation.ts" />
+    <Content Include="models\simulations\simulation.js">
+      <DependentUpon>simulation.ts</DependentUpon>
+    </Content>
     <Content Include="styles\bootstrap-theme.min.css" />
     <Content Include="styles\bootstrap.min.css" />
     <Content Include="styles\default.css" />
+    <TypeScriptCompile Include="views\simulations\simulation.ts" />
+    <Content Include="views\simulations\simulation.js">
+      <DependentUpon>simulation.ts</DependentUpon>
+    </Content>
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="main.ts" />
+    <Content Include="main.js">
+      <DependentUpon>main.ts</DependentUpon>
+    </Content>
     <TypeScriptCompile Include="models\signals\signal.ts" />
+    <Content Include="models\signals\signal.js">
+      <DependentUpon>signal.ts</DependentUpon>
+    </Content>
     <TypeScriptCompile Include="models\signals\signalBinding.ts" />
+    <Content Include="models\signals\signalBinding.js">
+      <DependentUpon>signalBinding.ts</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -47,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="viewmodels\" />
-    <Folder Include="views\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
