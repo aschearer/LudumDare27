@@ -6,7 +6,6 @@ var models;
             function Simulation() {
             }
             Simulation.prototype.update = function (elapsedTime) {
-                console.log(elapsedTime);
             };
 
             Simulation.prototype.Add = function (entity) {

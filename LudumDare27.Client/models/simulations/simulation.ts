@@ -10,7 +10,6 @@ module models.simulations {
         public entityRemoved: Signal;
 
         public update(elapsedTime: number) {
-            console.log(elapsedTime);
         }
 
         public Add(entity: models.entities.IEntity) {
@@ -19,7 +18,6 @@ module models.simulations {
         }
 
         public Remove(entity: models.entities.IEntity) {
-            // TODO search for and remove entity based on ID
             if (entity.id in this.entities) {
                 delete this.entities[entity.id];
             }
