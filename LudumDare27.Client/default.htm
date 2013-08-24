@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Ludum Dare 27 Submission</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="styles/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="styles/default.css" type="text/css" />
+</head>
+<body>
+    <header class="navbar navbar-default navbar-fixed-top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">LD 27</a>
+            </div>
+            <nav class="collapse navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Play</a></li>
+                </ul>
+
+                <p id="signed-in-as" class="navbar-text pull-right">
+                    Playing as 
+                <img src="http://lorempixel.com/32/32" />
+                    <a class="navbar-link">Sissypants Sally</a>
+                </p>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <section>
+                    <div id="menu-layer" class="layer">
+                        <div id="title-menu">
+                            <h1>LD 27</h1>
+                        </div>
+                    </div>
+                    <canvas id="game-layer" class="layer" width="800" height="600"></canvas>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="libs/require/require.js" type="text/javascript" data-main="main"></script>
+</body>
+</html>

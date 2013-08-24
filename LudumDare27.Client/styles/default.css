@@ -1,0 +1,42 @@
+﻿body {
+    padding-top: 80px;
+}
+
+.layer {
+    width: 800px;
+    height: 600px;
+}
+
+#menu-layer {
+    position: absolute;
+    z-index: 100;
+}
+
+#title-menu {
+    position: absolute;
+    bottom: 100px;
+    left: 100px;
+}
+
+#title-menu h1 {
+    font-size: 80px;
+}
+
+#game-layer {
+    margin: auto;
+    border: 1px solid black;
+    background: lightgrey;
+}
+
+#signed-in-as {
+    height: 32px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+#signed-in-as img {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-color: lightgrey;
+}
