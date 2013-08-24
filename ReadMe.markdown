@@ -2,5 +2,5 @@
 
 ## Authors
 
-  * Alex Schearer
-  * Justin Nafziger
+  * Alex Schearer [web](http://www.spottedzebrasoftware.com)
+  * Justin Nafziger [web](https://www.facebook.com/lordpi)
