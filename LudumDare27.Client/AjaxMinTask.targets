@@ -1,0 +1,18 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\MicrosoftAjax\AjaxMinTask.targets" />
+
+  <!-- target to build all ajaxmin manifest files in the project -->
+  <Target Name="BuildAjaxMinManifests" AfterTargets="Build">
+    <Message Text="Processing AjaxMin Manifests" Importance="high" />
+    <CreateItem Include="@(None)" Condition="'%(Extension)'=='.ajaxmin'">
+      <Output TaskParameter="Include" ItemName="AjaxMinManifests"/>
+    </CreateItem>
+
+    <AjaxMinManifestTask ProjectDefaultSwitches="-define:$(DefineConstants))"
+                         Configuration="$(Configuration)"
+                         TreatWarningsAsErrors="false"
+                         InputFolder="$(ProjectDir)"
+                         OutputFolder="$(ProjectDir)"
+                         Manifests="@(AjaxMinManifests)" />
+  </Target>
+</Project>

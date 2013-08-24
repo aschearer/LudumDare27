@@ -16,6 +16,8 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="app\ludumdare27.css" />
+    <Content Include="app\ludumdare27.js" />
     <Content Include="default.htm" />
     <Content Include="libs\bootstrap.min.js" />
     <Content Include="libs\createjs.min.js" />
@@ -38,6 +40,7 @@
     <Content Include="views\simulations\simulation.js">
       <DependentUpon>simulation.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="views\states\title.ts" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +58,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AjaxMinTask.targets">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="minify.ajaxmin">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -64,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="viewmodels\" />
-    <Folder Include="views\title\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -106,4 +114,5 @@
     <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" />
+  <Import Project="AjaxMinTask.targets" />
 </Project>
