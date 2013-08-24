@@ -24,6 +24,7 @@
     <Content Include="libs\typings\soundjs\soundjs.d.ts" />
     <Content Include="libs\typings\tweenjs\tweenjs.d.ts" />
     <TypeScriptCompile Include="models\simulations\simulation.ts" />
+    <TypeScriptCompile Include="models\entities\ientity.ts" />
     <Content Include="models\simulations\simulation.js">
       <DependentUpon>simulation.ts</DependentUpon>
     </Content>
