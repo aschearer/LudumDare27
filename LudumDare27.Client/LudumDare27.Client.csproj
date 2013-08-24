@@ -25,6 +25,9 @@
     <Content Include="libs\typings\tweenjs\tweenjs.d.ts" />
     <TypeScriptCompile Include="models\simulations\simulation.ts" />
     <TypeScriptCompile Include="models\entities\ientity.ts" />
+    <Content Include="models\entities\ientity.js">
+      <DependentUpon>ientity.ts</DependentUpon>
+    </Content>
     <Content Include="models\simulations\simulation.js">
       <DependentUpon>simulation.ts</DependentUpon>
     </Content>
