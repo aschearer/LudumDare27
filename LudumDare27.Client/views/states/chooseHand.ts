@@ -26,14 +26,34 @@ module views.states {
             this.layer = <HTMLDivElement>document.getElementById('game-layer');
             this.instructions = <HTMLUListElement>this.layer.getElementsByClassName('instructions')[0];
             this.readyButton = <HTMLButtonElement> document.getElementById('choose-hand-button');
+            this.readyButton.style.visibility = "hidden";
 
             this.chipStacks = [];
             var chips: HTMLDivElement = <HTMLDivElement>this.layer.getElementsByClassName('chips')[0];
-            // TODO: get count from datacontext
-            this.chipStacks.push(new choosehand.ChipStack(chips, 0, 'green', 2));
-            this.chipStacks.push(new choosehand.ChipStack(chips, 1, 'pink', 3));
-            this.chipStacks.push(new choosehand.ChipStack(chips, 2, 'yellow', 2));
-            this.chipStacks.push(new choosehand.ChipStack(chips, 3, 'purple', 1));
+
+            var bets: Array<models.entities.BetType> = this.datacontext.GetAvailableBets();
+            var lastType = null;
+            var lastCount = 0;
+            var iBet = 0;
+            var cBets = bets.length;
+            var iColumn = 0;
+            var color = ['green', 'pink', 'yellow', 'purple']; // TEMP: this should be in a shared place, and map to BetType
+            do {
+                for (; iBet < cBets; ++iBet) {
+                    if (lastType === bets[iBet]) {
+                        ++lastCount;
+                    } else if (null === lastType) {
+                        lastType = bets[iBet];
+                        ++lastCount;
+                    } else {
+                        break;
+                    }
+                }
+                this.chipStacks.push(new choosehand.ChipStack(chips, iColumn, lastType, color[iColumn], lastCount));
+                ++iColumn;
+                lastType = null;
+                lastCount = 0;
+            } while (iBet < cBets);
         }
 
         public enter(previousState: IState) {
@@ -43,6 +63,7 @@ module views.states {
 
             for (var i = 0; i < this.chipStacks.length; i++) {
                 this.chipStacks[i].reset();
+                this.chipStacks[i].chipStackChanged.add(this.onChipStackChanged, this);
             }
 
             this.datacontext.instructionChanged.add(this.instructionChanged, this);
@@ -64,6 +85,10 @@ module views.states {
             this.datacontext.instructionChanged.remove(this.instructionChanged, this);
             this.datacontext.showCanCommit.remove(this.showCanCommit, this);
             this.readyButton.onclick = null;
+
+            for (var i = 0; i < this.chipStacks.length; i++) {
+                this.chipStacks[i].chipStackChanged.remove(this.onChipStackChanged, this);
+            }
         }
 
         private instructionChanged(activeInstruction: number) {
@@ -79,8 +104,19 @@ module views.states {
             this.activeInstruction.classList.add('active-instruction');
         }
 
+        private onChipStackChanged(betType: models.entities.BetType, added: boolean) {
+            if (added) {
+                this.datacontext.AddBetToHat(betType);
+            } else {
+                this.datacontext.RemoveBetFromHat(betType);
+            }
+        }
+
         private showCanCommit(enable: boolean) {
-            // TODO:
+            this.readyButton.style.visibility = enable ? "" : "hidden";
+            for (var i = 0; i < this.chipStacks.length; i++) {
+                this.chipStacks[i].setActiveEnabled(!enable);
+            }
         }
     }
 }

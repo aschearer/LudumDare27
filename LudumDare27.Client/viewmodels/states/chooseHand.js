@@ -27,6 +27,10 @@ var viewmodels;
                 this.showCanCommit.dispatch(enable);
             };
 
+            ChooseHand.prototype.GetAvailableBets = function () {
+                return this.simulation.GetAvailableBets();
+            };
+
             ChooseHand.prototype.AddBetToHat = function (betType) {
                 this.simulation.AddBetToHat(betType);
             };

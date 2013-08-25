@@ -159,6 +159,10 @@ var models;
 
                 return null;
             };
+
+            Simulation.prototype.GetAvailableBets = function () {
+                return this.players[this.currentPlayer].GetHand().GetAvailableBets();
+            };
             return Simulation;
         })();
         simulations.Simulation = Simulation;

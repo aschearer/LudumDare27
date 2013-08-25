@@ -2,8 +2,11 @@ module views.choosehand {
     export class ChipStack {
         private root: HTMLElement;
         private column: number;
+        private betType: models.entities.BetType;
         private color: string;
         private numberOfChips: number;
+
+        private activeEnabled: boolean = true;
 
         private activeChips: HTMLDivElement[];
         private inactiveChips: HTMLDivElement[];
@@ -12,8 +15,11 @@ module views.choosehand {
         private inactiveOffset: number = 560;
         private bottomOffset: number = 700;
 
-        constructor(root: HTMLElement, column: number, color: string, numberOfChips: number) {
+        public chipStackChanged: Signal = new Signal();
+
+        constructor(root: HTMLElement, column: number, betType: models.entities.BetType, color: string, numberOfChips: number) {
             this.root = root;
+            this.betType = betType;
             this.color = color;
             this.column = column;
             this.numberOfChips = numberOfChips;
@@ -53,6 +59,10 @@ module views.choosehand {
             };
         }
 
+        public setActiveEnabled(enable: boolean) {
+            this.activeEnabled = enable;
+        }
+
         public commit() {
             for (var i = 0; i < this.activeChips.length; i++) {
                 this.activeChips[i].style.top = this.topOffset + "px";
@@ -68,6 +78,10 @@ module views.choosehand {
         }
 
         private onActiveChipClicked() {
+            if (!this.activeEnabled) {
+                return;
+            }
+
             this.peek(this.activeChips).style.top = this.inactiveOffset + "px";
             this.peek(this.activeChips).onclick = null;
             if (this.inactiveChips.length > 0) {
@@ -87,6 +101,8 @@ module views.choosehand {
             this.peek(this.inactiveChips).onclick = (event) => {
                 this.onInactiveChipClicked();
             };
+
+            this.chipStackChanged.dispatch(this.betType, true);
         }
 
         private onInactiveChipClicked() {
@@ -113,6 +129,8 @@ module views.choosehand {
                     this.onInactiveChipClicked();
                 };
             }
+
+            this.chipStackChanged.dispatch(this.betType, false);
         }
     }
 }

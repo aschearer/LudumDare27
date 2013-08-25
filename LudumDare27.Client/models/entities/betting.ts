@@ -101,6 +101,18 @@ module models.entities {
 
             return ret;
         }
+
+        public GetAvailableBets(): Array<BetType> {
+            var ret = new Array<BetType>();
+            for (var iBet in this.possibleBets) {
+                var possible = this.possibleBets[iBet];
+                for (var i = 0, c = possible.available; i < c; ++i) {
+                    ret.push(possible.betType);
+                }
+            }
+
+            return ret;
+        }
     }
 
     var playerIdentities = [];

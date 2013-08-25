@@ -12,15 +12,34 @@ var views;
                 this.layer = document.getElementById('game-layer');
                 this.instructions = this.layer.getElementsByClassName('instructions')[0];
                 this.readyButton = document.getElementById('choose-hand-button');
+                this.readyButton.style.visibility = "hidden";
 
                 this.chipStacks = [];
                 var chips = this.layer.getElementsByClassName('chips')[0];
 
-                // TODO: get count from datacontext
-                this.chipStacks.push(new views.choosehand.ChipStack(chips, 0, 'green', 2));
-                this.chipStacks.push(new views.choosehand.ChipStack(chips, 1, 'pink', 3));
-                this.chipStacks.push(new views.choosehand.ChipStack(chips, 2, 'yellow', 2));
-                this.chipStacks.push(new views.choosehand.ChipStack(chips, 3, 'purple', 1));
+                var bets = this.datacontext.GetAvailableBets();
+                var lastType = null;
+                var lastCount = 0;
+                var iBet = 0;
+                var cBets = bets.length;
+                var iColumn = 0;
+                var color = ['green', 'pink', 'yellow', 'purple'];
+                do {
+                    for (; iBet < cBets; ++iBet) {
+                        if (lastType === bets[iBet]) {
+                            ++lastCount;
+                        } else if (null === lastType) {
+                            lastType = bets[iBet];
+                            ++lastCount;
+                        } else {
+                            break;
+                        }
+                    }
+                    this.chipStacks.push(new views.choosehand.ChipStack(chips, iColumn, lastType, color[iColumn], lastCount));
+                    ++iColumn;
+                    lastType = null;
+                    lastCount = 0;
+                } while(iBet < cBets);
             }
             ChooseHand.prototype.enter = function (previousState) {
                 var _this = this;
@@ -30,6 +49,7 @@ var views;
 
                 for (var i = 0; i < this.chipStacks.length; i++) {
                     this.chipStacks[i].reset();
+                    this.chipStacks[i].chipStackChanged.add(this.onChipStackChanged, this);
                 }
 
                 this.datacontext.instructionChanged.add(this.instructionChanged, this);
@@ -51,6 +71,10 @@ var views;
                 this.datacontext.instructionChanged.remove(this.instructionChanged, this);
                 this.datacontext.showCanCommit.remove(this.showCanCommit, this);
                 this.readyButton.onclick = null;
+
+                for (var i = 0; i < this.chipStacks.length; i++) {
+                    this.chipStacks[i].chipStackChanged.remove(this.onChipStackChanged, this);
+                }
             };
 
             ChooseHand.prototype.instructionChanged = function (activeInstruction) {
@@ -66,8 +90,19 @@ var views;
                 this.activeInstruction.classList.add('active-instruction');
             };
 
+            ChooseHand.prototype.onChipStackChanged = function (betType, added) {
+                if (added) {
+                    this.datacontext.AddBetToHat(betType);
+                } else {
+                    this.datacontext.RemoveBetFromHat(betType);
+                }
+            };
+
             ChooseHand.prototype.showCanCommit = function (enable) {
-                // TODO:
+                this.readyButton.style.visibility = enable ? "" : "hidden";
+                for (var i = 0; i < this.chipStacks.length; i++) {
+                    this.chipStacks[i].setActiveEnabled(!enable);
+                }
             };
             return ChooseHand;
         })();

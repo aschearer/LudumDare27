@@ -168,5 +168,9 @@ module models.simulations {
 
             return null;
         }
+
+        public GetAvailableBets(): Array<models.entities.BetType> {
+            return this.players[this.currentPlayer].GetHand().GetAvailableBets();
+        }
     }
 }

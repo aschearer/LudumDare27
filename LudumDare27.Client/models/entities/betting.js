@@ -96,6 +96,18 @@ var models;
 
                 return ret;
             };
+
+            Hand.prototype.GetAvailableBets = function () {
+                var ret = new Array();
+                for (var iBet in this.possibleBets) {
+                    var possible = this.possibleBets[iBet];
+                    for (var i = 0, c = possible.available; i < c; ++i) {
+                        ret.push(possible.betType);
+                    }
+                }
+
+                return ret;
+            };
             return Hand;
         })();
         entities.Hand = Hand;

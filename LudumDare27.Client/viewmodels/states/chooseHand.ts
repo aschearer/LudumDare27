@@ -33,6 +33,10 @@ module viewmodels.states {
             this.showCanCommit.dispatch(enable);
         }
 
+        public GetAvailableBets(): Array<models.entities.BetType> {
+            return this.simulation.GetAvailableBets();
+        }
+
         public AddBetToHat(betType: models.entities.BetType) {
             this.simulation.AddBetToHat(betType);
         }

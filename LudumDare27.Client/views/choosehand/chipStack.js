@@ -2,12 +2,15 @@ var views;
 (function (views) {
     (function (choosehand) {
         var ChipStack = (function () {
-            function ChipStack(root, column, color, numberOfChips) {
+            function ChipStack(root, column, betType, color, numberOfChips) {
+                this.activeEnabled = true;
                 this.topOffset = -300;
                 this.activeOffset = 200;
                 this.inactiveOffset = 560;
                 this.bottomOffset = 700;
+                this.chipStackChanged = new Signal();
                 this.root = root;
+                this.betType = betType;
                 this.color = color;
                 this.column = column;
                 this.numberOfChips = numberOfChips;
@@ -47,6 +50,10 @@ var views;
                 };
             };
 
+            ChipStack.prototype.setActiveEnabled = function (enable) {
+                this.activeEnabled = enable;
+            };
+
             ChipStack.prototype.commit = function () {
                 for (var i = 0; i < this.activeChips.length; i++) {
                     this.activeChips[i].style.top = this.topOffset + "px";
@@ -63,6 +70,10 @@ var views;
 
             ChipStack.prototype.onActiveChipClicked = function () {
                 var _this = this;
+                if (!this.activeEnabled) {
+                    return;
+                }
+
                 this.peek(this.activeChips).style.top = this.inactiveOffset + "px";
                 this.peek(this.activeChips).onclick = null;
                 if (this.inactiveChips.length > 0) {
@@ -82,6 +93,8 @@ var views;
                 this.peek(this.inactiveChips).onclick = function (event) {
                     _this.onInactiveChipClicked();
                 };
+
+                this.chipStackChanged.dispatch(this.betType, true);
             };
 
             ChipStack.prototype.onInactiveChipClicked = function () {
@@ -108,6 +121,8 @@ var views;
                         _this.onInactiveChipClicked();
                     };
                 }
+
+                this.chipStackChanged.dispatch(this.betType, false);
             };
             return ChipStack;
         })();
