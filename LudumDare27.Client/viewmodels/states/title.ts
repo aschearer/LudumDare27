@@ -1,5 +1,5 @@
 /// <reference path="istate.ts"/>
-/// <reference path="localGame.ts"/>
+/// <reference path="chooseHand.ts"/>
 
 module viewmodels.states {
 
@@ -16,7 +16,7 @@ module viewmodels.states {
         }
 
         public onPlayGame() {
-            this.stateChanged.dispatch(new LocalGame());
+            this.stateChanged.dispatch(new ChooseHand());
         }
     }
 }

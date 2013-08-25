@@ -18,8 +18,10 @@ var viewmodels;
             };
 
             ChooseHand.prototype.goBack = function () {
-                this.currentInstruction++;
-                this.instructionChanged.dispatch(this.currentInstruction);
+                if (this.currentInstruction < 1) {
+                    this.currentInstruction++;
+                    this.instructionChanged.dispatch(this.currentInstruction);
+                }
             };
             return ChooseHand;
         })();

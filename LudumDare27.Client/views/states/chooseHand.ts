@@ -1,5 +1,6 @@
 /// <reference path="istate.ts"/>
 /// <reference path="../../viewmodels/states/localGame.ts"/>
+/// <reference path="../choosehand/chipStack.ts"/>
 
 module views.states {
 
@@ -19,6 +20,12 @@ module views.states {
             this.datacontext = datacontext;
             this.layer = <HTMLDivElement>document.getElementById('game-layer');
             this.instructions = <HTMLUListElement>this.layer.getElementsByClassName('instructions')[0];
+
+            var chips: HTMLDivElement = <HTMLDivElement>this.layer.getElementsByClassName('chips')[0];
+            new choosehand.ChipStack(chips, 0, 'green', 2);
+            new choosehand.ChipStack(chips, 1, 'pink', 3);
+            new choosehand.ChipStack(chips, 2, 'yellow', 2);
+            new choosehand.ChipStack(chips, 3, 'purple', 1);
         }
 
         public enter(previousState: IState) {

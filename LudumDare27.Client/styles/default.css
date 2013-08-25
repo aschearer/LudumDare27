@@ -133,23 +133,28 @@
 }
 
 .chips {
-    margin-top: 40px;
-    position: relative;
+    position: absolute;
+    top: 220px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    clip: rect(0, 1024px, 548px, 0);
+    overflow: hidden;
 }
 
-.chips .col1 {
+.chips .col0 {
     left: 20px;
 }
 
-.chips .col2 {
+.chips .col1 {
     left: 292px;
 }
 
-.chips .col3 {
+.chips .col2 {
     left: 564px;
 }
 
-.chips .col4 {
+.chips .col3 {
     left: 836px;
 }
 
@@ -164,7 +169,7 @@
     text-align: center;
     border: 4px solid black;
     color: black;
-    transition: margin-top 0.1s ease-out;
+    transition: margin-top 0.1s ease-out, top 0.5s ease-out;
     cursor: pointer;
 }
 

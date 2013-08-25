@@ -1,7 +1,7 @@
 var viewmodels;
 (function (viewmodels) {
     /// <reference path="istate.ts"/>
-    /// <reference path="localGame.ts"/>
+    /// <reference path="chooseHand.ts"/>
     (function (states) {
         var Title = (function () {
             function Title() {
@@ -15,7 +15,7 @@ var viewmodels;
             };
 
             Title.prototype.onPlayGame = function () {
-                this.stateChanged.dispatch(new states.LocalGame());
+                this.stateChanged.dispatch(new states.ChooseHand());
             };
             return Title;
         })();

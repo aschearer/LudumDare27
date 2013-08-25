@@ -53,6 +53,7 @@
     <TypeScriptCompile Include="views\conductor.ts" />
     <TypeScriptCompile Include="viewmodels\states\localGame.ts" />
     <TypeScriptCompile Include="viewmodels\states\chooseHand.ts" />
+    <TypeScriptCompile Include="views\choosehand\chipStack.ts" />
     <Content Include="views\simulations\simulation.js">
       <DependentUpon>simulation.ts</DependentUpon>
     </Content>

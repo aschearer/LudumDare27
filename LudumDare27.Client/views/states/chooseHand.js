@@ -2,6 +2,7 @@ var views;
 (function (views) {
     /// <reference path="istate.ts"/>
     /// <reference path="../../viewmodels/states/localGame.ts"/>
+    /// <reference path="../choosehand/chipStack.ts"/>
     (function (states) {
         var ChooseHand = (function () {
             function ChooseHand(datacontext) {
@@ -9,6 +10,12 @@ var views;
                 this.datacontext = datacontext;
                 this.layer = document.getElementById('game-layer');
                 this.instructions = this.layer.getElementsByClassName('instructions')[0];
+
+                var chips = this.layer.getElementsByClassName('chips')[0];
+                new views.choosehand.ChipStack(chips, 0, 'green', 2);
+                new views.choosehand.ChipStack(chips, 1, 'pink', 3);
+                new views.choosehand.ChipStack(chips, 2, 'yellow', 2);
+                new views.choosehand.ChipStack(chips, 3, 'purple', 1);
             }
             ChooseHand.prototype.enter = function (previousState) {
                 var _this = this;

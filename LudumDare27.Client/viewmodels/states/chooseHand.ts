@@ -20,8 +20,10 @@ module viewmodels.states {
         }
 
         public goBack() {
-            this.currentInstruction++;
-            this.instructionChanged.dispatch(this.currentInstruction);
+            if (this.currentInstruction < 1) {
+                this.currentInstruction++;
+                this.instructionChanged.dispatch(this.currentInstruction);
+            }
         }
     }
 }
