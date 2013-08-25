@@ -42,7 +42,7 @@ local.properties
 *.sln.docstates
 
 # Merged file
-app/ludumdare27.*
+LudumDare27.Client/app/ludumdare27.*
 
 # Build results
 
