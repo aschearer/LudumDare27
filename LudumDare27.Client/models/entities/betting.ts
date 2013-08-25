@@ -69,7 +69,7 @@ module models.entities {
 
         public AddBetToHat(betType: BetType) {
             var possibleBet = this.possibleBets[betType];
-            if (possibleBet.available < possibleBet.selected) {
+            if (possibleBet.available > possibleBet.selected) {
                 ++possibleBet.selected;
             }
         }
@@ -93,7 +93,7 @@ module models.entities {
         public GetBets(): Array<BetType> {
             var ret = new Array<BetType>();
             for (var iBet in this.possibleBets) {
-                var possible = this.possibleBets[possible];
+                var possible = this.possibleBets[iBet];
                 for (var i = 0, c = possible.selected; i < c; ++i) {
                     ret.push(possible.betType);
                 }

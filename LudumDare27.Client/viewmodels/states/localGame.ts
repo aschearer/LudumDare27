@@ -77,16 +77,16 @@ module viewmodels.states {
 
         private onTurnReady() {
             // TODO: animate start of turn
-            this.showSubState.dispatch("turnReady");
-        }
-
-        public TakeTurn() {
             this.simulation.TakeTurn();
         }
 
         private onTurnResult() {
             // TODO: animate end of turn
-            this.showSubState.dispatch("chooseBets");
+            this.showSubState.dispatch("turnResult");
+        }
+
+        public AdvanceGame() {
+            this.simulation.AdvanceGame();
         }
 
         private onGameOver() {

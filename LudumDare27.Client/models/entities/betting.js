@@ -64,7 +64,7 @@ var models;
             }
             Hand.prototype.AddBetToHat = function (betType) {
                 var possibleBet = this.possibleBets[betType];
-                if (possibleBet.available < possibleBet.selected) {
+                if (possibleBet.available > possibleBet.selected) {
                     ++possibleBet.selected;
                 }
             };
@@ -88,7 +88,7 @@ var models;
             Hand.prototype.GetBets = function () {
                 var ret = new Array();
                 for (var iBet in this.possibleBets) {
-                    var possible = this.possibleBets[possible];
+                    var possible = this.possibleBets[iBet];
                     for (var i = 0, c = possible.selected; i < c; ++i) {
                         ret.push(possible.betType);
                     }

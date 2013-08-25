@@ -70,16 +70,16 @@ var viewmodels;
 
             LocalGame.prototype.onTurnReady = function () {
                 // TODO: animate start of turn
-                this.showSubState.dispatch("turnReady");
-            };
-
-            LocalGame.prototype.TakeTurn = function () {
                 this.simulation.TakeTurn();
             };
 
             LocalGame.prototype.onTurnResult = function () {
                 // TODO: animate end of turn
-                this.showSubState.dispatch("chooseBets");
+                this.showSubState.dispatch("turnResult");
+            };
+
+            LocalGame.prototype.AdvanceGame = function () {
+                this.simulation.AdvanceGame();
             };
 
             LocalGame.prototype.onGameOver = function () {
