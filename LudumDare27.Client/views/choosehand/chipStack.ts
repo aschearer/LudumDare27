@@ -13,9 +13,20 @@ module views.choosehand {
             this.color = color;
             this.column = column;
             this.numberOfChips = numberOfChips;
-
             this.activeChips = [];
             this.inactiveChips = [];
+        }
+
+        public reset() {
+            while (this.activeChips.length > 0) {
+                this.root.removeChild(this.activeChips.pop());
+            }
+
+            while (this.inactiveChips.length > 0) {
+                this.root.removeChild(this.inactiveChips.pop());
+            }
+
+
             for (var i: number = 0; i < this.numberOfChips; i++) {
                 var chip: HTMLDivElement = document.createElement('div');
                 chip.classList.add('chip');

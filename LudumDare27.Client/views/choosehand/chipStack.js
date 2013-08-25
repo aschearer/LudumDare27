@@ -3,14 +3,23 @@ var views;
     (function (choosehand) {
         var ChipStack = (function () {
             function ChipStack(root, column, color, numberOfChips) {
-                var _this = this;
                 this.root = root;
                 this.color = color;
                 this.column = column;
                 this.numberOfChips = numberOfChips;
-
                 this.activeChips = [];
                 this.inactiveChips = [];
+            }
+            ChipStack.prototype.reset = function () {
+                var _this = this;
+                while (this.activeChips.length > 0) {
+                    this.root.removeChild(this.activeChips.pop());
+                }
+
+                while (this.inactiveChips.length > 0) {
+                    this.root.removeChild(this.inactiveChips.pop());
+                }
+
                 for (var i = 0; i < this.numberOfChips; i++) {
                     var chip = document.createElement('div');
                     chip.classList.add('chip');
@@ -32,7 +41,8 @@ var views;
                 this.peek(this.activeChips).onclick = function (event) {
                     _this.onActiveChipClicked();
                 };
-            }
+            };
+
             ChipStack.prototype.commit = function () {
                 for (var i = 0; i < this.activeChips.length; i++) {
                     this.activeChips[i].style.top = "-300px";

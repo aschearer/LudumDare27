@@ -21,6 +21,7 @@
     <Content Include="default.htm" />
     <Content Include="images\chooseHand\background.png" />
     <Content Include="images\chooseHand\tutor.png" />
+    <Content Include="images\duel\background.png" />
     <Content Include="images\title\background.png" />
     <Content Include="images\title\start.png" />
     <Content Include="images\title\title.png" />
@@ -54,6 +55,7 @@
     <TypeScriptCompile Include="viewmodels\states\localGame.ts" />
     <TypeScriptCompile Include="viewmodels\states\chooseHand.ts" />
     <TypeScriptCompile Include="views\choosehand\chipStack.ts" />
+    <TypeScriptCompile Include="viewmodels\states\duel.ts" />
     <Content Include="views\simulations\simulation.js">
       <DependentUpon>simulation.ts</DependentUpon>
     </Content>
@@ -61,6 +63,7 @@
     <TypeScriptCompile Include="views\states\istate.ts" />
     <TypeScriptCompile Include="views\states\localGame.ts" />
     <TypeScriptCompile Include="views\states\chooseHand.ts" />
+    <TypeScriptCompile Include="views\states\duel.ts" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

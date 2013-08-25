@@ -1,6 +1,7 @@
 var viewmodels;
 (function (viewmodels) {
     /// <reference path="istate.ts"/>
+    /// <reference path="duel.ts"/>
     (function (states) {
         var ChooseHand = (function () {
             function ChooseHand() {
@@ -18,6 +19,7 @@ var viewmodels;
             };
 
             ChooseHand.prototype.chooseHand = function () {
+                this.stateChanged.dispatch(new states.Duel());
             };
 
             ChooseHand.prototype.goBack = function () {

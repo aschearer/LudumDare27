@@ -39,6 +39,10 @@ module views.states {
                 this.activateInstruction();
             }
 
+            for (var i = 0; i < this.chipStacks.length; i++) {
+                this.chipStacks[i].reset();
+            }
+
             this.datacontext.instructionChanged.add(this.instructionChanged, this);
             this.layer.onclick = (event) => {
                 this.datacontext.goBack();

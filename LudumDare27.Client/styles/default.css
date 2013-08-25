@@ -69,6 +69,10 @@
     background: url('../images/chooseHand/background.png') no-repeat;
 }
 
+#duel-layer {
+    background: url('../images/duel/background.png');
+}
+
 #signed-in-as {
     height: 32px;
     margin-top: 9px;

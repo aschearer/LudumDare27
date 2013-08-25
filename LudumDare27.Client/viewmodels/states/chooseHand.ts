@@ -1,4 +1,5 @@
 /// <reference path="istate.ts"/>
+/// <reference path="duel.ts"/>
 
 module viewmodels.states {
     export class ChooseHand implements IState {
@@ -20,7 +21,7 @@ module viewmodels.states {
         }
 
         public chooseHand() {
-
+            this.stateChanged.dispatch(new Duel());
         }
 
         public goBack() {
