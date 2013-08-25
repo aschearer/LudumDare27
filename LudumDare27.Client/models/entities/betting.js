@@ -9,35 +9,16 @@ var models;
         })(entities.BetType || (entities.BetType = {}));
         var BetType = entities.BetType;
 
-        (function (PlayerId) {
-            PlayerId[PlayerId["One"] = 0] = "One";
-            PlayerId[PlayerId["Two"] = 1] = "Two";
-        })(entities.PlayerId || (entities.PlayerId = {}));
-        var PlayerId = entities.PlayerId;
-
-        var Player = (function () {
-            function Player() {
-            }
-            Player.prototype.constructor = function (playerId) {
-                this.playerId = playerId;
-            };
-            return Player;
-        })();
-        entities.Player = Player;
-
         var Hat = (function () {
             function Hat() {
-            }
-            Hat.prototype.constructor = function () {
                 this.bets = new Array();
                 this.lastBetIndex = 0;
-            };
-
+            }
             Hat.prototype.AddBet = function (newBet) {
                 this.bets.push(newBet);
             };
 
-            Hat.prototype.Shuffle = function () {
+            Hat.prototype.ShuffleBets = function () {
                 var tempBets = this.bets;
                 var totalSlots = tempBets.length;
                 this.bets = new Array();
@@ -63,25 +44,83 @@ var models;
         entities.Hat = Hat;
 
         var PossibleBets = (function () {
-            function PossibleBets() {
-            }
-            PossibleBets.prototype.constructor = function (betType, available) {
+            function PossibleBets(betType, available) {
                 this.betType = betType;
                 this.available = available;
                 this.selected = 0;
-            };
+            }
             return PossibleBets;
         })();
         entities.PossibleBets = PossibleBets;
 
         var Hand = (function () {
             function Hand() {
+                // $TEMP: hardcoding hand
+                this.possibleBets = [];
+                this.possibleBets[BetType.Down] = new PossibleBets(BetType.Down, 2);
+                this.possibleBets[BetType.Left] = new PossibleBets(BetType.Left, 2);
+                this.possibleBets[BetType.Right] = new PossibleBets(BetType.Right, 2);
+                this.possibleBets[BetType.Up] = new PossibleBets(BetType.Up, 1);
             }
-            Hand.prototype.constructor = function () {
+            Hand.prototype.AddBetToHat = function (betType) {
+                var possibleBet = this.possibleBets[betType];
+                if (possibleBet.available < possibleBet.selected) {
+                    ++possibleBet.selected;
+                }
+            };
+
+            Hand.prototype.RemoveBetFromHat = function (betType) {
+                var possibleBet = this.possibleBets[betType];
+                if (possibleBet.selected > 0) {
+                    --possibleBet.selected;
+                }
+            };
+
+            Hand.prototype.GetBetCount = function () {
+                var ret = 0;
+                for (var iBet in this.possibleBets) {
+                    ret += this.possibleBets[iBet].selected;
+                }
+
+                return ret;
+            };
+
+            Hand.prototype.GetBets = function () {
+                var ret = new Array();
+                for (var iBet in this.possibleBets) {
+                    var possible = this.possibleBets[possible];
+                    for (var i = 0, c = possible.selected; i < c; ++i) {
+                        ret.push(possible.betType);
+                    }
+                }
+
+                return ret;
             };
             return Hand;
         })();
         entities.Hand = Hand;
+
+        var Player = (function () {
+            function Player(playerId) {
+                this.playerId = playerId;
+                this.hand = new Hand();
+                this.currentBet = null;
+                this.points = 0;
+            }
+            Player.prototype.AddPoint = function (newPoints) {
+                this.points += newPoints;
+            };
+
+            Player.prototype.MakeBet = function (betType) {
+                this.currentBet = betType;
+            };
+
+            Player.prototype.GetHand = function () {
+                return this.hand;
+            };
+            return Player;
+        })();
+        entities.Player = Player;
     })(models.entities || (models.entities = {}));
     var entities = models.entities;
 })(models || (models = {}));
