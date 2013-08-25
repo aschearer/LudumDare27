@@ -41,6 +41,9 @@ local.properties
 *.user
 *.sln.docstates
 
+# Merged file
+app/ludumdare27.*
+
 # Build results
 
 [Dd]ebug/
