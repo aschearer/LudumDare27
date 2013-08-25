@@ -5,15 +5,19 @@ var views;
     var Conductor = (function () {
         function Conductor(conductor) {
             var _this = this;
-            this.onPushed = function (viewmodel) {
+            this.onPushed = function (viewmodel, replaced) {
                 var previousView = _this.stack.length > 0 ? _this.peek() : null;
                 var nextView = _this.createView(viewmodel);
 
                 if (previousView != null) {
-                    console.debug("Exiting " + previousView.id);
+                    console.debug("Exiting " + (replaced ? "(Replaced) " : "(Pushed) ") + previousView.id);
                     previousView.exit(nextView);
                     previousView.layer.classList.remove('active-layer');
                     nextView.layer.classList.add('active-layer');
+
+                    if (replaced) {
+                        _this.stack.pop();
+                    }
                 }
 
                 console.debug("Entering " + nextView.id);
@@ -23,7 +27,7 @@ var views;
             this.onPopped = function () {
                 var popped = _this.stack.pop();
                 var nextState = _this.peek();
-                console.debug("Exiting " + popped.id);
+                console.debug("Exiting (Popped) " + popped.id);
                 popped.exit(nextState);
                 popped.layer.classList.remove('active-layer');
                 console.debug("Entering " + nextState.id);

@@ -6,7 +6,7 @@ module views.states {
 
     interface ISubState {
         datacontext: viewmodels.states.LocalGame;
-        layer: HTMLCanvasElement;
+        layer: HTMLElement;
         stage: createjs.Stage;
 
         enter();
@@ -16,7 +16,7 @@ module views.states {
     class ChoosePlayerSubState implements ISubState {
         public id: string = "views.states.ChoosePlayerSubState";
         public datacontext: viewmodels.states.LocalGame;
-        public layer: HTMLCanvasElement;
+        public layer: HTMLElement;
         public stage: createjs.Stage;
 
         private playerId: number;
@@ -47,7 +47,7 @@ module views.states {
     class ChooseHandSubState implements ISubState {
         public id: string = "views.states.ChooseHandSubState";
         public datacontext: viewmodels.states.LocalGame;
-        public layer: HTMLCanvasElement;
+        public layer: HTMLElement;
         public stage: createjs.Stage;
 
         private commitEnabled: boolean = false;
@@ -96,7 +96,7 @@ module views.states {
     class ChooseBetsSubState implements ISubState {
         public id: string = "views.states.ChooseBetsSubState";
         public datacontext: viewmodels.states.LocalGame;
-        public layer: HTMLCanvasElement;
+        public layer: HTMLElement;
         public stage: createjs.Stage;
 
         private betsTaken: number;
@@ -133,7 +133,7 @@ module views.states {
     class TurnResultSubState implements ISubState {
         public id: string = "views.states.TurnResultSubState";
         public datacontext: viewmodels.states.LocalGame;
-        public layer: HTMLCanvasElement;
+        public layer: HTMLElement;
         public stage: createjs.Stage;
 
         private betsTaken: number;
@@ -164,7 +164,7 @@ module views.states {
     class GameOverSubState implements ISubState {
         public id: string = "views.states.GameOverSubState";
         public datacontext: viewmodels.states.LocalGame;
-        public layer: HTMLCanvasElement;
+        public layer: HTMLElement;
         public stage: createjs.Stage;
 
         constructor() {
@@ -193,8 +193,9 @@ module views.states {
 
         public id: string = "views.states.LocalGame";
 
-        public layer: HTMLCanvasElement;
+        public layer: HTMLElement;
 
+        private canvas: HTMLCanvasElement;
         private datacontext: viewmodels.states.LocalGame;
         private stage: createjs.Stage;
         private currentSubState: ISubState;
@@ -202,24 +203,25 @@ module views.states {
 
         constructor(datacontext: viewmodels.states.LocalGame) {
             this.datacontext = datacontext;
-            this.layer  = <HTMLCanvasElement>document.getElementById('game-layer');
-            this.stage = new createjs.Stage(this.layer);
+            this.layer = <HTMLElement>document.getElementById('local-game-layer');
+            this.canvas  = <HTMLCanvasElement>document.getElementById('local-game-layer-canvas');
+            this.stage = new createjs.Stage(this.canvas);
         }
 
         public enter(previousState: IState) {
-            createjs.Ticker.addEventListener('tick', this.onTick);
+            //createjs.Ticker.addEventListener('tick', this.onTick);
             this.datacontext.showSubState.add(this.onShowSubState, this);
             this.datacontext.StartGame();
         }
 
         public exit(nextState: IState) {
-            createjs.Ticker.removeEventListener('tick', this.onTick);
+            //createjs.Ticker.removeEventListener('tick', this.onTick);
             this.datacontext.showSubState.remove(this.onShowSubState, this);
         }
 
-        private onTick = (tickEvent: createjs.TickerEvent) => {
-            //this.datacontext.update(tickEvent.delta);
-        }
+        //private onTick = (tickEvent: createjs.TickerEvent) => {
+        //    //this.datacontext.update(tickEvent.delta);
+        //}
 
         private onShowSubState(subState: string, playerId: number) {
             if (this.currentSubState) {

@@ -47,7 +47,6 @@
     <Content Include="styles\bootstrap-theme.min.css" />
     <Content Include="styles\bootstrap.min.css" />
     <Content Include="styles\default.css" />
-    <TypeScriptCompile Include="views\simulations\simulation.ts" />
     <TypeScriptCompile Include="viewmodels\states\istate.ts" />
     <TypeScriptCompile Include="viewmodels\states\title.ts" />
     <TypeScriptCompile Include="viewmodels\conductor.ts" />
@@ -56,14 +55,13 @@
     <TypeScriptCompile Include="viewmodels\states\chooseHand.ts" />
     <TypeScriptCompile Include="views\choosehand\chipStack.ts" />
     <TypeScriptCompile Include="viewmodels\states\duel.ts" />
-    <Content Include="views\simulations\simulation.js">
-      <DependentUpon>simulation.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="views\states\title.ts" />
     <TypeScriptCompile Include="views\states\istate.ts" />
     <TypeScriptCompile Include="views\states\localGame.ts" />
     <TypeScriptCompile Include="views\states\chooseHand.ts" />
     <TypeScriptCompile Include="views\states\duel.ts" />
+    <TypeScriptCompile Include="views\states\changingPlayer.ts" />
+    <TypeScriptCompile Include="viewmodels\states\changingPlayer.ts" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

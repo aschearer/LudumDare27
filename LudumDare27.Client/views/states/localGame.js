@@ -157,24 +157,25 @@ var views;
             function LocalGame(datacontext) {
                 this.id = "views.states.LocalGame";
                 this.betsTaken = 0;
-                this.onTick = function (tickEvent) {
-                    //this.datacontext.update(tickEvent.delta);
-                };
                 this.datacontext = datacontext;
-                this.layer = document.getElementById('game-layer');
-                this.stage = new createjs.Stage(this.layer);
+                this.layer = document.getElementById('local-game-layer');
+                this.canvas = document.getElementById('local-game-layer-canvas');
+                this.stage = new createjs.Stage(this.canvas);
             }
             LocalGame.prototype.enter = function (previousState) {
-                createjs.Ticker.addEventListener('tick', this.onTick);
+                //createjs.Ticker.addEventListener('tick', this.onTick);
                 this.datacontext.showSubState.add(this.onShowSubState, this);
                 this.datacontext.StartGame();
             };
 
             LocalGame.prototype.exit = function (nextState) {
-                createjs.Ticker.removeEventListener('tick', this.onTick);
+                //createjs.Ticker.removeEventListener('tick', this.onTick);
                 this.datacontext.showSubState.remove(this.onShowSubState, this);
             };
 
+            //private onTick = (tickEvent: createjs.TickerEvent) => {
+            //    //this.datacontext.update(tickEvent.delta);
+            //}
             LocalGame.prototype.onShowSubState = function (subState, playerId) {
                 if (this.currentSubState) {
                     this.currentSubState.exit();

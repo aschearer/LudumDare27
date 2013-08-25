@@ -8,5 +8,5 @@ window.onload = () => {
     var conductorViewModel = new viewmodels.Conductor();
     var conductorView = new views.Conductor(conductorViewModel);
 
-    conductorViewModel.push(new viewmodels.states.Title());
+    conductorViewModel.push(new viewmodels.states.Title(), false);
 };

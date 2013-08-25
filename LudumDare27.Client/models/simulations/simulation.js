@@ -28,9 +28,6 @@ var models;
                 this.currentPlayer = 0;
                 this.simulationState = SimulationState.NewGame;
             }
-            Simulation.prototype.update = function (elapsedTime) {
-            };
-
             Simulation.prototype.StartGame = function () {
                 this.simulationState = SimulationState.ChangePlayer;
                 this.changingPlayer.dispatch(this.players[this.currentPlayer]);

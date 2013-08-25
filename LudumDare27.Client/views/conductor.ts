@@ -16,15 +16,19 @@ module views {
             this.conductor.popped.add(this.onPopped);
         }
 
-        private onPushed = (viewmodel: viewmodels.states.IState) => {
+        private onPushed = (viewmodel: viewmodels.states.IState, replaced: boolean) => {
             var previousView: views.states.IState = this.stack.length > 0 ? this.peek() : null;
             var nextView: views.states.IState = this.createView(viewmodel);
             
             if (previousView != null) {
-                console.debug("Exiting " + previousView.id);
+                console.debug("Exiting " + (replaced ? "(Replaced) " : "(Pushed) ") + previousView.id);
                 previousView.exit(nextView);
                 previousView.layer.classList.remove('active-layer');
                 nextView.layer.classList.add('active-layer');
+
+                if (replaced) {
+                    this.stack.pop();
+                }
             }
 
             console.debug("Entering " + nextView.id);
@@ -35,7 +39,7 @@ module views {
         private onPopped = () => {
             var popped: states.IState = this.stack.pop();
             var nextState: states.IState = this.peek();
-            console.debug("Exiting " + popped.id);
+            console.debug("Exiting (Popped) " + popped.id);
             popped.exit(nextState);
             popped.layer.classList.remove('active-layer');
             console.debug("Entering " + nextState.id);

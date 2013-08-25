@@ -46,7 +46,8 @@ module viewmodels.states {
         }
 
         public PlayerReady() {
-            this.showSubState.dispatch("chooseHand", this.currentPlayer.GetHand());
+            this.stateChanged.dispatch(new ChooseHand(this.simulation), true);
+            //this.showSubState.dispatch("chooseHand", this.currentPlayer.GetHand());
         }
 
         private onCanCommitHat(enable: boolean) {

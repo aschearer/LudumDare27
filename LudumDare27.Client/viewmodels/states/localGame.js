@@ -39,7 +39,8 @@ var viewmodels;
             };
 
             LocalGame.prototype.PlayerReady = function () {
-                this.showSubState.dispatch("chooseHand", this.currentPlayer.GetHand());
+                this.stateChanged.dispatch(new states.ChooseHand(this.simulation), true);
+                //this.showSubState.dispatch("chooseHand", this.currentPlayer.GetHand());
             };
 
             LocalGame.prototype.onCanCommitHat = function (enable) {

@@ -35,9 +35,6 @@ module models.simulations {
             this.simulationState = SimulationState.NewGame;
         }
 
-        public update(elapsedTime: number) {
-        }
-
         public StartGame() {
             this.simulationState = SimulationState.ChangePlayer;
             this.changingPlayer.dispatch(this.players[this.currentPlayer]);

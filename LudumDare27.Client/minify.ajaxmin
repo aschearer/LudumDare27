@@ -15,13 +15,14 @@
     <input path="viewmodels/states/istate.js" />
     <input path="viewmodels/states/title.js" />
     <input path="viewmodels/states/localGame.js" />
+    <input path="viewmodels/states/changingPlayer.js" />
     <input path="viewmodels/states/chooseHand.js" />
     <input path="viewmodels/states/duel.js" />
     <input path="views/conductor.js" />
-    <input path="views/simulations/simulation.js" />
     <input path="views/states/istate.js" />
     <input path="views/states/title.js" />
     <input path="views/states/localGame.js" />
+    <input path="views/states/changingPlayer.js" />
     <input path="views/states/chooseHand.js" />
     <input path="views/states/duel.js" />
     <input path="views/choosehand/chipStack.js" />

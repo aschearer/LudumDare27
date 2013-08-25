@@ -1,4 +1,5 @@
 /// <reference path="istate.ts"/>
+/// <reference path="../../viewmodels/states/chooseHand.ts"/>
 /// <reference path="../../viewmodels/states/localGame.ts"/>
 /// <reference path="../choosehand/chipStack.ts"/>
 
@@ -28,6 +29,7 @@ module views.states {
 
             this.chipStacks = [];
             var chips: HTMLDivElement = <HTMLDivElement>this.layer.getElementsByClassName('chips')[0];
+            // TODO: get count from datacontext
             this.chipStacks.push(new choosehand.ChipStack(chips, 0, 'green', 2));
             this.chipStacks.push(new choosehand.ChipStack(chips, 1, 'pink', 3));
             this.chipStacks.push(new choosehand.ChipStack(chips, 2, 'yellow', 2));
@@ -44,6 +46,7 @@ module views.states {
             }
 
             this.datacontext.instructionChanged.add(this.instructionChanged, this);
+            this.datacontext.showCanCommit.add(this.showCanCommit, this);
             this.layer.onclick = (event) => {
                 this.datacontext.goBack();
             };
@@ -59,6 +62,7 @@ module views.states {
         public exit(nextState: IState) {
             this.layer.onclick = null;
             this.datacontext.instructionChanged.remove(this.instructionChanged, this);
+            this.datacontext.showCanCommit.remove(this.showCanCommit, this);
             this.readyButton.onclick = null;
         }
 
@@ -73,6 +77,10 @@ module views.states {
         private activateInstruction() {
             this.activeInstruction = <HTMLElement>this.instructions.children[this.datacontext.currentInstruction];
             this.activeInstruction.classList.add('active-instruction');
+        }
+
+        private showCanCommit(enable: boolean) {
+            // TODO:
         }
     }
 }

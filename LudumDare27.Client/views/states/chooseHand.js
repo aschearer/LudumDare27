@@ -1,6 +1,7 @@
 var views;
 (function (views) {
     /// <reference path="istate.ts"/>
+    /// <reference path="../../viewmodels/states/chooseHand.ts"/>
     /// <reference path="../../viewmodels/states/localGame.ts"/>
     /// <reference path="../choosehand/chipStack.ts"/>
     (function (states) {
@@ -14,6 +15,8 @@ var views;
 
                 this.chipStacks = [];
                 var chips = this.layer.getElementsByClassName('chips')[0];
+
+                // TODO: get count from datacontext
                 this.chipStacks.push(new views.choosehand.ChipStack(chips, 0, 'green', 2));
                 this.chipStacks.push(new views.choosehand.ChipStack(chips, 1, 'pink', 3));
                 this.chipStacks.push(new views.choosehand.ChipStack(chips, 2, 'yellow', 2));
@@ -30,6 +33,7 @@ var views;
                 }
 
                 this.datacontext.instructionChanged.add(this.instructionChanged, this);
+                this.datacontext.showCanCommit.add(this.showCanCommit, this);
                 this.layer.onclick = function (event) {
                     _this.datacontext.goBack();
                 };
@@ -45,6 +49,7 @@ var views;
             ChooseHand.prototype.exit = function (nextState) {
                 this.layer.onclick = null;
                 this.datacontext.instructionChanged.remove(this.instructionChanged, this);
+                this.datacontext.showCanCommit.remove(this.showCanCommit, this);
                 this.readyButton.onclick = null;
             };
 
@@ -59,6 +64,10 @@ var views;
             ChooseHand.prototype.activateInstruction = function () {
                 this.activeInstruction = this.instructions.children[this.datacontext.currentInstruction];
                 this.activeInstruction.classList.add('active-instruction');
+            };
+
+            ChooseHand.prototype.showCanCommit = function (enable) {
+                // TODO:
             };
             return ChooseHand;
         })();
