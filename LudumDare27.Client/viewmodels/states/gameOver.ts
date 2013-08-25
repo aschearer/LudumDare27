@@ -20,6 +20,11 @@ module viewmodels.states {
         public exit() {
         }
 
+        public GetWinningPlayerName() : string {
+            var results: models.simulations.GameResults = this.simulation.GetGameResults();
+            return (results.winner) ? results.winner.name : null;
+        }
+
         public endGame() {
             this.stateChanged.dispatch(null);
         }

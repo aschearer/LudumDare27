@@ -100,12 +100,18 @@ var models;
         })();
         entities.Hand = Hand;
 
+        var playerIdentities = [];
+        playerIdentities[0] = "Sally Sissypants";
+        playerIdentities[1] = "Riley Roundbottom";
+
         var Player = (function () {
             function Player(playerId) {
                 this.playerId = playerId;
                 this.hand = new Hand();
                 this.currentBet = null;
                 this.points = 0;
+
+                this.name = playerIdentities[playerId] || ("" + (playerId + 1));
             }
             Player.prototype.AddPoint = function (newPoints) {
                 this.points += newPoints;

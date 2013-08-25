@@ -11,6 +11,15 @@ var models;
             SimulationState[SimulationState["GameOver"] = 4] = "GameOver";
         })(SimulationState || (SimulationState = {}));
 
+        var GameResults = (function () {
+            function GameResults(winner, score) {
+                this.winner = winner;
+                this.score = score;
+            }
+            return GameResults;
+        })();
+        simulations.GameResults = GameResults;
+
         var Simulation = (function () {
             function Simulation() {
                 this.changingPlayer = new Signal();
@@ -35,20 +44,8 @@ var models;
             Simulation.prototype.AdvanceGame = function () {
                 if (this.hat.IsDone()) {
                     this.simulationState = SimulationState.GameOver;
-
-                    var winningScore = Number.MIN_VALUE;
-                    var winningPlayer = null;
-                    for (var iPlayer in this.players) {
-                        var player = this.players[iPlayer];
-                        if (player.points > winningScore) {
-                            winningPlayer = player;
-                            winningScore = player.points;
-                        } else if (player.points === winningScore) {
-                            // A tie
-                            winningPlayer = null;
-                        }
-                    }
-                    this.gameOver.dispatch(winningPlayer, winningScore);
+                    var results = this.GetGameResults();
+                    this.gameOver.dispatch(results);
                 } else {
                     for (var iPlayer in this.players) {
                         var player = this.players[iPlayer];
@@ -57,6 +54,23 @@ var models;
                     this.simulationState = SimulationState.ChooseBets;
                     this.chooseBets.dispatch(this.players);
                 }
+            };
+
+            Simulation.prototype.GetGameResults = function () {
+                var winningScore = Number.MIN_VALUE;
+                var winningPlayer = null;
+                for (var iPlayer in this.players) {
+                    var player = this.players[iPlayer];
+                    if (player.points > winningScore) {
+                        winningPlayer = player;
+                        winningScore = player.points;
+                    } else if (player.points === winningScore) {
+                        // A tie
+                        winningPlayer = null;
+                    }
+                }
+
+                return new GameResults(winningPlayer, winningScore);
             };
 
             Simulation.prototype.AreAllPlayersReady = function () {

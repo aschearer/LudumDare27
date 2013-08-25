@@ -9,6 +9,9 @@ var views;
                 this.id = "views.states.ChangingPlayer";
                 this.datacontext = datacontext;
                 this.layer = document.getElementById('player-ready-layer');
+
+                var message = document.getElementById('player-ready-text');
+                message.innerText = this.datacontext.GetCurrentPlayerName() + "'s Turn";
             }
             ChangingPlayer.prototype.enter = function (previousState) {
                 var _this = this;

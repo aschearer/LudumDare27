@@ -15,6 +15,9 @@ module views.states {
         constructor(datacontext: viewmodels.states.ChangingPlayer) {
             this.datacontext = datacontext;
             this.layer = <HTMLDivElement>document.getElementById('player-ready-layer');
+
+            var message: HTMLDivElement = <HTMLDivElement>document.getElementById('player-ready-text');
+            message.innerText = this.datacontext.GetCurrentPlayerName() + "'s Turn";
         }
 
         public enter(previousState: IState) {

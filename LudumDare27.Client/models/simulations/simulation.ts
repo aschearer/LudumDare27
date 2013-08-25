@@ -10,6 +10,16 @@ module models.simulations {
         GameOver,
     }
 
+    export class GameResults {
+        public winner: models.entities.Player;
+        public score: number;
+
+        constructor(winner: models.entities.Player, score: number) {
+            this.winner = winner;
+            this.score = score;
+        }
+    }
+
     export class Simulation {
 
         private hat: models.entities.Hat;
@@ -42,20 +52,8 @@ module models.simulations {
         public AdvanceGame() {
             if (this.hat.IsDone()) {
                 this.simulationState = SimulationState.GameOver;
-
-                var winningScore = Number.MIN_VALUE;
-                var winningPlayer = null;
-                for (var iPlayer in this.players) {
-                    var player = this.players[iPlayer];
-                    if (player.points > winningScore) {
-                        winningPlayer = player;
-                        winningScore = player.points;
-                    } else if (player.points === winningScore) {
-                        // A tie
-                        winningPlayer = null;
-                    }
-                }
-                this.gameOver.dispatch(winningPlayer, winningScore);
+                var results = this.GetGameResults();
+                this.gameOver.dispatch(results);
             } else {
                 // clear all bets before a second round
                 for (var iPlayer in this.players) {
@@ -65,6 +63,23 @@ module models.simulations {
                 this.simulationState = SimulationState.ChooseBets;
                 this.chooseBets.dispatch(this.players);
             }
+        }
+
+        public GetGameResults(): GameResults {
+            var winningScore = Number.MIN_VALUE;
+            var winningPlayer = null;
+            for (var iPlayer in this.players) {
+                var player = this.players[iPlayer];
+                if (player.points > winningScore) {
+                    winningPlayer = player;
+                    winningScore = player.points;
+                } else if (player.points === winningScore) {
+                    // A tie
+                    winningPlayer = null;
+                }
+            }
+
+            return new GameResults(winningPlayer, winningScore);
         }
 
         private AreAllPlayersReady(): boolean {

@@ -20,6 +20,11 @@ module viewmodels.states {
         public exit() {
         }
 
+        public GetCurrentPlayerName(): string {
+            var player: models.entities.Player = this.simulation.GetChoosingPlayer();
+            return player ? player.name : "???!?!?!?";
+        }
+
         public playerReady() {
             this.stateChanged.dispatch(new ChooseHand(this.simulation), true);
         }

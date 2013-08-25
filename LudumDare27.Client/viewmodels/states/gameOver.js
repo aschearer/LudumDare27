@@ -15,6 +15,11 @@ var viewmodels;
             GameOver.prototype.exit = function () {
             };
 
+            GameOver.prototype.GetWinningPlayerName = function () {
+                var results = this.simulation.GetGameResults();
+                return (results.winner) ? results.winner.name : null;
+            };
+
             GameOver.prototype.endGame = function () {
                 this.stateChanged.dispatch(null);
             };

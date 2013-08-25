@@ -15,6 +15,18 @@ module views.states {
         constructor(datacontext: viewmodels.states.GameOver) {
             this.datacontext = datacontext;
             this.layer = <HTMLDivElement>document.getElementById('game-over-layer');
+
+
+            var messageElement: HTMLDivElement = <HTMLDivElement>document.getElementById('game-over-text');
+            var winner: string = this.datacontext.GetWinningPlayerName();
+            var message = "";
+            if (winner) {
+                message = winner + " Wins";
+            } else {
+                message = "It's a Draw";
+            }
+
+            messageElement.innerText = message;
         }
 
         public enter(previousState: IState) {

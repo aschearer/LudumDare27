@@ -15,6 +15,11 @@ var viewmodels;
             ChangingPlayer.prototype.exit = function () {
             };
 
+            ChangingPlayer.prototype.GetCurrentPlayerName = function () {
+                var player = this.simulation.GetChoosingPlayer();
+                return player ? player.name : "???!?!?!?";
+            };
+
             ChangingPlayer.prototype.playerReady = function () {
                 this.stateChanged.dispatch(new states.ChooseHand(this.simulation), true);
             };

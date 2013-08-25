@@ -103,17 +103,24 @@ module models.entities {
         }
     }
 
+    var playerIdentities = [];
+    playerIdentities[0] = "Sally Sissypants";
+    playerIdentities[1] = "Riley Roundbottom";
+
     export class Player {
         public playerId: number;
         private hand: Hand;
         public currentBet: BetType;
         public points: number;
+        public name: string;
 
         constructor(playerId: number) {
             this.playerId = playerId;
             this.hand = new Hand();
             this.currentBet = null;
             this.points = 0;
+
+            this.name = playerIdentities[playerId] || ("" + (playerId + 1));
         }
 
         public AddPoint(newPoints: number) {

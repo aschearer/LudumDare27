@@ -9,6 +9,17 @@ var views;
                 this.id = "views.states.GameOver";
                 this.datacontext = datacontext;
                 this.layer = document.getElementById('game-over-layer');
+
+                var messageElement = document.getElementById('game-over-text');
+                var winner = this.datacontext.GetWinningPlayerName();
+                var message = "";
+                if (winner) {
+                    message = winner + " Wins";
+                } else {
+                    message = "It's a Draw";
+                }
+
+                messageElement.innerText = message;
             }
             GameOver.prototype.enter = function (previousState) {
                 var _this = this;
