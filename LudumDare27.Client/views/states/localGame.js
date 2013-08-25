@@ -7,12 +7,17 @@ var views;
             function LocalGame(datacontext) {
                 this.id = "views.states.LocalGame";
                 this.datacontext = datacontext;
-                this.root = document.getElementById('game-view');
+                this.layer = document.getElementById('game-layer');
             }
             LocalGame.prototype.enter = function (previousState) {
+                var _this = this;
+                this.layer.onclick = function (event) {
+                    _this.datacontext.goBack();
+                };
             };
 
             LocalGame.prototype.exit = function (nextState) {
+                this.layer.onclick = null;
             };
             return LocalGame;
         })();

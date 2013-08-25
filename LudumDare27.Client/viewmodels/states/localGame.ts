@@ -12,5 +12,9 @@ module viewmodels.states {
 
         public exit() {
         }
+
+        public goBack() {
+            this.stateChanged.dispatch(null);
+        }
     }
 }

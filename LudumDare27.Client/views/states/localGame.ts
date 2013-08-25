@@ -7,19 +7,23 @@ module views.states {
 
         public id: string = "views.states.LocalGame";
 
+        public layer: HTMLElement;
+
         private datacontext: viewmodels.states.LocalGame;
-        private root: HTMLDivElement;
 
         constructor(datacontext: viewmodels.states.LocalGame) {
             this.datacontext = datacontext;
-            this.root = <HTMLDivElement>document.getElementById('game-view');
+            this.layer  = <HTMLDivElement>document.getElementById('game-layer');
         }
 
         public enter(previousState: IState) {
-
+            this.layer.onclick = (event) => {
+                this.datacontext.goBack();
+            };
         }
 
         public exit(nextState: IState) {
+            this.layer.onclick = null;
         }
     }
 }

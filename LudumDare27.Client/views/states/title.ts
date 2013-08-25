@@ -6,13 +6,14 @@ module views.states {
 
         public id: string = "views.states.Title";
 
+        public layer: HTMLElement;
+
         private datacontext: viewmodels.states.Title;
-        private root: HTMLDivElement;
         private playButton: HTMLButtonElement;
 
         constructor(datacontext: viewmodels.states.Title) {
             this.datacontext = datacontext;
-            this.root = <HTMLDivElement>document.getElementById('title-view');
+            this.layer = document.getElementById('title-layer');
             this.playButton = <HTMLButtonElement> document.getElementById('play-button');
         }
 

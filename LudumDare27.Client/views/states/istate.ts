@@ -3,6 +3,8 @@ module views.states {
 
         id: string;
 
+        layer: HTMLElement;
+
         enter(previousState: IState);
 
         exit(nextState: IState);

@@ -11,6 +11,9 @@ var views;
 
                 if (previousView != null) {
                     console.debug("Exiting " + previousView.id);
+                    previousView.exit(nextView);
+                    previousView.layer.classList.remove('active-layer');
+                    nextView.layer.classList.add('active-layer');
                 }
 
                 console.debug("Entering " + nextView.id);
@@ -22,8 +25,10 @@ var views;
                 var nextState = _this.peek();
                 console.debug("Exiting " + popped.id);
                 popped.exit(nextState);
+                popped.layer.classList.remove('active-layer');
                 console.debug("Entering " + nextState.id);
                 nextState.enter(popped);
+                nextState.layer.classList.add('active-layer');
             };
             this.stack = [];
             this.conductor = conductor;

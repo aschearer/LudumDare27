@@ -7,7 +7,7 @@ var views;
             function Title(datacontext) {
                 this.id = "views.states.Title";
                 this.datacontext = datacontext;
-                this.root = document.getElementById('title-view');
+                this.layer = document.getElementById('title-layer');
                 this.playButton = document.getElementById('play-button');
             }
             Title.prototype.enter = function (previousState) {

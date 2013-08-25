@@ -22,6 +22,9 @@ module views {
             
             if (previousView != null) {
                 console.debug("Exiting " + previousView.id);
+                previousView.exit(nextView);
+                previousView.layer.classList.remove('active-layer');
+                nextView.layer.classList.add('active-layer');
             }
 
             console.debug("Entering " + nextView.id);
@@ -34,8 +37,10 @@ module views {
             var nextState: states.IState = this.peek();
             console.debug("Exiting " + popped.id);
             popped.exit(nextState);
+            popped.layer.classList.remove('active-layer');
             console.debug("Entering " + nextState.id);
             nextState.enter(popped);
+            nextState.layer.classList.add('active-layer');
         }
 
         private createView(viewmodel: viewmodels.states.IState) {

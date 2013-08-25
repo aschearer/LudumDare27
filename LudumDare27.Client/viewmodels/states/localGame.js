@@ -12,6 +12,10 @@ var viewmodels;
 
             LocalGame.prototype.exit = function () {
             };
+
+            LocalGame.prototype.goBack = function () {
+                this.stateChanged.dispatch(null);
+            };
             return LocalGame;
         })();
         states.LocalGame = LocalGame;
