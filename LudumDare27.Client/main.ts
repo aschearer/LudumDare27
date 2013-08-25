@@ -1,9 +1,12 @@
+/// <reference path="viewmodels/conductor.ts"/>
+/// <reference path="views/conductor.ts"/>
 /// <reference path="viewmodels/states/title.ts"/>
-/// <reference path="views/states/title.ts"/>
+
+var DEBUG = true;
 
 window.onload = () => {
-    var titleViewModel = new viewmodels.states.Title();
-    var titleView = new views.states.Title(titleViewModel, <HTMLDivElement>document.getElementById('title-view'));
-    titleViewModel.enter();
-    titleView.enter(null);
+    var conductorViewModel = new viewmodels.Conductor();
+    var conductorView = new views.Conductor(conductorViewModel);
+
+    conductorViewModel.push(new viewmodels.states.Title());
 };

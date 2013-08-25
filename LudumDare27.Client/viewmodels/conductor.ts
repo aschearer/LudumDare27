@@ -17,21 +17,44 @@ module viewmodels {
             this.popped = new Signal();
         }
 
-        public push(viewModel: states.IState) {
+        public push(viewmodel: states.IState) {
             if (this.stack.length > 0) {
-                this.stack[this.stack.length - 1].exit();
+                console.debug("Exiting " + this.peek().id);
+                this.peek().stateChanged.remove(this.onStateChanged, this);
+                this.peek().exit();
             }
 
-            this.stack.push(viewModel);
-            this.stack[this.stack.length - 1].enter();
-            this.pushed.dispatch(viewModel);
+            console.debug("Entering " + viewmodel.id);
+            this.stack.push(viewmodel);
+            this.peek().stateChanged.add(this.onStateChanged, this);
+            this.peek().enter();
+            this.pushed.dispatch(viewmodel);
         }
 
         public pop() {
             if (this.stack.length > 0) {
-                this.stack[this.stack.length - 1].exit();
+                console.debug("Exiting " + this.peek().id);
+                this.peek().stateChanged.remove(this.onStateChanged, this);
+                this.peek().exit();
                 var popped: states.IState = this.stack.pop();
-                this.pushed.dispatch(popped);
+                console.debug("Entering " + this.peek().id);
+                this.peek().stateChanged.add(this.onStateChanged, this);
+                this.peek().enter();
+
+                this.popped.dispatch(popped);
+            }
+        }
+
+        private peek(): states.IState {
+            return this.stack[this.stack.length - 1];
+        }
+
+        private onStateChanged(nextViewModel: states.IState) {
+            if (nextViewModel == null) {
+                this.pop();
+            }
+            else {
+                this.push(nextViewModel);
             }
         }
     }

@@ -1,9 +1,12 @@
 var viewmodels;
 (function (viewmodels) {
     /// <reference path="istate.ts"/>
+    /// <reference path="localGame.ts"/>
     (function (states) {
         var Title = (function () {
             function Title() {
+                this.id = "viewmodels.states.Title";
+                this.stateChanged = new Signal();
             }
             Title.prototype.enter = function () {
             };
@@ -12,7 +15,7 @@ var viewmodels;
             };
 
             Title.prototype.onPlayGame = function () {
-                console.log("Start Game");
+                this.stateChanged.dispatch(new states.LocalGame());
             };
             return Title;
         })();

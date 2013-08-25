@@ -4,9 +4,10 @@ var views;
     /// <reference path="../../viewmodels/states/title.ts"/>
     (function (states) {
         var Title = (function () {
-            function Title(datacontext, root) {
+            function Title(datacontext) {
+                this.id = "views.states.Title";
                 this.datacontext = datacontext;
-                this.root = root;
+                this.root = document.getElementById('title-view');
                 this.playButton = document.getElementById('play-button');
             }
             Title.prototype.enter = function (previousState) {

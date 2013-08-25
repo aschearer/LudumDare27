@@ -31,10 +31,14 @@
 #title-view .content h1 {
     font-family: 'Ewert', cursive;
     font-size: 116px;
+    color: #91e0f0;
 }
 
 #title-view button {
     font-size: 33px;
+    color: #f6f325;
+    background: none;
+    border: none;
 }
 
 #game-layer {

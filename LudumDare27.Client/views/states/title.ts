@@ -4,13 +4,15 @@
 module views.states {
     export class Title implements IState {
 
+        public id: string = "views.states.Title";
+
         private datacontext: viewmodels.states.Title;
         private root: HTMLDivElement;
         private playButton: HTMLButtonElement;
 
-        constructor(datacontext: viewmodels.states.Title, root: HTMLDivElement) {
+        constructor(datacontext: viewmodels.states.Title) {
             this.datacontext = datacontext;
-            this.root = root;
+            this.root = <HTMLDivElement>document.getElementById('title-view');
             this.playButton = <HTMLButtonElement> document.getElementById('play-button');
         }
 

@@ -14,11 +14,14 @@
     <input path="viewmodels/conductor.js" />
     <input path="viewmodels/states/istate.js" />
     <input path="viewmodels/states/title.js" />
+    <input path="viewmodels/states/localGame.js" />
     <input path="views/conductor.js" />
     <input path="views/simulations/simulation.js" />
     <input path="views/states/istate.js" />
     <input path="views/states/title.js" />
+    <input path="views/states/localGame.js" />
     <input path="main.js" />
+    <input path="libs/console.js" />
   </output>
   <output path="app/ludumdare27.css">
     <input path="styles/bootstrap.min.css" />

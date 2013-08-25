@@ -21,6 +21,7 @@
     <Content Include="default.htm" />
     <Content Include="images\title\background.png" />
     <Content Include="libs\bootstrap.min.js" />
+    <Content Include="libs\console.js" />
     <Content Include="libs\createjs.min.js" />
     <Content Include="libs\jquery.min.js" />
     <Content Include="libs\typings\easeljs\easeljs.d.ts" />
@@ -46,11 +47,13 @@
     <TypeScriptCompile Include="viewmodels\states\title.ts" />
     <TypeScriptCompile Include="viewmodels\conductor.ts" />
     <TypeScriptCompile Include="views\conductor.ts" />
+    <TypeScriptCompile Include="viewmodels\states\localGame.ts" />
     <Content Include="views\simulations\simulation.js">
       <DependentUpon>simulation.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="views\states\title.ts" />
     <TypeScriptCompile Include="views\states\istate.ts" />
+    <TypeScriptCompile Include="views\states\localGame.ts" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
