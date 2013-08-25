@@ -19,6 +19,10 @@ module viewmodels.states {
         public exit() {
         }
 
+        public chooseHand() {
+
+        }
+
         public goBack() {
             if (this.currentInstruction < 1) {
                 this.currentInstruction++;

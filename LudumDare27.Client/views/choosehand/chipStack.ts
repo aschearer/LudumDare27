@@ -20,16 +20,33 @@ module views.choosehand {
                 var chip: HTMLDivElement = document.createElement('div');
                 chip.classList.add('chip');
                 chip.classList.add(this.color);
-                chip.classList.add('col' + this.column);
-                chip.style.top = 40 + (i * -10) + "px";
+                chip.style.left = (20 + 168 * this.column + 104 * (this.column)) + "px";
+                chip.style.top = "-300px";
                 chip.style.zIndex = (i * 10) + "";
                 this.activeChips.push(chip);
                 this.root.appendChild(chip);
             }
 
+            var that = this;
+            window.setTimeout(function () {
+                for (var j = 0; j < that.activeChips.length; j++) {
+                    that.activeChips[j].style.top = 260 + (j * -10) + "px";
+                }
+            }, 200 * this.column);
+
             this.peek(this.activeChips).onclick = (event) => {
                 this.onActiveChipClicked();
             };
+        }
+
+        public commit() {
+            for (var i = 0; i < this.activeChips.length; i++) {
+                this.activeChips[i].style.top = "-300px";
+            }
+
+            if (this.inactiveChips.length > 0) {
+                this.peek(this.inactiveChips).style.top = "820px";
+            }
         }
 
         private peek(stack: HTMLDivElement[]): HTMLDivElement {
@@ -37,11 +54,11 @@ module views.choosehand {
         }
 
         private onActiveChipClicked() {
-            this.peek(this.activeChips).style.top = "500px";
+            this.peek(this.activeChips).style.top = "720px";
             this.peek(this.activeChips).onclick = null;
             if (this.inactiveChips.length > 0) {
                 this.peek(this.inactiveChips).onclick = null;
-                this.peek(this.inactiveChips).style.top = "600px";
+                this.peek(this.inactiveChips).style.top = "820px";
             }
 
             this.inactiveChips.push(this.peek(this.activeChips));
@@ -59,7 +76,7 @@ module views.choosehand {
         }
 
         private onInactiveChipClicked() {
-            this.peek(this.inactiveChips).style.top = 40 + (this.activeChips.length * -10) + "px";
+            this.peek(this.inactiveChips).style.top = 260 + (this.activeChips.length * -10) + "px";
             this.peek(this.inactiveChips).onclick = null;
             if (this.activeChips.length > 0)
             {
@@ -70,7 +87,7 @@ module views.choosehand {
             this.inactiveChips.pop();
 
             if (this.inactiveChips.length > 0) {
-                this.peek(this.inactiveChips).style.top = "500px";
+                this.peek(this.inactiveChips).style.top = "720px";
             }
 
             this.peek(this.activeChips).onclick = (event) => {

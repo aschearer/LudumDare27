@@ -134,28 +134,12 @@
 
 .chips {
     position: absolute;
-    top: 220px;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    clip: rect(0, 1024px, 548px, 0);
+    clip: rect(0, 1024px, 768px, 0);
     overflow: hidden;
-}
-
-.chips .col0 {
-    left: 20px;
-}
-
-.chips .col1 {
-    left: 292px;
-}
-
-.chips .col2 {
-    left: 564px;
-}
-
-.chips .col3 {
-    left: 836px;
 }
 
 .chip {

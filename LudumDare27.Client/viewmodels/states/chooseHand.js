@@ -17,6 +17,9 @@ var viewmodels;
             ChooseHand.prototype.exit = function () {
             };
 
+            ChooseHand.prototype.chooseHand = function () {
+            };
+
             ChooseHand.prototype.goBack = function () {
                 if (this.currentInstruction < 1) {
                     this.currentInstruction++;

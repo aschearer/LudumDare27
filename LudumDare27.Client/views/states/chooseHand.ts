@@ -16,16 +16,22 @@ module views.states {
 
         private activeInstruction: HTMLElement;
 
+        private readyButton: HTMLButtonElement;
+
+        private chipStacks: choosehand.ChipStack[];
+
         constructor(datacontext: viewmodels.states.ChooseHand) {
             this.datacontext = datacontext;
             this.layer = <HTMLDivElement>document.getElementById('game-layer');
             this.instructions = <HTMLUListElement>this.layer.getElementsByClassName('instructions')[0];
+            this.readyButton = <HTMLButtonElement> document.getElementById('choose-hand-button');
 
+            this.chipStacks = [];
             var chips: HTMLDivElement = <HTMLDivElement>this.layer.getElementsByClassName('chips')[0];
-            new choosehand.ChipStack(chips, 0, 'green', 2);
-            new choosehand.ChipStack(chips, 1, 'pink', 3);
-            new choosehand.ChipStack(chips, 2, 'yellow', 2);
-            new choosehand.ChipStack(chips, 3, 'purple', 1);
+            this.chipStacks.push(new choosehand.ChipStack(chips, 0, 'green', 2));
+            this.chipStacks.push(new choosehand.ChipStack(chips, 1, 'pink', 3));
+            this.chipStacks.push(new choosehand.ChipStack(chips, 2, 'yellow', 2));
+            this.chipStacks.push(new choosehand.ChipStack(chips, 3, 'purple', 1));
         }
 
         public enter(previousState: IState) {
@@ -37,11 +43,19 @@ module views.states {
             this.layer.onclick = (event) => {
                 this.datacontext.goBack();
             };
+
+            this.readyButton.onclick = (event) => {
+                this.datacontext.chooseHand();
+                for (var i = 0; i < this.chipStacks.length; i++) {
+                    this.chipStacks[i].commit();
+                }
+            };
         }
 
         public exit(nextState: IState) {
             this.layer.onclick = null;
             this.datacontext.instructionChanged.remove(this.instructionChanged, this);
+            this.readyButton.onclick = null;
         }
 
         private instructionChanged(activeInstruction: number) {

@@ -10,12 +10,14 @@ var views;
                 this.datacontext = datacontext;
                 this.layer = document.getElementById('game-layer');
                 this.instructions = this.layer.getElementsByClassName('instructions')[0];
+                this.readyButton = document.getElementById('choose-hand-button');
 
+                this.chipStacks = [];
                 var chips = this.layer.getElementsByClassName('chips')[0];
-                new views.choosehand.ChipStack(chips, 0, 'green', 2);
-                new views.choosehand.ChipStack(chips, 1, 'pink', 3);
-                new views.choosehand.ChipStack(chips, 2, 'yellow', 2);
-                new views.choosehand.ChipStack(chips, 3, 'purple', 1);
+                this.chipStacks.push(new views.choosehand.ChipStack(chips, 0, 'green', 2));
+                this.chipStacks.push(new views.choosehand.ChipStack(chips, 1, 'pink', 3));
+                this.chipStacks.push(new views.choosehand.ChipStack(chips, 2, 'yellow', 2));
+                this.chipStacks.push(new views.choosehand.ChipStack(chips, 3, 'purple', 1));
             }
             ChooseHand.prototype.enter = function (previousState) {
                 var _this = this;
@@ -27,11 +29,19 @@ var views;
                 this.layer.onclick = function (event) {
                     _this.datacontext.goBack();
                 };
+
+                this.readyButton.onclick = function (event) {
+                    _this.datacontext.chooseHand();
+                    for (var i = 0; i < _this.chipStacks.length; i++) {
+                        _this.chipStacks[i].commit();
+                    }
+                };
             };
 
             ChooseHand.prototype.exit = function (nextState) {
                 this.layer.onclick = null;
                 this.datacontext.instructionChanged.remove(this.instructionChanged, this);
+                this.readyButton.onclick = null;
             };
 
             ChooseHand.prototype.instructionChanged = function (activeInstruction) {
