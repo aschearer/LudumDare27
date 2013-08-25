@@ -104,7 +104,7 @@ module models.entities {
     }
 
     export class Player {
-        private playerId: number;
+        public playerId: number;
         private hand: Hand;
         public currentBet: BetType;
         public points: number;

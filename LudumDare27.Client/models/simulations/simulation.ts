@@ -4,8 +4,9 @@ module models.simulations {
 
     enum SimulationState {
         NewGame,
+        ChangePlayer,
         ChooseHand,
-        ChooseBet,
+        ChooseBets,
         ShowResult,
         GameOver,
     }
@@ -17,12 +18,12 @@ module models.simulations {
         private currentPlayer: number;
         private simulationState: SimulationState;
 
-        public changingPlayer: Signal;
-        public chooseHand: Signal;
-        public canCommitHat: Signal;
-        public chooseBet: Signal;
-        public turnResult: Signal;
-        public gameOver: Signal;
+        public changingPlayer: Signal = new Signal();
+        public canCommitHat: Signal = new Signal();
+        public chooseBets: Signal = new Signal();
+        public turnReady: Signal = new Signal();
+        public turnResult: Signal = new Signal();
+        public gameOver: Signal = new Signal();
 
         constructor() {
             this.hat = new models.entities.Hat();
@@ -35,18 +36,11 @@ module models.simulations {
         }
 
         public update(elapsedTime: number) {
-            if (SimulationState.NewGame === this.simulationState) {
-                this.simulationState = SimulationState.ChooseHand;
-                this.changingPlayer.dispatch(this.players[this.currentPlayer]);
-            }
         }
 
-        public PlayerReady() {
-            if (SimulationState.ChooseHand == this.simulationState) {
-                this.chooseHand.dispatch(this.players[this.currentPlayer]);
-            } else {
-                this.chooseBet.dispatch(this.players[this.currentPlayer]);
-            }
+        public StartGame() {
+            this.simulationState = SimulationState.ChangePlayer;
+            this.changingPlayer.dispatch(this.players[this.currentPlayer]);
         }
 
         public AdvanceGame() {
@@ -67,36 +61,60 @@ module models.simulations {
                 }
                 this.gameOver.dispatch(winningPlayer, winningScore);
             } else {
-                this.simulationState = SimulationState.ChooseBet;
-                this.changingPlayer.dispatch(this.players[this.currentPlayer]);
+                // clear all bets before a second round
+                for (var iPlayer in this.players) {
+                    var player = this.players[iPlayer];
+                    player.currentBet = null;
+                }
+                this.simulationState = SimulationState.ChooseBets;
+                this.chooseBets.dispatch(this.players);
             }
         }
 
-        public ChooseBet(betType: models.entities.BetType) {
-            this.players[this.currentPlayer].MakeBet(betType);
-            this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
-            if (0 == this.currentPlayer) {
-                var bet = this.hat.GetNextBet();
-                var winningPlayer = null;
-                for (var iPlayer in this.players) {
-                    var player = this.players[iPlayer];
-                    if (player.currentBet === bet) {
-                        if (null !== winningPlayer) {
-                            // A tie
-                            winningPlayer = null;
-                            break;
-                        }
-                        winningPlayer = player;
-                    }
+        private AreAllPlayersReady(): boolean {
+            var allPlayersReady = true;
+            for (var iPlayer in this.players) {
+                var player = this.players[iPlayer];
+                if (player.currentBet === null) {
+                    allPlayersReady = false;
+                    break;
                 }
-                if (winningPlayer) {
-                    winningPlayer.AddPoint(1);
-                }
-                this.simulationState = SimulationState.ShowResult;
-                this.turnResult.dispatch(winningPlayer, bet, this.players);
-            } else {
-                this.changingPlayer.dispatch(this.players[this.currentPlayer]);
             }
+            return allPlayersReady;
+        }
+
+        public MakeBet(playerId: number, betType: models.entities.BetType): boolean {
+            var player = this.players[playerId];
+            var wasPlayerNotReady = (null === player.currentBet);
+
+            player.MakeBet(betType);
+
+            if (wasPlayerNotReady && this.AreAllPlayersReady()) {
+                this.turnReady.dispatch();
+            }
+
+            return wasPlayerNotReady;
+        }
+
+        public TakeTurn() {
+            var bet = this.hat.GetNextBet();
+            var winningPlayer = null;
+            for (var iPlayer in this.players) {
+                var player = this.players[iPlayer];
+                if (player.currentBet === bet) {
+                    if (null !== winningPlayer) {
+                        // A tie
+                        winningPlayer = null;
+                        break;
+                    }
+                    winningPlayer = player;
+                }
+            }
+            if (winningPlayer) {
+                winningPlayer.AddPoint(1);
+            }
+            this.simulationState = SimulationState.ShowResult;
+            this.turnResult.dispatch(winningPlayer, bet, this.players);
         }
 
         public AddBetToHat(betType: models.entities.BetType) {
@@ -123,10 +141,12 @@ module models.simulations {
             }
             this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
             if (0 == this.currentPlayer) {
-                this.simulationState = SimulationState.ChooseBet;
+                this.simulationState = SimulationState.ChooseBets;
                 this.hat.ShuffleBets();
+                this.chooseBets.dispatch(this.players);
+            } else {
+                this.changingPlayer.dispatch(this.players[this.currentPlayer]);
             }
-            this.changingPlayer.dispatch(this.players[this.currentPlayer]);
         }
     }
 }

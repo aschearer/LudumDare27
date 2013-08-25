@@ -5,14 +5,21 @@ var models;
         var SimulationState;
         (function (SimulationState) {
             SimulationState[SimulationState["NewGame"] = 0] = "NewGame";
-            SimulationState[SimulationState["ChooseHand"] = 1] = "ChooseHand";
-            SimulationState[SimulationState["ChooseBet"] = 2] = "ChooseBet";
-            SimulationState[SimulationState["ShowResult"] = 3] = "ShowResult";
-            SimulationState[SimulationState["GameOver"] = 4] = "GameOver";
+            SimulationState[SimulationState["ChangePlayer"] = 1] = "ChangePlayer";
+            SimulationState[SimulationState["ChooseHand"] = 2] = "ChooseHand";
+            SimulationState[SimulationState["ChooseBets"] = 3] = "ChooseBets";
+            SimulationState[SimulationState["ShowResult"] = 4] = "ShowResult";
+            SimulationState[SimulationState["GameOver"] = 5] = "GameOver";
         })(SimulationState || (SimulationState = {}));
 
         var Simulation = (function () {
             function Simulation() {
+                this.changingPlayer = new Signal();
+                this.canCommitHat = new Signal();
+                this.chooseBets = new Signal();
+                this.turnReady = new Signal();
+                this.turnResult = new Signal();
+                this.gameOver = new Signal();
                 this.hat = new models.entities.Hat();
                 this.players = [];
                 this.players[0] = new models.entities.Player(0);
@@ -22,18 +29,11 @@ var models;
                 this.simulationState = SimulationState.NewGame;
             }
             Simulation.prototype.update = function (elapsedTime) {
-                if (SimulationState.NewGame === this.simulationState) {
-                    this.simulationState = SimulationState.ChooseHand;
-                    this.changingPlayer.dispatch(this.players[this.currentPlayer]);
-                }
             };
 
-            Simulation.prototype.PlayerReady = function () {
-                if (SimulationState.ChooseHand == this.simulationState) {
-                    this.chooseHand.dispatch(this.players[this.currentPlayer]);
-                } else {
-                    this.chooseBet.dispatch(this.players[this.currentPlayer]);
-                }
+            Simulation.prototype.StartGame = function () {
+                this.simulationState = SimulationState.ChangePlayer;
+                this.changingPlayer.dispatch(this.players[this.currentPlayer]);
             };
 
             Simulation.prototype.AdvanceGame = function () {
@@ -54,36 +54,59 @@ var models;
                     }
                     this.gameOver.dispatch(winningPlayer, winningScore);
                 } else {
-                    this.simulationState = SimulationState.ChooseBet;
-                    this.changingPlayer.dispatch(this.players[this.currentPlayer]);
+                    for (var iPlayer in this.players) {
+                        var player = this.players[iPlayer];
+                        player.currentBet = null;
+                    }
+                    this.simulationState = SimulationState.ChooseBets;
+                    this.chooseBets.dispatch(this.players);
                 }
             };
 
-            Simulation.prototype.ChooseBet = function (betType) {
-                this.players[this.currentPlayer].MakeBet(betType);
-                this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
-                if (0 == this.currentPlayer) {
-                    var bet = this.hat.GetNextBet();
-                    var winningPlayer = null;
-                    for (var iPlayer in this.players) {
-                        var player = this.players[iPlayer];
-                        if (player.currentBet === bet) {
-                            if (null !== winningPlayer) {
-                                // A tie
-                                winningPlayer = null;
-                                break;
-                            }
-                            winningPlayer = player;
-                        }
+            Simulation.prototype.AreAllPlayersReady = function () {
+                var allPlayersReady = true;
+                for (var iPlayer in this.players) {
+                    var player = this.players[iPlayer];
+                    if (player.currentBet === null) {
+                        allPlayersReady = false;
+                        break;
                     }
-                    if (winningPlayer) {
-                        winningPlayer.AddPoint(1);
-                    }
-                    this.simulationState = SimulationState.ShowResult;
-                    this.turnResult.dispatch(winningPlayer, bet, this.players);
-                } else {
-                    this.changingPlayer.dispatch(this.players[this.currentPlayer]);
                 }
+                return allPlayersReady;
+            };
+
+            Simulation.prototype.MakeBet = function (playerId, betType) {
+                var player = this.players[playerId];
+                var wasPlayerNotReady = (null === player.currentBet);
+
+                player.MakeBet(betType);
+
+                if (wasPlayerNotReady && this.AreAllPlayersReady()) {
+                    this.turnReady.dispatch();
+                }
+
+                return wasPlayerNotReady;
+            };
+
+            Simulation.prototype.TakeTurn = function () {
+                var bet = this.hat.GetNextBet();
+                var winningPlayer = null;
+                for (var iPlayer in this.players) {
+                    var player = this.players[iPlayer];
+                    if (player.currentBet === bet) {
+                        if (null !== winningPlayer) {
+                            // A tie
+                            winningPlayer = null;
+                            break;
+                        }
+                        winningPlayer = player;
+                    }
+                }
+                if (winningPlayer) {
+                    winningPlayer.AddPoint(1);
+                }
+                this.simulationState = SimulationState.ShowResult;
+                this.turnResult.dispatch(winningPlayer, bet, this.players);
             };
 
             Simulation.prototype.AddBetToHat = function (betType) {
@@ -110,10 +133,12 @@ var models;
                 }
                 this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
                 if (0 == this.currentPlayer) {
-                    this.simulationState = SimulationState.ChooseBet;
+                    this.simulationState = SimulationState.ChooseBets;
                     this.hat.ShuffleBets();
+                    this.chooseBets.dispatch(this.players);
+                } else {
+                    this.changingPlayer.dispatch(this.players[this.currentPlayer]);
                 }
-                this.changingPlayer.dispatch(this.players[this.currentPlayer]);
             };
             return Simulation;
         })();
