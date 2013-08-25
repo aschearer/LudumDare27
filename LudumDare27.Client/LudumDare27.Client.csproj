@@ -19,6 +19,8 @@
     <Content Include="app\ludumdare27.css" />
     <Content Include="app\ludumdare27.js" />
     <Content Include="default.htm" />
+    <Content Include="images\chooseHand\background.png" />
+    <Content Include="images\chooseHand\tutor.png" />
     <Content Include="images\title\background.png" />
     <Content Include="images\title\start.png" />
     <Content Include="images\title\title.png" />
@@ -50,12 +52,14 @@
     <TypeScriptCompile Include="viewmodels\conductor.ts" />
     <TypeScriptCompile Include="views\conductor.ts" />
     <TypeScriptCompile Include="viewmodels\states\localGame.ts" />
+    <TypeScriptCompile Include="viewmodels\states\chooseHand.ts" />
     <Content Include="views\simulations\simulation.js">
       <DependentUpon>simulation.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="views\states\title.ts" />
     <TypeScriptCompile Include="views\states\istate.ts" />
     <TypeScriptCompile Include="views\states\localGame.ts" />
+    <TypeScriptCompile Include="views\states\chooseHand.ts" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

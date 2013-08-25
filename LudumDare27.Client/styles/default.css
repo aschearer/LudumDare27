@@ -66,9 +66,7 @@
 }
 
 #game-layer {
-    margin: auto;
-    border: 1px solid black;
-    background: lightgrey;
+    background: url('../images/chooseHand/background.png') no-repeat;
 }
 
 #signed-in-as {
@@ -89,3 +87,113 @@
     white-space: nowrap;
     text-indent: 200%;
 }
+
+.tutor {
+    min-width: 167px;
+    height: 167px;
+    margin: 10px;
+    background: url('../images/chooseHand/tutor.png') no-repeat;
+}
+
+.tutor .instructions {
+    position: relative;
+    margin-left: -30px;
+}
+
+.tutor .instructions li {
+    position: absolute;
+    list-style: none;
+}
+
+.tutor .instruction {
+    margin: 20px 0 auto 180px;
+    padding: 4px 8px;
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 5px 5px 2px #636363;
+}
+
+.tutor .instruction .highlight {
+    color: green;
+    font-weight: bold;
+}
+
+.instruction {
+    transition: visibility 0.5s linear, opacity 0.5s linear;
+    visibility: collapse;
+    opacity: 0;
+}
+
+.active-instruction {
+    visibility: visible;
+    opacity: 1;
+}
+
+.chips {
+    margin-top: 40px;
+    position: relative;
+}
+
+.chips .col1 {
+    left: 20px;
+}
+
+.chips .col2 {
+    left: 292px;
+}
+
+.chips .col3 {
+    left: 564px;
+}
+
+.chips .col4 {
+    left: 836px;
+}
+
+.chip {
+    position: absolute;
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    font-family: 'Ewert', cursive;
+    font-size: 100px;
+    padding-top: 4px;
+    text-align: center;
+    border: 4px solid black;
+    color: black;
+    transition: margin-top 0.1s ease-out;
+    cursor: pointer;
+}
+
+.chip:hover {
+    margin-top: -3px;
+}
+
+.chip:active {
+    margin-top: -1px;
+}
+
+.brown {
+    background-color: #400000;
+    color: white;
+}
+
+.purple {
+    background-color: #004e81;
+}
+
+.yellow {
+    background-color: #ede000;
+}
+
+.green {
+    background-color: #6cd2e0;
+}
+
+.pink {
+    background-color: #d2889f;
+}
+

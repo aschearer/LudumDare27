@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>Ludum Dare 27 Submission</title>
     <link href='http://fonts.googleapis.com/css?family=Ewert' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="app/ludumdare27.css" type="text/css" />
 </head>
 <body>
@@ -37,7 +38,32 @@
                             <button id="play-button" class="hide-text">Start</button>
                         </div>
                     </div>
-                    <canvas id="game-layer" class="layer" width="1024" height="768"></canvas>
+                    <div id="game-layer" class="layer">
+                        <div class="tutor">
+                            <ol class="instructions">
+                                <li class="instruction">Click to select <span class="highlight">two chips</span> to hold on.</li>
+                                <li class="instruction">The <span class="highlight">remaining chips</span> will be mixed with your opponents.</li>
+                            </ol>
+                        </div>
+                        <div class="chips">
+                            <div class="chip green col1" style="top: -10px; z-index: 10">
+                            </div>
+                            <div class="chip green col1">
+                            </div>
+                            <div class="chip pink col2" style="top: -20px; z-index: 20">
+                            </div>
+                            <div class="chip pink col2" style="top: -10px; z-index: 10">
+                            </div>
+                            <div class="chip pink col2">
+                            </div>
+                            <div class="chip yellow col3" style="top: -10px; z-index: 10">
+                            </div>
+                            <div class="chip yellow col3">
+                            </div>
+                            <div class="chip purple col4">
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>
