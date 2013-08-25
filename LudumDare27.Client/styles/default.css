@@ -4,8 +4,8 @@
 
 #main-content {
     position: relative;
-    width: 1024px;
-    height: 768px;
+    width: 800px;
+    height: 600px;
     background: #488b97;
 }
 
@@ -26,33 +26,33 @@
 }
 
 #title-layer {
-    background: url('../images/title/background.png');
+    background: url('../images/title/background.jpg');
 }
 
 #title-layer .content {
     font-family: 'Ewert', cursive;
     text-align: center;
-    padding-top: 400px;
+    padding-top: 330px;
 }
 
 #title-layer .content h1 {
     font-family: 'Ewert', cursive;
-    font-size: 116px;
+    font-size: 91px;
     color: #91e0f0;
     background: url('../images/title/title.png') no-repeat;
     background-position: center;
-    height: 209px;
+    height: 170px;
     margin-bottom: 30px;
 }
 
 #title-layer button {
-    font-size: 48px;
+    font-size: 33px;
     color: #f6f325;
     background: none;
     border: none;
     transition: margin-top 0.1s ease-out;
-    width: 167px;
-    height: 39px;
+    width: 120px;
+    height: 30px;
     background: url('../images/title/start.png') no-repeat;
     background-position: center;
 }
@@ -66,19 +66,23 @@
 }
 
 #game-layer {
-    background: url('../images/chooseHand/background.png') no-repeat;
+    background: url('../images/chooseHand/background.jpg') no-repeat;
 }
 
 #duel-layer {
-    background: url('../images/duel/background.png');
+    background: url('../images/duel/background.jpg');
 }
 
 #duel-layer .table {
     background: white;
-    margin: 40px auto;
-    width: 944px;
+    margin: 10px auto;
+    width: 800px;
     font-family: 'Ewert', cursive;
     font-size: 24px;
+}
+
+#duel-layer .table td {
+    min-width: 60px;
 }
 
 #signed-in-as {
@@ -150,16 +154,16 @@
     bottom: 0;
     left: 0;
     right: 0;
-    clip: rect(0, 1024px, 768px, 0);
+    clip: rect(0, 800px, 600px, 0);
     overflow: hidden;
 }
 
 .chip {
     position: absolute;
     border-radius: 50%;
-    width: 160px;
-    height: 160px;
-    padding-top: 4px;
+    width: 125px;
+    height: 125px;
+    padding-top: 3px;
     text-align: center;
     border: 4px solid black;
     transition: margin-top 0.1s ease-out, top 0.5s ease-out;

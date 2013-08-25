@@ -3,6 +3,10 @@ var views;
     (function (choosehand) {
         var ChipStack = (function () {
             function ChipStack(root, column, color, numberOfChips) {
+                this.topOffset = -300;
+                this.activeOffset = 200;
+                this.inactiveOffset = 560;
+                this.bottomOffset = 700;
                 this.root = root;
                 this.color = color;
                 this.column = column;
@@ -24,8 +28,8 @@ var views;
                     var chip = document.createElement('div');
                     chip.classList.add('chip');
                     chip.classList.add(this.color);
-                    chip.style.left = (20 + 168 * this.column + 104 * (this.column)) + "px";
-                    chip.style.top = "-300px";
+                    chip.style.left = (20 + 128 * this.column + 82 * (this.column)) + "px";
+                    chip.style.top = this.topOffset + "px";
                     chip.style.zIndex = (i * 10) + "";
                     this.activeChips.push(chip);
                     this.root.appendChild(chip);
@@ -34,7 +38,7 @@ var views;
                 var that = this;
                 window.setTimeout(function () {
                     for (var j = 0; j < that.activeChips.length; j++) {
-                        that.activeChips[j].style.top = 260 + (j * -10) + "px";
+                        that.activeChips[j].style.top = that.activeOffset + (j * -10) + "px";
                     }
                 }, 200 * this.column);
 
@@ -45,11 +49,11 @@ var views;
 
             ChipStack.prototype.commit = function () {
                 for (var i = 0; i < this.activeChips.length; i++) {
-                    this.activeChips[i].style.top = "-300px";
+                    this.activeChips[i].style.top = this.topOffset + "px";
                 }
 
                 if (this.inactiveChips.length > 0) {
-                    this.peek(this.inactiveChips).style.top = "820px";
+                    this.peek(this.inactiveChips).style.top = this.bottomOffset + "px";
                 }
             };
 
@@ -59,11 +63,11 @@ var views;
 
             ChipStack.prototype.onActiveChipClicked = function () {
                 var _this = this;
-                this.peek(this.activeChips).style.top = "720px";
+                this.peek(this.activeChips).style.top = this.inactiveOffset + "px";
                 this.peek(this.activeChips).onclick = null;
                 if (this.inactiveChips.length > 0) {
                     this.peek(this.inactiveChips).onclick = null;
-                    this.peek(this.inactiveChips).style.top = "820px";
+                    this.peek(this.inactiveChips).style.top = this.bottomOffset + "px";
                 }
 
                 this.inactiveChips.push(this.peek(this.activeChips));
@@ -82,7 +86,7 @@ var views;
 
             ChipStack.prototype.onInactiveChipClicked = function () {
                 var _this = this;
-                this.peek(this.inactiveChips).style.top = 260 + (this.activeChips.length * -10) + "px";
+                this.peek(this.inactiveChips).style.top = this.activeOffset + (this.activeChips.length * -10) + "px";
                 this.peek(this.inactiveChips).onclick = null;
                 if (this.activeChips.length > 0) {
                     this.peek(this.activeChips).onclick = null;
@@ -92,7 +96,7 @@ var views;
                 this.inactiveChips.pop();
 
                 if (this.inactiveChips.length > 0) {
-                    this.peek(this.inactiveChips).style.top = "720px";
+                    this.peek(this.inactiveChips).style.top = this.inactiveOffset + "px";
                 }
 
                 this.peek(this.activeChips).onclick = function (event) {

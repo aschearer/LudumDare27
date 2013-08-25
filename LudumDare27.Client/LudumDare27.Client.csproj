@@ -19,10 +19,10 @@
     <Content Include="app\ludumdare27.css" />
     <Content Include="app\ludumdare27.js" />
     <Content Include="default.htm" />
-    <Content Include="images\chooseHand\background.png" />
+    <Content Include="images\chooseHand\background.jpg" />
     <Content Include="images\chooseHand\tutor.png" />
-    <Content Include="images\duel\background.png" />
-    <Content Include="images\title\background.png" />
+    <Content Include="images\duel\background.jpg" />
+    <Content Include="images\title\background.jpg" />
     <Content Include="images\title\start.png" />
     <Content Include="images\title\title.png" />
     <Content Include="libs\bootstrap.min.js" />
