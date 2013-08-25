@@ -1,9 +1,24 @@
 var views;
 (function (views) {
+    /// <reference path="istate.ts"/>
+    /// <reference path="../../viewmodels/states/title.ts"/>
     (function (states) {
         var Title = (function () {
-            function Title() {
+            function Title(datacontext, root) {
+                this.datacontext = datacontext;
+                this.root = root;
+                this.playButton = document.getElementById('play-button');
             }
+            Title.prototype.enter = function (previousState) {
+                var _this = this;
+                this.playButton.onclick = function (event) {
+                    _this.datacontext.onPlayGame();
+                };
+            };
+
+            Title.prototype.exit = function (previousState) {
+                this.playButton.onclick = null;
+            };
             return Title;
         })();
         states.Title = Title;

@@ -19,6 +19,7 @@
     <Content Include="app\ludumdare27.css" />
     <Content Include="app\ludumdare27.js" />
     <Content Include="default.htm" />
+    <Content Include="images\title\background.png" />
     <Content Include="libs\bootstrap.min.js" />
     <Content Include="libs\createjs.min.js" />
     <Content Include="libs\jquery.min.js" />
@@ -41,10 +42,13 @@
     <Content Include="styles\bootstrap.min.css" />
     <Content Include="styles\default.css" />
     <TypeScriptCompile Include="views\simulations\simulation.ts" />
+    <TypeScriptCompile Include="viewmodels\states\istate.ts" />
+    <TypeScriptCompile Include="viewmodels\states\title.ts" />
     <Content Include="views\simulations\simulation.js">
       <DependentUpon>simulation.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="views\states\title.ts" />
+    <TypeScriptCompile Include="views\states\istate.ts" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +79,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="viewmodels\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

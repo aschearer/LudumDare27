@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Ludum Dare 27 Submission</title>
+    <link href='http://fonts.googleapis.com/css?family=Ewert' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="app/ludumdare27.css" type="text/css" />
 </head>
 <body>
@@ -19,7 +20,7 @@
 
                 <p id="signed-in-as" class="navbar-text pull-right">
                     Playing as 
-                <img src="http://lorempixel.com/32/32" />
+                    <img src="http://lorempixel.com/32/32" />
                     <a class="navbar-link">Sissypants Sally</a>
                 </p>
             </nav>
@@ -31,11 +32,14 @@
             <div class="col-lg-12">
                 <section>
                     <div id="menu-layer" class="layer">
-                        <div id="title-menu">
-                            <h1>LD 27</h1>
+                        <div id="title-view">
+                            <div class="content">
+                                <h1>Second's Showdown</h1>
+                                <button id="play-button">Start</button>
+                            </div>
                         </div>
                     </div>
-                    <canvas id="game-layer" class="layer" width="800" height="600"></canvas>
+                    <canvas id="game-layer" class="layer" width="1024" height="768"></canvas>
                 </section>
             </div>
         </div>

@@ -1,8 +1,9 @@
-/// <reference path="models/simulations/simulation.ts"/>
-/// <reference path="views/simulations/simulation.ts"/>
+/// <reference path="viewmodels/states/title.ts"/>
+/// <reference path="views/states/title.ts"/>
 window.onload = function () {
-    var simulation = new models.simulations.Simulation();
-    var simulationView = new views.simulations.Simulation(document.getElementById('game-layer'), simulation);
-    simulationView.activate();
+    var titleViewModel = new viewmodels.states.Title();
+    var titleView = new views.states.Title(titleViewModel, document.getElementById('title-view'));
+    titleViewModel.enter();
+    titleView.enter(null);
 };
 //# sourceMappingURL=main.js.map
