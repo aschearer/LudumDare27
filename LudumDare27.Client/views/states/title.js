@@ -16,7 +16,7 @@ var views;
                 };
             };
 
-            Title.prototype.exit = function (previousState) {
+            Title.prototype.exit = function (nextState) {
                 this.playButton.onclick = null;
             };
             return Title;

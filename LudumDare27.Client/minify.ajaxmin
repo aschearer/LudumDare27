@@ -11,8 +11,10 @@
     <input path="models/signals/signal.js" />
     <input path="models/signals/signalBinding.js" />
     <input path="models/simulations/simulation.js" />
+    <input path="viewmodels/conductor.js" />
     <input path="viewmodels/states/istate.js" />
     <input path="viewmodels/states/title.js" />
+    <input path="views/conductor.js" />
     <input path="views/simulations/simulation.js" />
     <input path="views/states/istate.js" />
     <input path="views/states/title.js" />

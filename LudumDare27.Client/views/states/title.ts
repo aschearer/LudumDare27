@@ -20,7 +20,7 @@ module views.states {
             };
         }
 
-        public exit(previousState: IState) {
+        public exit(nextState: IState) {
             this.playButton.onclick = null;
         }
     }

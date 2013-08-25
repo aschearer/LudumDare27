@@ -44,6 +44,8 @@
     <TypeScriptCompile Include="views\simulations\simulation.ts" />
     <TypeScriptCompile Include="viewmodels\states\istate.ts" />
     <TypeScriptCompile Include="viewmodels\states\title.ts" />
+    <TypeScriptCompile Include="viewmodels\conductor.ts" />
+    <TypeScriptCompile Include="views\conductor.ts" />
     <Content Include="views\simulations\simulation.js">
       <DependentUpon>simulation.ts</DependentUpon>
     </Content>
