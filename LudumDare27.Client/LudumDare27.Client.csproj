@@ -20,6 +20,8 @@
     <Content Include="app\ludumdare27.js" />
     <Content Include="default.htm" />
     <Content Include="images\title\background.png" />
+    <Content Include="images\title\start.png" />
+    <Content Include="images\title\title.png" />
     <Content Include="libs\bootstrap.min.js" />
     <Content Include="libs\console.js" />
     <Content Include="libs\createjs.min.js" />

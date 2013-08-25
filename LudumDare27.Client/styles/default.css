@@ -6,6 +6,7 @@
     position: relative;
     width: 1024px;
     height: 768px;
+    background: #488b97;
 }
 
 .layer {
@@ -38,14 +39,22 @@
     font-family: 'Ewert', cursive;
     font-size: 116px;
     color: #91e0f0;
+    background: url('../images/title/title.png') no-repeat;
+    background-position: center;
+    height: 209px;
+    margin-bottom: 30px;
 }
 
 #title-layer button {
-    font-size: 33px;
+    font-size: 48px;
     color: #f6f325;
     background: none;
     border: none;
     transition: margin-top 0.1s ease-out;
+    width: 167px;
+    height: 39px;
+    background: url('../images/title/start.png') no-repeat;
+    background-position: center;
 }
 
 #title-layer button:hover {
@@ -73,4 +82,10 @@
     width: 32px;
     height: 32px;
     background-color: lightgrey;
+}
+
+.hide-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 200%;
 }
