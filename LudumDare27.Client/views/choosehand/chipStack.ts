@@ -26,7 +26,6 @@ module views.choosehand {
                 this.root.removeChild(this.inactiveChips.pop());
             }
 
-
             for (var i: number = 0; i < this.numberOfChips; i++) {
                 var chip: HTMLDivElement = document.createElement('div');
                 chip.classList.add('chip');
