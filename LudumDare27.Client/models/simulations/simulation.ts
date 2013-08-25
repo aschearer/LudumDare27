@@ -4,7 +4,6 @@ module models.simulations {
 
     enum SimulationState {
         NewGame,
-        ChangePlayer,
         ChooseHand,
         ChooseBets,
         ShowResult,
@@ -36,7 +35,7 @@ module models.simulations {
         }
 
         public StartGame() {
-            this.simulationState = SimulationState.ChangePlayer;
+            this.simulationState = SimulationState.ChooseHand;
             this.changingPlayer.dispatch(this.players[this.currentPlayer]);
         }
 
@@ -142,8 +141,17 @@ module models.simulations {
                 this.hat.ShuffleBets();
                 this.chooseBets.dispatch(this.players);
             } else {
+                this.simulationState = SimulationState.ChooseHand;
                 this.changingPlayer.dispatch(this.players[this.currentPlayer]);
             }
+        }
+
+        public GetChoosingPlayer() : models.entities.Player {
+            if (this.simulationState === SimulationState.ChooseHand) {
+                return this.players[this.currentPlayer];
+            }
+
+            return null;
         }
     }
 }

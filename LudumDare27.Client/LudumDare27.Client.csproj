@@ -62,6 +62,8 @@
     <TypeScriptCompile Include="views\states\duel.ts" />
     <TypeScriptCompile Include="views\states\changingPlayer.ts" />
     <TypeScriptCompile Include="viewmodels\states\changingPlayer.ts" />
+    <TypeScriptCompile Include="viewmodels\states\gameOver.ts" />
+    <TypeScriptCompile Include="views\states\gameOver.ts" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

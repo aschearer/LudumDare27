@@ -5,11 +5,10 @@ var models;
         var SimulationState;
         (function (SimulationState) {
             SimulationState[SimulationState["NewGame"] = 0] = "NewGame";
-            SimulationState[SimulationState["ChangePlayer"] = 1] = "ChangePlayer";
-            SimulationState[SimulationState["ChooseHand"] = 2] = "ChooseHand";
-            SimulationState[SimulationState["ChooseBets"] = 3] = "ChooseBets";
-            SimulationState[SimulationState["ShowResult"] = 4] = "ShowResult";
-            SimulationState[SimulationState["GameOver"] = 5] = "GameOver";
+            SimulationState[SimulationState["ChooseHand"] = 1] = "ChooseHand";
+            SimulationState[SimulationState["ChooseBets"] = 2] = "ChooseBets";
+            SimulationState[SimulationState["ShowResult"] = 3] = "ShowResult";
+            SimulationState[SimulationState["GameOver"] = 4] = "GameOver";
         })(SimulationState || (SimulationState = {}));
 
         var Simulation = (function () {
@@ -29,7 +28,7 @@ var models;
                 this.simulationState = SimulationState.NewGame;
             }
             Simulation.prototype.StartGame = function () {
-                this.simulationState = SimulationState.ChangePlayer;
+                this.simulationState = SimulationState.ChooseHand;
                 this.changingPlayer.dispatch(this.players[this.currentPlayer]);
             };
 
@@ -134,8 +133,17 @@ var models;
                     this.hat.ShuffleBets();
                     this.chooseBets.dispatch(this.players);
                 } else {
+                    this.simulationState = SimulationState.ChooseHand;
                     this.changingPlayer.dispatch(this.players[this.currentPlayer]);
                 }
+            };
+
+            Simulation.prototype.GetChoosingPlayer = function () {
+                if (this.simulationState === SimulationState.ChooseHand) {
+                    return this.players[this.currentPlayer];
+                }
+
+                return null;
             };
             return Simulation;
         })();

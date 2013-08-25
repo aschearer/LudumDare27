@@ -1,11 +1,10 @@
 /// <reference path="istate.ts"/>
-/// <reference path="gameOver.ts"/>
+/// <reference path="chooseHand.ts"/>
 
 module viewmodels.states {
+    export class GameOver implements IState {
 
-    export class Duel implements IState {
-
-        public id: string = "viewmodels.states.Duel";
+        public id: string = "viewmodels.states.GameOver";
 
         public stateChanged: Signal = new Signal();
 
@@ -14,15 +13,15 @@ module viewmodels.states {
         constructor(simulation: models.simulations.Simulation) {
             this.simulation = simulation;
         }
-
+        
         public enter() {
         }
 
         public exit() {
         }
 
-        public goBack() {
-            this.stateChanged.dispatch(new GameOver(this.simulation), true);
+        public endGame() {
+            this.stateChanged.dispatch(null);
         }
     }
 }

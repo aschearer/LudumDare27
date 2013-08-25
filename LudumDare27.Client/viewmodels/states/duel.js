@@ -1,12 +1,13 @@
 var viewmodels;
 (function (viewmodels) {
     /// <reference path="istate.ts"/>
-    /// <reference path="chooseHand.ts"/>
+    /// <reference path="gameOver.ts"/>
     (function (states) {
         var Duel = (function () {
-            function Duel() {
+            function Duel(simulation) {
                 this.id = "viewmodels.states.Duel";
                 this.stateChanged = new Signal();
+                this.simulation = simulation;
             }
             Duel.prototype.enter = function () {
             };
@@ -15,7 +16,7 @@ var viewmodels;
             };
 
             Duel.prototype.goBack = function () {
-                this.stateChanged.dispatch(null);
+                this.stateChanged.dispatch(new states.GameOver(this.simulation), true);
             };
             return Duel;
         })();

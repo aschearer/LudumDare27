@@ -37,7 +37,12 @@ var viewmodels;
 
             ChooseHand.prototype.chooseHand = function () {
                 this.simulation.CommitHat();
-                this.stateChanged.dispatch(new states.ChangingPlayer(this.simulation), true);
+                var player = this.simulation.GetChoosingPlayer();
+                if (player) {
+                    this.stateChanged.dispatch(new states.ChangingPlayer(this.simulation), true);
+                } else {
+                    this.stateChanged.dispatch(new states.Duel(this.simulation), true);
+                }
             };
 
             ChooseHand.prototype.goBack = function () {

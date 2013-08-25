@@ -43,7 +43,12 @@ module viewmodels.states {
 
         public chooseHand() {
             this.simulation.CommitHat();
-            this.stateChanged.dispatch(new ChangingPlayer(this.simulation), true);
+            var player: models.entities.Player = this.simulation.GetChoosingPlayer();
+            if (player) {
+                this.stateChanged.dispatch(new ChangingPlayer(this.simulation), true);
+            } else {
+                this.stateChanged.dispatch(new Duel(this.simulation), true);
+            }
         }
 
         public goBack() {

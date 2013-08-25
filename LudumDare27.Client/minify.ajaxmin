@@ -18,6 +18,7 @@
     <input path="viewmodels/states/changingPlayer.js" />
     <input path="viewmodels/states/chooseHand.js" />
     <input path="viewmodels/states/duel.js" />
+    <input path="viewmodels/states/gameOver.js" />
     <input path="views/conductor.js" />
     <input path="views/states/istate.js" />
     <input path="views/states/title.js" />
@@ -25,6 +26,7 @@
     <input path="views/states/changingPlayer.js" />
     <input path="views/states/chooseHand.js" />
     <input path="views/states/duel.js" />
+    <input path="views/states/gameOver.js" />
     <input path="views/choosehand/chipStack.js" />
     <input path="main.js" />
     <input path="libs/console.js" />
