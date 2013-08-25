@@ -7,5 +7,5 @@
 
 ## Authors
 
-  * Alex Schearer [web](http://www.spottedzebrasoftware.com)
-  * Justin Nafziger [web](https://www.facebook.com/lordpi)
+  * Alex Schearer [link](http://www.spottedzebrasoftware.com)
+  * Justin Nafziger [link](https://www.facebook.com/lordpi)
