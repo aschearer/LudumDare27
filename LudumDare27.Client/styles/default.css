@@ -289,6 +289,11 @@
     border: none;
 }
 
+.more-button {
+    background: none;
+    border: none;
+}
+
 .tutor {
     min-width: 167px;
     height: 167px;
