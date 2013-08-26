@@ -6,7 +6,7 @@ var views;
                 this.activeEnabled = true;
                 this.topOffset = -300;
                 this.activeOffset = 200;
-                this.inactiveOffset = 560;
+                this.inactiveOffset = 570;
                 this.bottomOffset = 700;
                 this.chipStackChanged = new Signal();
                 this.root = root;
@@ -16,21 +16,16 @@ var views;
                 this.activeChips = [];
                 this.inactiveChips = [];
             }
-            ChipStack.prototype.reset = function () {
+            ChipStack.prototype.enter = function () {
                 var _this = this;
-                while (this.activeChips.length > 0) {
-                    this.root.removeChild(this.activeChips.pop());
-                }
-
-                while (this.inactiveChips.length > 0) {
-                    this.root.removeChild(this.inactiveChips.pop());
-                }
-
                 var x = (20 + 128 * this.column + 82 * (this.column));
                 for (var i = 0; i < this.numberOfChips; i++) {
                     var chip = new choosehand.Chip(this.betType, x, this.topOffset, i * 10);
                     this.activeChips.push(chip.element);
                     this.root.appendChild(chip.element);
+                    chip.element.onclick = function (event) {
+                        _this.onActiveChipClicked();
+                    };
                 }
 
                 var that = this;
@@ -39,28 +34,23 @@ var views;
                         that.activeChips[j].style.top = that.activeOffset + (j * -10) + "px";
                     }
                 }, 200 * (this.column + 1));
+            };
 
-                this.peek(this.activeChips).onclick = function (event) {
-                    _this.onActiveChipClicked();
-                };
+            ChipStack.prototype.exit = function () {
+                for (var j = 0; j < this.activeChips.length; j++) {
+                    this.activeChips[j].onclick = null;
+                    this.root.removeChild(this.activeChips[j]);
+                }
+                this.activeChips = [];
+                for (var j = 0; j < this.inactiveChips.length; j++) {
+                    this.inactiveChips[j].onclick = null;
+                    this.root.removeChild(this.inactiveChips[j]);
+                }
+                this.inactiveChips = [];
             };
 
             ChipStack.prototype.setActiveEnabled = function (enable) {
                 this.activeEnabled = enable;
-            };
-
-            ChipStack.prototype.commit = function () {
-                for (var i = 0; i < this.activeChips.length; i++) {
-                    this.activeChips[i].style.top = this.topOffset + "px";
-                }
-
-                if (this.inactiveChips.length > 0) {
-                    this.peek(this.inactiveChips).style.top = this.bottomOffset + "px";
-                }
-            };
-
-            ChipStack.prototype.peek = function (stack) {
-                return stack[stack.length - 1];
             };
 
             ChipStack.prototype.onActiveChipClicked = function () {
@@ -69,23 +59,10 @@ var views;
                     return;
                 }
 
-                this.peek(this.activeChips).style.top = this.inactiveOffset + "px";
-                this.peek(this.activeChips).onclick = null;
-                if (this.inactiveChips.length > 0) {
-                    this.peek(this.inactiveChips).onclick = null;
-                    this.peek(this.inactiveChips).style.top = this.bottomOffset + "px";
-                }
-
-                this.inactiveChips.push(this.peek(this.activeChips));
-                this.activeChips.pop();
-
-                if (this.activeChips.length > 0) {
-                    this.peek(this.activeChips).onclick = function (event) {
-                        _this.onActiveChipClicked();
-                    };
-                }
-
-                this.peek(this.inactiveChips).onclick = function (event) {
+                var newInactiveChip = this.activeChips.pop();
+                this.inactiveChips.push(newInactiveChip);
+                newInactiveChip.style.top = this.inactiveOffset + (this.inactiveChips.length * -10) + "px";
+                newInactiveChip.onclick = function (event) {
                     _this.onInactiveChipClicked();
                 };
 
@@ -94,28 +71,14 @@ var views;
 
             ChipStack.prototype.onInactiveChipClicked = function () {
                 var _this = this;
-                this.peek(this.inactiveChips).style.top = this.activeOffset + (this.activeChips.length * -10) + "px";
-                this.peek(this.inactiveChips).onclick = null;
-                if (this.activeChips.length > 0) {
-                    this.peek(this.activeChips).onclick = null;
-                }
+                var newActiveChip = this.inactiveChips.pop();
+                newActiveChip.style.top = this.activeOffset + (this.activeChips.length * -10) + "px";
+                newActiveChip.onclick = null;
+                this.activeChips.push(newActiveChip);
 
-                this.activeChips.push(this.peek(this.inactiveChips));
-                this.inactiveChips.pop();
-
-                if (this.inactiveChips.length > 0) {
-                    this.peek(this.inactiveChips).style.top = this.inactiveOffset + "px";
-                }
-
-                this.peek(this.activeChips).onclick = function (event) {
+                newActiveChip.onclick = function (event) {
                     _this.onActiveChipClicked();
                 };
-
-                if (this.inactiveChips.length > 0) {
-                    this.peek(this.inactiveChips).onclick = function (event) {
-                        _this.onInactiveChipClicked();
-                    };
-                }
 
                 this.chipStackChanged.dispatch(this.betType, true);
             };

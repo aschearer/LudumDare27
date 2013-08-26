@@ -11,7 +11,7 @@ module views.choosehand {
         private inactiveChips: HTMLDivElement[];
         private topOffset: number = -300;
         private activeOffset: number = 200;
-        private inactiveOffset: number = 560;
+        private inactiveOffset: number = 570;
         private bottomOffset: number = 700;
 
         public chipStackChanged: Signal = new Signal();
@@ -25,20 +25,15 @@ module views.choosehand {
             this.inactiveChips = [];
         }
 
-        public reset() {
-            while (this.activeChips.length > 0) {
-                this.root.removeChild(this.activeChips.pop());
-            }
-
-            while (this.inactiveChips.length > 0) {
-                this.root.removeChild(this.inactiveChips.pop());
-            }
-
+        public enter() {
             var x: number = (20 + 128 * this.column + 82 * (this.column));
             for (var i: number = 0; i < this.numberOfChips; i++) {
                 var chip: Chip = new Chip(this.betType, x, this.topOffset, i * 10);
                 this.activeChips.push(chip.element);
                 this.root.appendChild(chip.element);
+                chip.element.onclick = (event) => {
+                    this.onActiveChipClicked();
+                };
             }
 
             var that = this;
@@ -47,28 +42,23 @@ module views.choosehand {
                     that.activeChips[j].style.top = that.activeOffset + (j * -10) + "px";
                 }
             }, 200 * (this.column + 1));
+        }
 
-            this.peek(this.activeChips).onclick = (event) => {
-                this.onActiveChipClicked();
-            };
+        public exit() {
+            for (var j = 0; j < this.activeChips.length; j++) {
+                this.activeChips[j].onclick = null;
+                this.root.removeChild(this.activeChips[j]);
+            }
+            this.activeChips = [];
+            for (var j = 0; j < this.inactiveChips.length; j++) {
+                this.inactiveChips[j].onclick = null;
+                this.root.removeChild(this.inactiveChips[j]);
+            }
+            this.inactiveChips = [];
         }
 
         public setActiveEnabled(enable: boolean) {
             this.activeEnabled = enable;
-        }
-
-        public commit() {
-            for (var i = 0; i < this.activeChips.length; i++) {
-                this.activeChips[i].style.top = this.topOffset + "px";
-            }
-
-            if (this.inactiveChips.length > 0) {
-                this.peek(this.inactiveChips).style.top = this.bottomOffset + "px";
-            }
-        }
-
-        private peek(stack: HTMLDivElement[]): HTMLDivElement {
-            return stack[stack.length - 1];
         }
 
         private onActiveChipClicked() {
@@ -76,23 +66,10 @@ module views.choosehand {
                 return;
             }
 
-            this.peek(this.activeChips).style.top = this.inactiveOffset + "px";
-            this.peek(this.activeChips).onclick = null;
-            if (this.inactiveChips.length > 0) {
-                this.peek(this.inactiveChips).onclick = null;
-                this.peek(this.inactiveChips).style.top = this.bottomOffset + "px";
-            }
-
-            this.inactiveChips.push(this.peek(this.activeChips));
-            this.activeChips.pop();
-
-            if (this.activeChips.length > 0) {
-                this.peek(this.activeChips).onclick = (event) => {
-                    this.onActiveChipClicked();
-                };
-            }
-
-            this.peek(this.inactiveChips).onclick = (event) => {
+            var newInactiveChip = this.activeChips.pop();
+            this.inactiveChips.push(newInactiveChip);
+            newInactiveChip.style.top = this.inactiveOffset + (this.inactiveChips.length * -10) + "px";
+            newInactiveChip.onclick = (event) => {
                 this.onInactiveChipClicked();
             };
 
@@ -100,29 +77,14 @@ module views.choosehand {
         }
 
         private onInactiveChipClicked() {
-            this.peek(this.inactiveChips).style.top = this.activeOffset + (this.activeChips.length * -10) + "px";
-            this.peek(this.inactiveChips).onclick = null;
-            if (this.activeChips.length > 0)
-            {
-                this.peek(this.activeChips).onclick = null;
-            }
+            var newActiveChip = this.inactiveChips.pop();
+            newActiveChip.style.top = this.activeOffset + (this.activeChips.length * -10) + "px";
+            newActiveChip.onclick = null;
+            this.activeChips.push(newActiveChip);
 
-            this.activeChips.push(this.peek(this.inactiveChips));
-            this.inactiveChips.pop();
-
-            if (this.inactiveChips.length > 0) {
-                this.peek(this.inactiveChips).style.top = this.inactiveOffset + "px";
-            }
-
-            this.peek(this.activeChips).onclick = (event) => {
+            newActiveChip.onclick = (event) => {
                 this.onActiveChipClicked();
             };
-
-            if (this.inactiveChips.length > 0) {
-                this.peek(this.inactiveChips).onclick = (event) => {
-                    this.onInactiveChipClicked();
-                };
-            }
 
             this.chipStackChanged.dispatch(this.betType, true);
         }

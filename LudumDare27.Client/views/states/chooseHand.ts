@@ -61,7 +61,7 @@ module views.states {
             }
 
             for (var i = 0; i < this.chipStacks.length; i++) {
-                this.chipStacks[i].reset();
+                this.chipStacks[i].enter();
                 this.chipStacks[i].chipStackChanged.add(this.onChipStackChanged, this);
             }
 
@@ -70,9 +70,6 @@ module views.states {
 
             this.readyButton.onclick = (event) => {
                 this.datacontext.chooseHand();
-                for (var i = 0; i < this.chipStacks.length; i++) {
-                    this.chipStacks[i].commit();
-                }
             };
         }
 
@@ -82,6 +79,7 @@ module views.states {
             this.readyButton.onclick = null;
 
             for (var i = 0; i < this.chipStacks.length; i++) {
+                this.chipStacks[i].exit();
                 this.chipStacks[i].chipStackChanged.remove(this.onChipStackChanged, this);
             }
 
