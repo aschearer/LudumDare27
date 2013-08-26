@@ -73,6 +73,20 @@
     background: url('../images/duel/background.jpg');
 }
 
+    #duel-layer #start-turn-text {
+        font-family: 'Ewert', cursive;
+        font-size: 91px;
+        color: #91e0f0;
+        background: url('../images/duel/start-turn.png') no-repeat;
+        background-position: center;
+        height: 195px;
+        position: absolute;
+        top: 240px;
+        left: 0;
+        right: 0;
+        z-index: 200;
+    }
+
     #duel-layer #scoreboard {
         background: white;
         position: absolute;
