@@ -293,9 +293,19 @@ module views.states {
 
         private onTurnResult(winningPlayer: models.entities.Player, betType: models.entities.BetType, players: Array<models.entities.Player>) {
             this.activeChip.setBetType(betType);
-            TweenLite.to(this.activeChip.element, 1, { top: 300 });
-            TweenMax.to(this.activeChip.element, 0, { scaleY: 1 });
-            TweenMax.to(this.activeChip.element, .2, { scaleX: 0, yoyo: true, repeat: 5, ease: Cubic.easeIn });
+
+            var activeChipTimeline: TimelineMax = new TimelineMax();
+            activeChipTimeline.to(this.activeChip.element, 0, { scaleY: 1 });
+            activeChipTimeline.to(this.activeChip.element, 1, { top: 300 });
+            if (winningPlayer != null) {
+                activeChipTimeline.to(this.activeChip.element, 0.1, { scaleX: 0 }, "+=1.4");
+                activeChipTimeline.to(this.activeChip.element, 0.1, { scaleX: 1 });
+            }
+
+            activeChipTimeline.play();
+
+            TweenMax.to(this.activeChip.element, 0.4, { autoAlpha: 0, delay: 3.2 });
+            TweenMax.to(this.activeChip.element, .2, { scaleX: 0, yoyo: true, repeat: 3, delay: .1 });
 
             // flip guesses to reveal them
             var p1Chip = this.player1Chip;
@@ -305,8 +315,16 @@ module views.states {
                     p1Chip.setBetType(players[0].currentBet);
                 }
             });
-            p1ChipTimeline.to(this.player1Chip.element, 0.1, {scaleX: 1 });
-            p1ChipTimeline.to(this.player1Chip.element, 0.4, { autoAlpha: 0, onComplete: function () { p1Chip.setBetType(models.entities.BetType.Unknown); } }, "+=2");
+
+            p1ChipTimeline.to(this.player1Chip.element, 0.1, { scaleX: 1 });
+            var fadeOutDelay: string = "+=2";
+            if (winningPlayer != null && winningPlayer.playerId == players[0].playerId) {
+                p1ChipTimeline.to(this.player1Chip.element, 0.2, { scaleX: 0, delay: 1 });
+                p1ChipTimeline.to(this.player1Chip.element, 0.2, { scaleX: 1 });
+                fadeOutDelay = "+=0.6";
+            }
+
+            p1ChipTimeline.to(this.player1Chip.element, 0.4, { autoAlpha: 0, onComplete: function () { p1Chip.setBetType(models.entities.BetType.Unknown); } }, fadeOutDelay);
             p1ChipTimeline.play();
 
             var p2Chip = this.player2Chip;
@@ -316,12 +334,18 @@ module views.states {
                     p2Chip.setBetType(players[1].currentBet);
                 }
             });
+
             p2ChipTimeline.to(this.player2Chip.element, 0.1, { scaleX: 1 });
-            p2ChipTimeline.to(this.player2Chip.element, 0.4, { autoAlpha: 0, onComplete: function () { p2Chip.setBetType(models.entities.BetType.Unknown); } }, "+=2");
+            fadeOutDelay = "+=2";
+            if (winningPlayer != null && winningPlayer.playerId == players[1].playerId) {
+                p2ChipTimeline.to(this.player2Chip.element, 0.2, { scaleX: 0, delay: 1 });
+                p2ChipTimeline.to(this.player2Chip.element, 0.2, { scaleX: 1 });
+                fadeOutDelay = "+=0.6";
+            }
+
+            p2ChipTimeline.to(this.player2Chip.element, 0.4, { autoAlpha: 0, onComplete: function () { p2Chip.setBetType(models.entities.BetType.Unknown); } }, fadeOutDelay);
             p2ChipTimeline.play();
-
-            TweenMax.to(this.activeChip.element, 0.4, { autoAlpha: 0, delay: 3.2 });
-
+            
             this.player1Bullet.style.left = "-136px";
             this.player1Bullet.style.top = "300px";
             this.player2Bullet.style.left = "900px";
