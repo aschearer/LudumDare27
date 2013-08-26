@@ -34,7 +34,7 @@
     #title-layer .content {
         font-family: 'Ewert', cursive;
         text-align: center;
-        padding-top: 330px;
+        padding-top: 230px;
     }
 
         #title-layer .content h1 {
@@ -49,22 +49,39 @@
 
     #title-layer button {
         font-size: 33px;
+        position: relative;
+        top: 0;
         color: #f6f325;
         background: none;
         border: none;
-        transition: margin-top 0.1s ease-out;
-        width: 120px;
+        transition: top 0.1s ease-out;
+        background-position: center;
+        line-height: 0;
+    }
+
+    #title-layer ul li {
+        list-style: none;
+        margin-bottom: 20px;
+    }
+
+    #title-layer #play-button {
+        width: 300px;
         height: 30px;
         background: url('../images/title/start.png') no-repeat;
-        background-position: center;
+    }
+
+    #title-layer #help-button {
+        width: 410px;
+        height: 30px;
+        background: url('../images/title/help.png') no-repeat;
     }
 
         #title-layer button:hover {
-            margin-top: -3px;
+            top: -3px;
         }
 
         #title-layer button:active {
-            margin-top: -1px;
+            top: -1px;
         }
 
 #game-layer {
@@ -402,4 +419,8 @@
 
 .game-over-victory {
     background: url('../images/gameOver/background-victory.jpg');
+}
+
+#help-layer {
+    background: url('../images/help/background.jpg')
 }

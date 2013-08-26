@@ -9,16 +9,22 @@ var views;
                 this.datacontext = datacontext;
                 this.layer = document.getElementById('title-layer');
                 this.playButton = document.getElementById('play-button');
+                this.helpButton = document.getElementById('help-button');
             }
             Title.prototype.enter = function (previousState) {
                 var _this = this;
                 this.playButton.onclick = function (event) {
                     _this.datacontext.onPlayGame();
                 };
+
+                this.helpButton.onclick = function (event) {
+                    _this.datacontext.showHelp();
+                };
             };
 
             Title.prototype.exit = function (nextState) {
                 this.playButton.onclick = null;
+                this.helpButton.onclick = null;
             };
             return Title;
         })();

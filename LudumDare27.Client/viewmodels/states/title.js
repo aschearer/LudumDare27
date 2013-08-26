@@ -20,6 +20,10 @@ var viewmodels;
                 simulation.StartGame();
                 this.stateChanged.dispatch(new states.ChooseHand(simulation));
             };
+
+            Title.prototype.showHelp = function () {
+                this.stateChanged.dispatch(new states.Help());
+            };
             return Title;
         })();
         states.Title = Title;

@@ -26,9 +26,11 @@
     <Content Include="images\duel\start-turn.png" />
     <Content Include="images\gameOver\background-draw.jpg" />
     <Content Include="images\gameOver\background-victory.jpg" />
+    <Content Include="images\help\background.jpg" />
     <Content Include="images\players\riley.png" />
     <Content Include="images\players\sally.png" />
     <Content Include="images\title\background.jpg" />
+    <Content Include="images\title\help.png" />
     <Content Include="images\title\start.png" />
     <Content Include="images\title\title.png" />
     <Content Include="libs\console.js" />

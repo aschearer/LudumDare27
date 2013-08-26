@@ -21,5 +21,9 @@ module viewmodels.states {
             simulation.StartGame();
             this.stateChanged.dispatch(new ChooseHand(simulation));
         }
+
+        public showHelp() {
+            this.stateChanged.dispatch(new Help());
+        }
     }
 }

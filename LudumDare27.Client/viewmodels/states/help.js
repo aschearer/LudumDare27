@@ -2,10 +2,9 @@ var viewmodels;
 (function (viewmodels) {
     (function (states) {
         var Help = (function () {
-            function Help(simulation) {
+            function Help() {
                 this.id = "viewmodels.states.Help";
                 this.stateChanged = new Signal();
-                this.simulation = simulation;
             }
             Help.prototype.enter = function () {
             };
