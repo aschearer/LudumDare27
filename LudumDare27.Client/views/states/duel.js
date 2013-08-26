@@ -69,8 +69,11 @@ var views;
 
                 this.resetScoreboard();
                 this.chips = [];
-                this.player1Chip = new views.choosehand.Chip(models.entities.BetType.Unknown, 25, 1000, 400);
-                this.player2Chip = new views.choosehand.Chip(models.entities.BetType.Unknown, 650, 1000, 400);
+                this.player1Chip = new views.choosehand.Chip(models.entities.BetType.Unknown, 25, 1000, 200);
+                this.player2Chip = new views.choosehand.Chip(models.entities.BetType.Unknown, 650, 1000, 200);
+
+                this.player1Bullet = document.getElementById('player1-bullet');
+                this.player2Bullet = document.getElementById('player2-bullet');
             }
             Duel.prototype.enter = function (previousState) {
                 var _this = this;
@@ -191,6 +194,10 @@ var views;
                     return;
                 }
 
+                if (!this.turnInProgress) {
+                    return;
+                }
+
                 for (var playerId = 0; playerId < playerKeys.length; ++playerId) {
                     if (keyCode in playerKeys[playerId]) {
                         if (this.datacontext.MakeBet(playerId, playerKeys[playerId][keyCode])) {
@@ -214,6 +221,7 @@ var views;
                 TweenMax.to(this.activeChip.element, 0, { scaleY: 1 });
                 TweenMax.to(this.activeChip.element, .2, { scaleX: 0, yoyo: true, repeat: 5, ease: Cubic.easeIn });
 
+                // flip guesses to reveal them
                 var p1Chip = this.player1Chip;
                 TweenMax.to(this.player1Chip.element, 0.1, {
                     scaleX: 0,
@@ -235,6 +243,31 @@ var views;
                         p2Chip.setBetType(players[1].currentBet);
                     }
                 });
+
+                this.player1Bullet.style.left = "-136px";
+                this.player1Bullet.style.top = "300px";
+                this.player2Bullet.style.left = "900px";
+                this.player2Bullet.style.top = "300px";
+
+                // fire bullets
+                var p1Timeline = new TimelineLite();
+                var p2Timeline = new TimelineLite();
+                if (winningPlayer == null) {
+                    p1Timeline.to(this.player1Bullet, 0.5, { left: 364, delay: 2, ease: Linear.easeNone });
+                    p1Timeline.to(this.player1Bullet, 1, { left: -136, delay: 2, ease: Linear.easeNone }, "+0.5");
+                    p1Timeline.to(this.player1Bullet, 1, { top: -100, delay: 2 }, "+0.5");
+
+                    p2Timeline.to(this.player2Bullet, 0.5, { left: 400, delay: 2, ease: Linear.easeNone });
+                    p2Timeline.to(this.player2Bullet, 1, { left: 900, delay: 2, ease: Linear.easeNone }, "+0.5");
+                    p2Timeline.to(this.player2Bullet, 1, { top: -100, delay: 2 }, "+0.5");
+                } else if (winningPlayer.playerId == players[0].playerId) {
+                    p1Timeline.to(this.player1Bullet, 1, { left: 900, delay: 2, ease: Linear.easeNone });
+                } else {
+                    p2Timeline.to(this.player2Bullet, 1, { left: -136, delay: 2, ease: Linear.easeNone });
+                }
+
+                p1Timeline.play();
+                p2Timeline.play();
 
                 this.turnInProgress = false;
                 this.turnResults = {

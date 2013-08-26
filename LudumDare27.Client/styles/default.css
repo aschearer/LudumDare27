@@ -18,6 +18,8 @@
     visibility: hidden;
     opacity: 0;
     transition: visibility 0.5s linear, opacity 0.5s linear;
+    overflow: hidden;
+    clip: rect(0, 800px, 600px, 0);
 }
 
 .active-layer {
@@ -101,7 +103,6 @@
         right: 0;
         top: 0;
         bottom: 0;
-        clip: rect(0, 800px, 600px, 0);
     }
 
     #duel-layer #healthboard {
@@ -168,6 +169,25 @@
 
         #duel-layer .chip {
             transition: none;
+        }
+
+        #duel-layer .bullet {
+            border-radius: 50%;
+            border: 2px solid whitesmoke;
+            background: black;
+            width: 36px;
+            height: 36px;
+            position: absolute;
+            top: 300px;
+            z-index: 300;
+        }
+
+        #duel-layer #player1-bullet {
+            left: -136px;
+        }
+
+        #duel-layer #player2-bullet {
+            left: 900px;
         }
 
     #duel-layer #scoreboard .chip {
@@ -306,7 +326,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    clip: rect(0, 800px, 600px, 0);
     overflow: hidden;
 }
 
