@@ -87,6 +87,11 @@ var views;
                 this.datacontext.turnReady.add(this.onTurnReady, this);
                 this.datacontext.turnResult.add(this.onTurnResult, this);
 
+                var initialTraps = this.datacontext.getInitialTraps();
+                for (var j = 0; j < initialTraps.length; j++) {
+                    document.getElementById('initial-trap-count-' + j).innerHTML = 'x' + 2 * initialTraps[j];
+                }
+
                 var that = this;
                 this.showScoreboardButton.onclick = function (event) {
                     if (that.scoreboardShown) {

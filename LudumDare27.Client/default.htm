@@ -82,8 +82,15 @@
                                 </div>
                                 <div id="scoreboard">
                                     <table class="table table-condensed table-bordered">
+                                        <tr id="starting-hand">
+                                            <th colspan="3">Initial Traps</th>
+                                            <th colspan="2"><div class="chip up"></div> <span id="initial-trap-count-0"></span></th>
+                                            <th colspan="2"><div class="chip left"></div> <span id="initial-trap-count-1"></span></th>
+                                            <th colspan="2"><div class="chip down"></div> <span id="initial-trap-count-2"></span></th>
+                                            <th colspan="2"><div class="chip right"></div> <span id="initial-trap-count-3"></span></th>
+                                        </tr>
                                         <tr>
-                                            <th></th>
+                                            <th>Turn</th>
                                             <th class="text-center turn1 current-turn">1</th>
                                             <th class="text-center turn2">2</th>
                                             <th class="text-center turn3">3</th>
@@ -164,7 +171,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Actual</th>
+                                            <th>Revealed</th>
                                             <td class="rowactual turn1 current-turn">
                                                 <div class="chip"></div>
                                             </td>

@@ -11,6 +11,10 @@ var viewmodels;
                 this.stateChanged = new Signal();
                 this.simulation = simulation;
             }
+            Duel.prototype.getInitialTraps = function () {
+                return this.simulation.gameType;
+            };
+
             Duel.prototype.enter = function () {
                 this.simulation.gameOver.add(this.onGameOver, this);
                 this.simulation.turnReady.add(this.onTurnReady, this);

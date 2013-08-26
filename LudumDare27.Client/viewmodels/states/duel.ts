@@ -17,6 +17,10 @@ module viewmodels.states {
             this.simulation = simulation;
         }
 
+        public getInitialTraps(): number[] {
+            return this.simulation.gameType;
+        }
+
         public enter() {
             this.simulation.gameOver.add(this.onGameOver, this);
             this.simulation.turnReady.add(this.onTurnReady, this);

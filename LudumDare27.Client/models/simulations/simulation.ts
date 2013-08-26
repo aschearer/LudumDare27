@@ -47,13 +47,15 @@ module models.simulations {
         public turnResult: Signal = new Signal();
         public gameOver: Signal = new Signal();
 
+        public gameType: number[];
+
         constructor() {
-            var gameType = gameTypes[Math.floor(Math.random() * gameTypes.length)];
+            this.gameType = gameTypes[Math.floor(Math.random() * gameTypes.length)];
 
             this.hat = new models.entities.Hat();
             this.players = [];
-            this.players[0] = new models.entities.Player(0, gameType);
-            this.players[1] = new models.entities.Player(1, gameType);
+            this.players[0] = new models.entities.Player(0, this.gameType);
+            this.players[1] = new models.entities.Player(1, this.gameType);
 
             this.currentPlayer = 0;
             this.simulationState = SimulationState.NewGame;

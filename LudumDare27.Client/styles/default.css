@@ -229,8 +229,18 @@ small {
         visibility: collapse;
     }
 
-    #duel-layer #scoreboard .past-turn .chip {
+    #duel-layer #scoreboard .past-turn .chip, #duel-layer #scoreboard #starting-hand .chip {
         visibility: visible;
+    }
+
+    #starting-hand .chip {
+        display: inline-block;
+    }
+
+    #starting-hand span {
+        position: relative;
+        top: -6px;
+        left: 4px;
     }
 
     #duel-layer #scoreboard .past-turn {

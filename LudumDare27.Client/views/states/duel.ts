@@ -127,6 +127,11 @@ module views.states {
             this.datacontext.turnReady.add(this.onTurnReady, this);
             this.datacontext.turnResult.add(this.onTurnResult, this);
 
+            var initialTraps: number[] = this.datacontext.getInitialTraps();
+            for (var j = 0; j < initialTraps.length; j++) {
+                document.getElementById('initial-trap-count-' + j).innerHTML = 'x' + 2 * initialTraps[j];
+            }
+
             var that = this;
             this.showScoreboardButton.onclick = (event) => {
                 if (that.scoreboardShown) {
