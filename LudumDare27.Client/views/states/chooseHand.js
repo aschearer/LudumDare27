@@ -4,6 +4,23 @@ var views;
     /// <reference path="../../viewmodels/states/chooseHand.ts"/>
     /// <reference path="../choosehand/chipStack.ts"/>
     (function (states) {
+        var greetings = ["Welcome", "Howdy", "Ahoy", "Yo", "'Zup"];
+        var insults = ["dastardly", "cowardly", "scurvy", "ill-mannered", "lily-livered"];
+        var lastGreeting = null;
+        var lastInsult = null;
+
+        var discardText = [null, "one trap", "two traps", "three traps", "four traps"];
+
+        function getRandomInstruction(instructions, lastInstruction) {
+            var random = null;
+
+            do {
+                random = Math.floor(Math.random() * instructions.length);
+            } while(instructions[random] === lastInstruction);
+
+            return instructions[random];
+        }
+
         var ChooseHand = (function () {
             function ChooseHand(datacontext) {
                 this.id = "views.states.ChooseHand";
@@ -40,10 +57,14 @@ var views;
                     lastType = null;
                     lastCount = 0;
                 } while(iBet < cBets);
+
+                document.getElementById('instruction-discard-count').innerHTML = discardText[cBets - 5] || ("" + (cBets - 5) + " traps");
             }
             ChooseHand.prototype.enter = function (previousState) {
                 var _this = this;
                 document.getElementById('instruction-player-name').innerHTML = this.datacontext.GetCurrentPlayerName();
+                document.getElementById('instruction-greeting').innerHTML = lastGreeting = getRandomInstruction(greetings, lastGreeting);
+                document.getElementById('instruction-insult').innerHTML = lastInsult = getRandomInstruction(insults, lastInsult);
 
                 if (this.datacontext.currentInstruction >= 0) {
                     this.activateInstruction();

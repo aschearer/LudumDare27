@@ -30,6 +30,13 @@ module viewmodels.states {
 
         private onCanCommitHat(enable: boolean) {
             this.showCanCommit.dispatch(enable);
+            if (enable && (this.currentInstruction !== 2)) {
+                this.currentInstruction = 2;
+                this.instructionChanged.dispatch(this.currentInstruction);
+            } else if (!enable && (this.currentInstruction === 2)) {
+                this.currentInstruction = 1;
+                this.instructionChanged.dispatch(this.currentInstruction);
+            }
         }
 
         public GetCurrentPlayerName(): string {
@@ -51,7 +58,7 @@ module viewmodels.states {
 
         public RemoveBetFromHat(betType: models.entities.BetType) {
             this.simulation.RemoveBetFromHat(betType);
-            if (this.currentInstruction < 2) {
+            if (this.currentInstruction < 1) {
                 this.currentInstruction++;
                 this.instructionChanged.dispatch(this.currentInstruction);
             }

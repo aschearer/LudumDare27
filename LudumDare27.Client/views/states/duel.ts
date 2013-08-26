@@ -224,8 +224,10 @@ module views.states {
         }
 
         private onKeyUp(keyCode: number) {
-            if (keyCode == 32 && !this.turnInProgress) {
-                this.startNewTurn();
+            if (!this.turnInProgress) {
+                if (keyCode == 32) {
+                    this.startNewTurn();
+                }
                 return;
             }
 
