@@ -1,6 +1,5 @@
 /// <reference path="istate.ts"/>
 /// <reference path="../../viewmodels/states/gameOver.ts"/>
-/// <reference path="../../viewmodels/states/localGame.ts"/>
 
 module views.states {
 

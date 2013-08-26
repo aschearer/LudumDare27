@@ -1,7 +1,6 @@
 var viewmodels;
 (function (viewmodels) {
     /// <reference path="istate.ts"/>
-    /// <reference path="changingPlayer.ts"/>
     /// <reference path="duel.ts"/>
     (function (states) {
         var ChooseHand = (function () {
@@ -25,6 +24,11 @@ var viewmodels;
 
             ChooseHand.prototype.onCanCommitHat = function (enable) {
                 this.showCanCommit.dispatch(enable);
+            };
+
+            ChooseHand.prototype.GetCurrentPlayerName = function () {
+                var player = this.simulation.GetChoosingPlayer();
+                return player ? player.name : "???!?!?!?";
             };
 
             ChooseHand.prototype.GetAvailableBets = function () {
@@ -51,7 +55,7 @@ var viewmodels;
                 this.simulation.CommitHat();
                 var player = this.simulation.GetChoosingPlayer();
                 if (player) {
-                    this.stateChanged.dispatch(new states.ChangingPlayer(this.simulation), true);
+                    this.stateChanged.dispatch(new ChooseHand(this.simulation), true);
                 } else {
                     this.stateChanged.dispatch(new states.Duel(this.simulation), true);
                 }

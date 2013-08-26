@@ -2,7 +2,6 @@ var views;
 (function (views) {
     /// <reference path="istate.ts"/>
     /// <reference path="../../viewmodels/states/gameOver.ts"/>
-    /// <reference path="../../viewmodels/states/localGame.ts"/>
     (function (states) {
         var GameOver = (function () {
             function GameOver(datacontext) {

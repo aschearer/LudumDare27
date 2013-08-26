@@ -1,5 +1,5 @@
 /// <reference path="istate.ts"/>
-/// <reference path="changingPlayer.ts"/>
+/// <reference path="chooseHand.ts"/>
 /// <reference path="..\..\models\simulations\Simulation.ts"/>
 
 module viewmodels.states {
@@ -19,7 +19,7 @@ module viewmodels.states {
         public onPlayGame() {
             var simulation: models.simulations.Simulation = new models.simulations.Simulation();
             simulation.StartGame();
-            this.stateChanged.dispatch(new ChangingPlayer(simulation));
+            this.stateChanged.dispatch(new ChooseHand(simulation));
         }
     }
 }

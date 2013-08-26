@@ -50,17 +50,13 @@
     <TypeScriptCompile Include="viewmodels\states\title.ts" />
     <TypeScriptCompile Include="viewmodels\conductor.ts" />
     <TypeScriptCompile Include="views\conductor.ts" />
-    <TypeScriptCompile Include="viewmodels\states\localGame.ts" />
     <TypeScriptCompile Include="viewmodels\states\chooseHand.ts" />
     <TypeScriptCompile Include="views\choosehand\chipStack.ts" />
     <TypeScriptCompile Include="viewmodels\states\duel.ts" />
     <TypeScriptCompile Include="views\states\title.ts" />
     <TypeScriptCompile Include="views\states\istate.ts" />
-    <TypeScriptCompile Include="views\states\localGame.ts" />
     <TypeScriptCompile Include="views\states\chooseHand.ts" />
     <TypeScriptCompile Include="views\states\duel.ts" />
-    <TypeScriptCompile Include="views\states\changingPlayer.ts" />
-    <TypeScriptCompile Include="viewmodels\states\changingPlayer.ts" />
     <TypeScriptCompile Include="viewmodels\states\gameOver.ts" />
     <TypeScriptCompile Include="views\states\gameOver.ts" />
     <TypeScriptCompile Include="views\choosehand\chip.ts" />

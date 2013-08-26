@@ -1,7 +1,7 @@
 var viewmodels;
 (function (viewmodels) {
     /// <reference path="istate.ts"/>
-    /// <reference path="changingPlayer.ts"/>
+    /// <reference path="chooseHand.ts"/>
     /// <reference path="..\..\models\simulations\Simulation.ts"/>
     (function (states) {
         var Title = (function () {
@@ -18,7 +18,7 @@ var viewmodels;
             Title.prototype.onPlayGame = function () {
                 var simulation = new models.simulations.Simulation();
                 simulation.StartGame();
-                this.stateChanged.dispatch(new states.ChangingPlayer(simulation));
+                this.stateChanged.dispatch(new states.ChooseHand(simulation));
             };
             return Title;
         })();

@@ -1,5 +1,4 @@
 /// <reference path="istate.ts"/>
-/// <reference path="changingPlayer.ts"/>
 /// <reference path="duel.ts"/>
 
 module viewmodels.states {
@@ -33,6 +32,11 @@ module viewmodels.states {
             this.showCanCommit.dispatch(enable);
         }
 
+        public GetCurrentPlayerName(): string {
+            var player: models.entities.Player = this.simulation.GetChoosingPlayer();
+            return player ? player.name : "???!?!?!?";
+        }
+
         public GetAvailableBets(): Array<models.entities.BetType> {
             return this.simulation.GetAvailableBets();
         }
@@ -57,7 +61,7 @@ module viewmodels.states {
             this.simulation.CommitHat();
             var player: models.entities.Player = this.simulation.GetChoosingPlayer();
             if (player) {
-                this.stateChanged.dispatch(new ChangingPlayer(this.simulation), true);
+                this.stateChanged.dispatch(new ChooseHand(this.simulation), true);
             } else {
                 this.stateChanged.dispatch(new Duel(this.simulation), true);
             }
