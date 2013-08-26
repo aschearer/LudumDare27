@@ -197,10 +197,6 @@ var views;
                     return;
                 }
 
-                if (!this.turnInProgress) {
-                    return;
-                }
-
                 for (var playerId = 0; playerId < playerKeys.length; ++playerId) {
                     if (keyCode in playerKeys[playerId]) {
                         if (this.datacontext.MakeBet(playerId, playerKeys[playerId][keyCode])) {
@@ -301,14 +297,14 @@ var views;
 
                 // Update turn information
                 this.updateTurnInformation(this.turnResults.players[0].currentBet, this.turnResults.players[1].currentBet, this.turnResults.betType, this.turnResults.winningPlayer ? this.turnResults.winningPlayer.playerId : null);
+
+                this.datacontext.AdvanceGame();
             };
 
             Duel.prototype.startNewTurn = function () {
                 if (this.turnInProgress) {
                     return;
                 }
-
-                this.datacontext.AdvanceGame();
 
                 this.turnResults = null;
                 this.turnInProgress = true;
