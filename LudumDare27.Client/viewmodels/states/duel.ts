@@ -53,8 +53,8 @@ module viewmodels.states {
             this.turnReady.dispatch();
         }
 
-        private onTurnResult(winningPlayer: models.entities.Player, betType: models.entities.BetType) {
-            this.turnResult.dispatch(winningPlayer, betType);
+        private onTurnResult(winningPlayer: models.entities.Player, betType: models.entities.BetType, players: Array<models.entities.Player>) {
+            this.turnResult.dispatch(winningPlayer, betType, players);
         }
     }
 }

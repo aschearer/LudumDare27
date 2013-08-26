@@ -47,8 +47,8 @@ var viewmodels;
                 this.turnReady.dispatch();
             };
 
-            Duel.prototype.onTurnResult = function (winningPlayer, betType) {
-                this.turnResult.dispatch(winningPlayer, betType);
+            Duel.prototype.onTurnResult = function (winningPlayer, betType, players) {
+                this.turnResult.dispatch(winningPlayer, betType, players);
             };
             return Duel;
         })();

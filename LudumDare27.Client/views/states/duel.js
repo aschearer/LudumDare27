@@ -46,6 +46,16 @@ var views;
         playerKeys[1][39] = models.entities.BetType.Right;
         playerKeys[1][40] = models.entities.BetType.Down;
 
+        function removeClasses(classList, spaceDeliminiatedClassesToRemove) {
+            var classesToRemove = spaceDeliminiatedClassesToRemove.split(" ");
+            for (var i = 0, c = classesToRemove.length; i < c; ++i) {
+                var classToRemove = classesToRemove[i];
+                if (classList.contains(classToRemove)) {
+                    classList.remove(classToRemove);
+                }
+            }
+        }
+
         var Duel = (function () {
             function Duel(datacontext) {
                 this.id = "views.states.Duel";
@@ -61,6 +71,9 @@ var views;
                 this.countdownElement = document.getElementById('countdown');
                 this.countdownElement.style.visibility = 'hidden';
                 this.countdown = 3;
+                this.currentTurn = 1;
+
+                this.resetScoreboard();
             }
             Duel.prototype.enter = function (previousState) {
                 var _this = this;
@@ -94,6 +107,61 @@ var views;
                 document.onkeyup = null;
             };
 
+            Duel.prototype.forEachTurnElement = function (turn, func) {
+                var elements = document.getElementsByClassName("turn" + turn);
+                for (var i = 0, c = elements.length; i < c; ++i) {
+                    var element = elements[i];
+                    func(element);
+                }
+            };
+
+            Duel.prototype.resetScoreboard = function () {
+                for (var i = 1; i < 11; ++i) {
+                    this.forEachTurnElement(i, function (element) {
+                        removeClasses(element.classList, 'past-turn current-turn');
+                        if (element.classList.contains('rowplayer1') || element.classList.contains('rowplayer2') || element.classList.contains('rowactual')) {
+                            var chip = element.getElementsByClassName('chip')[0];
+                            removeClasses(chip.classList, 'pink green yellow purple');
+                        } else if (element.classList.contains('rowwinner')) {
+                            element.innerHTML = "";
+                        }
+
+                        if (i === 1) {
+                            element.classList.add('current-turn');
+                        }
+                    });
+                }
+            };
+
+            Duel.prototype.updateTurnInformation = function (bet1, bet2, betWin, playerWin) {
+                this.forEachTurnElement(this.currentTurn, function (element) {
+                    element.classList.remove('current-turn');
+                    element.classList.add('past-turn');
+                    if (element.classList.contains('rowplayer1')) {
+                        var chip = element.getElementsByClassName('chip')[0];
+                        chip.classList.add(views.choosehand.Chip.GetColor(bet1));
+                    } else if (element.classList.contains('rowplayer2')) {
+                        var chip = element.getElementsByClassName('chip')[0];
+                        chip.classList.add(views.choosehand.Chip.GetColor(bet2));
+                    } else if (element.classList.contains('rowactual')) {
+                        var chip = element.getElementsByClassName('chip')[0];
+                        chip.classList.add(views.choosehand.Chip.GetColor(betWin));
+                    } else if (element.classList.contains('rowwinner')) {
+                        if (playerWin !== null) {
+                            // $TODO: put correct player image here
+                            element.innerHTML = "" + (playerWin + 1);
+                            //element.innerHTML = "<img class=\"profile-pic\" src =\"http://lorempixel.com/16/16\" />";
+                        } else {
+                            element.innerHTML = "&ndash;";
+                        }
+                    }
+                });
+                ++this.currentTurn;
+                this.forEachTurnElement(this.currentTurn, function (element) {
+                    element.classList.add('current-turn');
+                });
+            };
+
             Duel.prototype.onKeyUp = function (keyCode) {
                 for (var playerId = 0; playerId < playerKeys.length; ++playerId) {
                     if (keyCode in playerKeys[playerId]) {
@@ -122,10 +190,14 @@ var views;
                 }
             };
 
-            Duel.prototype.onTurnResult = function (winningPlayer, betType) {
+            Duel.prototype.onTurnResult = function (winningPlayer, betType, players) {
                 for (var i = 0; i < this.players.length; ++i) {
                     this.players[i].onTurnResult(winningPlayer);
                 }
+
+                // Update turn information
+                this.updateTurnInformation(players[0].currentBet, players[1].currentBet, betType, winningPlayer ? winningPlayer.playerId : null);
+
                 this.datacontext.AdvanceGame();
             };
             return Duel;

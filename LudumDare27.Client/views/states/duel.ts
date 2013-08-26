@@ -52,6 +52,16 @@ module views.states {
     playerKeys[1][39] = models.entities.BetType.Right;
     playerKeys[1][40] = models.entities.BetType.Down;
 
+    function removeClasses(classList: DOMTokenList, spaceDeliminiatedClassesToRemove: string) {
+        var classesToRemove: Array<string> = spaceDeliminiatedClassesToRemove.split(" ");
+        for (var i = 0, c = classesToRemove.length; i < c; ++i) {
+            var classToRemove = classesToRemove[i];
+            if (classList.contains(classToRemove)) {
+                classList.remove(classToRemove);
+            }
+        }
+    }
+
     export class Duel implements IState {
 
         public id: string = "views.states.Duel";
@@ -67,6 +77,7 @@ module views.states {
 
         private countdownElement: HTMLSpanElement;
         private countdown: number;
+        private currentTurn: number;
 
         constructor(datacontext: viewmodels.states.Duel) {
             this.datacontext = datacontext;
@@ -80,6 +91,9 @@ module views.states {
             this.countdownElement = <HTMLSpanElement>document.getElementById('countdown');
             this.countdownElement.style.visibility = 'hidden';
             this.countdown = 3;
+            this.currentTurn = 1;
+
+            this.resetScoreboard();
         }
 
         public enter(previousState: IState) {
@@ -115,6 +129,61 @@ module views.states {
             document.onkeyup = null;
         }
 
+        private forEachTurnElement(turn, func) {
+            var elements = document.getElementsByClassName("turn" + turn);
+            for (var i = 0, c = elements.length; i < c; ++i) {
+                var element: HTMLElement = <HTMLElement>elements[i];
+                func(element);
+            }
+        }
+
+        private resetScoreboard() {
+            for (var i = 1; i < 11; ++i) {
+                this.forEachTurnElement(i, function (element: HTMLElement) {
+                    removeClasses(element.classList, 'past-turn current-turn');
+                    if (element.classList.contains('rowplayer1') || element.classList.contains('rowplayer2') || element.classList.contains('rowactual')) {
+                        var chip: HTMLElement = <HTMLElement>element.getElementsByClassName('chip')[0];
+                        removeClasses(chip.classList, 'pink green yellow purple');
+                    } else if (element.classList.contains('rowwinner')) {
+                        element.innerHTML = "";
+                    }
+
+                    if (i === 1) {
+                        element.classList.add('current-turn');
+                    }
+                });
+            }
+        }
+
+        private updateTurnInformation(bet1: models.entities.BetType, bet2: models.entities.BetType, betWin: models.entities.BetType, playerWin: number) {
+            this.forEachTurnElement(this.currentTurn, function (element: HTMLElement) {
+                element.classList.remove('current-turn');
+                element.classList.add('past-turn');
+                if (element.classList.contains('rowplayer1')) {
+                    var chip:HTMLElement = <HTMLElement>element.getElementsByClassName('chip')[0];
+                    chip.classList.add(views.choosehand.Chip.GetColor(bet1));
+                } else if (element.classList.contains('rowplayer2')) {
+                    var chip: HTMLElement = <HTMLElement>element.getElementsByClassName('chip')[0];
+                    chip.classList.add(views.choosehand.Chip.GetColor(bet2));
+                } else if (element.classList.contains('rowactual')) {
+                    var chip: HTMLElement = <HTMLElement>element.getElementsByClassName('chip')[0];
+                    chip.classList.add(views.choosehand.Chip.GetColor(betWin));
+                } else if (element.classList.contains('rowwinner')) {
+                    if (playerWin !== null) {
+                        // $TODO: put correct player image here
+                        element.innerHTML = "" + (playerWin + 1);
+                        //element.innerHTML = "<img class=\"profile-pic\" src =\"http://lorempixel.com/16/16\" />";
+                    } else {
+                        element.innerHTML = "&ndash;";
+                    }
+                }
+            });
+            ++this.currentTurn;
+            this.forEachTurnElement(this.currentTurn, function (element: HTMLElement) {
+                element.classList.add('current-turn');
+            });
+        }
+
         private onKeyUp(keyCode: number) {
             for (var playerId = 0; playerId < playerKeys.length; ++playerId) {
                 if (keyCode in playerKeys[playerId]) {
@@ -143,10 +212,14 @@ module views.states {
             }
         }
 
-        private onTurnResult(winningPlayer: models.entities.Player, betType: models.entities.BetType) {
+        private onTurnResult(winningPlayer: models.entities.Player, betType: models.entities.BetType, players: Array<models.entities.Player>) {
             for (var i = 0; i < this.players.length; ++i) {
                 this.players[i].onTurnResult(winningPlayer);
             }
+
+            // Update turn information
+            this.updateTurnInformation(players[0].currentBet, players[1].currentBet, betType, winningPlayer ? winningPlayer.playerId : null);
+
             this.datacontext.AdvanceGame();
         }
     }

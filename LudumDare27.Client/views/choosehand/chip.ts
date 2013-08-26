@@ -1,6 +1,6 @@
 module views.choosehand {
 
-    var color = [];
+    var color : Array<string> = [];
     color[models.entities.BetType.Up] = 'green';
     color[models.entities.BetType.Left] = 'pink';
     color[models.entities.BetType.Right] = 'yellow';
@@ -23,5 +23,8 @@ module views.choosehand {
             return chip;
         }
 
+        static GetColor(betType: models.entities.BetType): string {
+            return color[betType];
+        }
     }
 }

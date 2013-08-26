@@ -20,6 +20,10 @@ var views;
                 chip.style.zIndex = z + "";
                 return chip;
             };
+
+            Chip.GetColor = function (betType) {
+                return color[betType];
+            };
             return Chip;
         })();
         choosehand.Chip = Chip;
