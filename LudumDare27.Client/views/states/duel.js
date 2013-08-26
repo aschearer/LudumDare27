@@ -223,27 +223,55 @@ var views;
 
                 // flip guesses to reveal them
                 var p1Chip = this.player1Chip;
-                TweenMax.to(this.player1Chip.element, 0.1, {
+                var p1ChipTimeline = new TimelineMax();
+                p1ChipTimeline.to(this.player1Chip.element, 0.1, {
                     scaleX: 0,
-                    yoyo: true,
-                    repeat: 1,
                     delay: 1,
-                    onRepeat: function () {
+                    onComplete: function () {
                         p1Chip.setBetType(players[0].currentBet);
                     }
                 });
+                p1ChipTimeline.to(this.player1Chip.element, 0.1, { scaleX: 1 });
+                p1ChipTimeline.to(this.player1Chip.element, 0.4, { autoAlpha: 0, onComplete: function () {
+                        p1Chip.setBetType(models.entities.BetType.Unknown);
+                    } }, "+=2");
+                p1ChipTimeline.play();
 
                 var p2Chip = this.player2Chip;
-                TweenMax.to(this.player2Chip.element, 0.1, {
+                var p2ChipTimeline = new TimelineMax();
+                p2ChipTimeline.to(this.player2Chip.element, 0.1, {
                     scaleX: 0,
-                    yoyo: true,
-                    repeat: 1,
-                    delay: 1.5,
-                    onRepeat: function () {
+                    delay: 1,
+                    onComplete: function () {
                         p2Chip.setBetType(players[1].currentBet);
                     }
                 });
+                p2ChipTimeline.to(this.player2Chip.element, 0.1, { scaleX: 1 });
+                p2ChipTimeline.to(this.player2Chip.element, 0.4, { autoAlpha: 0, onComplete: function () {
+                        p2Chip.setBetType(models.entities.BetType.Unknown);
+                    } }, "+=2");
+                p2ChipTimeline.play();
 
+                TweenMax.to(this.activeChip.element, 0.4, { autoAlpha: 0, delay: 3.2 });
+
+                //var p1Chip = this.player1Chip;
+                //TweenLite.to(this.player1Chip.element, 0.4, {
+                //    autoAlpha: 0, onComplete: function () {
+                //        p1Chip.setBetType(models.entities.BetType.Unknown);
+                //    }
+                //});
+                //var p2Chip = this.player2Chip;
+                //TweenLite.to(this.player2Chip.element, 0.4, {
+                //    autoAlpha: 0, onComplete: function () {
+                //        p2Chip.setBetType(models.entities.BetType.Unknown);
+                //    }
+                //});
+                //var p2Chip = this.player2Chip;
+                //TweenMax.to(this.player2Chip.element, 0.1, {
+                //    scaleX: 0, yoyo: true, repeat: 1, delay: 1.5, onRepeat: function () {
+                //        p2Chip.setBetType(players[1].currentBet);
+                //    }
+                //});
                 this.player1Bullet.style.left = "-136px";
                 this.player1Bullet.style.top = "300px";
                 this.player2Bullet.style.left = "900px";
@@ -254,12 +282,12 @@ var views;
                 var p2Timeline = new TimelineLite();
                 if (winningPlayer == null) {
                     p1Timeline.to(this.player1Bullet, 0.5, { left: 364, delay: 2, ease: Linear.easeNone });
-                    p1Timeline.to(this.player1Bullet, 1, { left: -136, delay: 2, ease: Linear.easeNone }, "+0.5");
-                    p1Timeline.to(this.player1Bullet, 1, { top: -100, delay: 2 }, "+0.5");
+                    p1Timeline.to(this.player1Bullet, 1, { left: -136, ease: Linear.easeNone });
+                    p1Timeline.to(this.player1Bullet, 1, { top: -100 }, "-=1");
 
                     p2Timeline.to(this.player2Bullet, 0.5, { left: 400, delay: 2, ease: Linear.easeNone });
-                    p2Timeline.to(this.player2Bullet, 1, { left: 900, delay: 2, ease: Linear.easeNone }, "+0.5");
-                    p2Timeline.to(this.player2Bullet, 1, { top: -100, delay: 2 }, "+0.5");
+                    p2Timeline.to(this.player2Bullet, 1, { left: 900, ease: Linear.easeNone });
+                    p2Timeline.to(this.player2Bullet, 1, { top: -100 }, "-=1");
                 } else if (winningPlayer.playerId == players[0].playerId) {
                     p1Timeline.to(this.player1Bullet, 1, { left: 900, delay: 2, ease: Linear.easeNone });
                 } else {
@@ -301,24 +329,6 @@ var views;
             Duel.prototype.flipNextChip = function () {
                 if (this.activeChip != null) {
                     this.activeChip.element.onclick = null;
-
-                    TweenMax.to(this.activeChip.element, 0.4, { autoAlpha: 0 });
-
-                    var p1Chip = this.player1Chip;
-                    TweenLite.to(this.player1Chip.element, 0.4, {
-                        autoAlpha: 0,
-                        onComplete: function () {
-                            p1Chip.setBetType(models.entities.BetType.Unknown);
-                        }
-                    });
-
-                    var p2Chip = this.player2Chip;
-                    TweenLite.to(this.player2Chip.element, 0.4, {
-                        autoAlpha: 0,
-                        onComplete: function () {
-                            p2Chip.setBetType(models.entities.BetType.Unknown);
-                        }
-                    });
                 }
 
                 if (this.chips.length > 0) {
