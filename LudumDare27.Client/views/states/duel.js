@@ -245,6 +245,10 @@ var views;
             };
 
             Duel.prototype.startNewTurn = function () {
+                if (this.turnInProgress) {
+                    return;
+                }
+
                 if (this.turnResults != null) {
                     for (var i = 0; i < this.players.length; ++i) {
                         this.players[i].onTurnResult(this.turnResults.winningPlayer);
