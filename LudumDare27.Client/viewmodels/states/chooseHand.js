@@ -33,10 +33,18 @@ var viewmodels;
 
             ChooseHand.prototype.AddBetToHat = function (betType) {
                 this.simulation.AddBetToHat(betType);
+                if (this.currentInstruction > 0) {
+                    this.currentInstruction--;
+                    this.instructionChanged.dispatch(this.currentInstruction);
+                }
             };
 
             ChooseHand.prototype.RemoveBetFromHat = function (betType) {
                 this.simulation.RemoveBetFromHat(betType);
+                if (this.currentInstruction < 2) {
+                    this.currentInstruction++;
+                    this.instructionChanged.dispatch(this.currentInstruction);
+                }
             };
 
             ChooseHand.prototype.chooseHand = function () {
@@ -46,13 +54,6 @@ var viewmodels;
                     this.stateChanged.dispatch(new states.ChangingPlayer(this.simulation), true);
                 } else {
                     this.stateChanged.dispatch(new states.Duel(this.simulation), true);
-                }
-            };
-
-            ChooseHand.prototype.goBack = function () {
-                if (this.currentInstruction < 1) {
-                    this.currentInstruction++;
-                    this.instructionChanged.dispatch(this.currentInstruction);
                 }
             };
             return ChooseHand;

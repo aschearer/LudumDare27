@@ -12,7 +12,6 @@ var views;
                 this.layer = document.getElementById('game-layer');
                 this.instructions = this.layer.getElementsByClassName('instructions')[0];
                 this.readyButton = document.getElementById('choose-hand-button');
-                this.readyButton.style.visibility = "hidden";
 
                 this.chipStacks = [];
                 var chips = this.layer.getElementsByClassName('chips')[0];
@@ -54,9 +53,6 @@ var views;
 
                 this.datacontext.instructionChanged.add(this.instructionChanged, this);
                 this.datacontext.showCanCommit.add(this.showCanCommit, this);
-                this.layer.onclick = function (event) {
-                    _this.datacontext.goBack();
-                };
 
                 this.readyButton.onclick = function (event) {
                     _this.datacontext.chooseHand();
@@ -67,7 +63,6 @@ var views;
             };
 
             ChooseHand.prototype.exit = function (nextState) {
-                this.layer.onclick = null;
                 this.datacontext.instructionChanged.remove(this.instructionChanged, this);
                 this.datacontext.showCanCommit.remove(this.showCanCommit, this);
                 this.readyButton.onclick = null;
@@ -75,6 +70,9 @@ var views;
                 for (var i = 0; i < this.chipStacks.length; i++) {
                     this.chipStacks[i].chipStackChanged.remove(this.onChipStackChanged, this);
                 }
+
+                this.activeInstruction.classList.remove('active-instruction');
+                this.activeInstruction = null;
             };
 
             ChooseHand.prototype.instructionChanged = function (activeInstruction) {
@@ -99,7 +97,6 @@ var views;
             };
 
             ChooseHand.prototype.showCanCommit = function (enable) {
-                this.readyButton.style.visibility = enable ? "" : "hidden";
                 for (var i = 0; i < this.chipStacks.length; i++) {
                     this.chipStacks[i].setActiveEnabled(!enable);
                 }

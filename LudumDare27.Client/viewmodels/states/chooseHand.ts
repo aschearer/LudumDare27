@@ -39,10 +39,18 @@ module viewmodels.states {
 
         public AddBetToHat(betType: models.entities.BetType) {
             this.simulation.AddBetToHat(betType);
+            if (this.currentInstruction > 0) {
+                this.currentInstruction--;
+                this.instructionChanged.dispatch(this.currentInstruction);
+            }
         }
 
         public RemoveBetFromHat(betType: models.entities.BetType) {
             this.simulation.RemoveBetFromHat(betType);
+            if (this.currentInstruction < 2) {
+                this.currentInstruction++;
+                this.instructionChanged.dispatch(this.currentInstruction);
+            }
         }
 
         public chooseHand() {
@@ -52,13 +60,6 @@ module viewmodels.states {
                 this.stateChanged.dispatch(new ChangingPlayer(this.simulation), true);
             } else {
                 this.stateChanged.dispatch(new Duel(this.simulation), true);
-            }
-        }
-
-        public goBack() {
-            if (this.currentInstruction < 1) {
-                this.currentInstruction++;
-                this.instructionChanged.dispatch(this.currentInstruction);
             }
         }
     }

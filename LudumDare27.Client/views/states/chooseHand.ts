@@ -17,7 +17,7 @@ module views.states {
 
         private activeInstruction: HTMLElement;
 
-        private readyButton: HTMLButtonElement;
+        private readyButton: HTMLAnchorElement;
 
         private chipStacks: choosehand.ChipStack[];
 
@@ -25,8 +25,7 @@ module views.states {
             this.datacontext = datacontext;
             this.layer = <HTMLDivElement>document.getElementById('game-layer');
             this.instructions = <HTMLUListElement>this.layer.getElementsByClassName('instructions')[0];
-            this.readyButton = <HTMLButtonElement> document.getElementById('choose-hand-button');
-            this.readyButton.style.visibility = "hidden";
+            this.readyButton = <HTMLAnchorElement> document.getElementById('choose-hand-button');
 
             this.chipStacks = [];
             var chips: HTMLDivElement = <HTMLDivElement>this.layer.getElementsByClassName('chips')[0];
@@ -68,9 +67,6 @@ module views.states {
 
             this.datacontext.instructionChanged.add(this.instructionChanged, this);
             this.datacontext.showCanCommit.add(this.showCanCommit, this);
-            this.layer.onclick = (event) => {
-                this.datacontext.goBack();
-            };
 
             this.readyButton.onclick = (event) => {
                 this.datacontext.chooseHand();
@@ -81,7 +77,6 @@ module views.states {
         }
 
         public exit(nextState: IState) {
-            this.layer.onclick = null;
             this.datacontext.instructionChanged.remove(this.instructionChanged, this);
             this.datacontext.showCanCommit.remove(this.showCanCommit, this);
             this.readyButton.onclick = null;
@@ -89,6 +84,9 @@ module views.states {
             for (var i = 0; i < this.chipStacks.length; i++) {
                 this.chipStacks[i].chipStackChanged.remove(this.onChipStackChanged, this);
             }
+
+            this.activeInstruction.classList.remove('active-instruction');
+            this.activeInstruction = null;
         }
 
         private instructionChanged(activeInstruction: number) {
@@ -113,7 +111,6 @@ module views.states {
         }
 
         private showCanCommit(enable: boolean) {
-            this.readyButton.style.visibility = enable ? "" : "hidden";
             for (var i = 0; i < this.chipStacks.length; i++) {
                 this.chipStacks[i].setActiveEnabled(!enable);
             }

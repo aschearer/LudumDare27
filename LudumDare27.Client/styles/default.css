@@ -197,11 +197,20 @@
     text-indent: 200%;
 }
 
+#choose-hand-button {
+    background: none;
+    border: none;
+}
+
 .tutor {
     min-width: 167px;
     height: 167px;
-    margin: 10px;
     background: url('../images/chooseHand/tutor.png') no-repeat;
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    z-index: 100;
 }
 
 .tutor .instructions {
