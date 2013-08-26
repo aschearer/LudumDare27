@@ -40,6 +40,8 @@ var views;
             }
             ChooseHand.prototype.enter = function (previousState) {
                 var _this = this;
+                document.getElementById('instruction-player-name').innerHTML = this.datacontext.GetCurrentPlayerName();
+
                 if (this.datacontext.currentInstruction >= 0) {
                     this.activateInstruction();
                 }

@@ -239,6 +239,15 @@
     font-weight: bold;
 }
 
+.tutor .instruction #instruction-player-name {
+    color: red;
+    font-weight: bold;
+}
+
+.tutor .instruction a {
+    font-weight: bold;
+}
+
 .instruction {
     transition: visibility 0.5s linear, opacity 0.5s linear;
     visibility: collapse;
