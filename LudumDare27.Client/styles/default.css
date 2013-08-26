@@ -395,24 +395,32 @@ small {
 }
 
 .unknown {
-    background-color: whitesmoke;
+    background: whitesmoke url('../images/chooseHand/unknown.png') no-repeat;
+    background-position: center;
 }
 
 .down {
-    background-color: #004e81;
-    color: white;
+    background: #004e81 url('../images/chooseHand/down.png') no-repeat;
+    background-position: center;
 }
 
 .right {
-    background-color: #ede000;
+    background: #ede000 url('../images/chooseHand/right.png') no-repeat;
+    background-position: center;
 }
 
 .up {
-    background-color: #6cd2e0;
+    background: #6cd2e0 url('../images/chooseHand/up.png') no-repeat;
+    background-position: center;
 }
 
 .left {
-    background-color: #d2889f;
+    background: #d2889f url('../images/chooseHand/left.png') no-repeat;
+    background-position: center;
+}
+
+#scoreboard .chip {
+    background-image: none;
 }
 
 .key {  
@@ -430,6 +438,7 @@ small {
     position: relative;
     border-radius: 10px;
     box-shadow: 0 2px 5px #636363;
+    background-image: none;
 }
 
 .game-over-draw {

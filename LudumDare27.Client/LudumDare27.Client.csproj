@@ -21,7 +21,12 @@
     <Content Include="default.htm" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="images\chooseHand\background.jpg" />
+    <Content Include="images\chooseHand\down.png" />
+    <Content Include="images\chooseHand\unknown.png" />
+    <Content Include="images\chooseHand\up.png" />
+    <Content Include="images\chooseHand\right.png" />
     <Content Include="images\chooseHand\tutor.png" />
+    <Content Include="images\chooseHand\left.png" />
     <Content Include="images\duel\background.jpg" />
     <Content Include="images\duel\start-turn.png" />
     <Content Include="images\gameOver\background-draw.jpg" />
