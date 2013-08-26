@@ -1,4 +1,6 @@
-# Ludum Dare 27 Game Jam Game
+# Second's Showdown -- a Ludum Dare 27 Game Jam Game
+
+Play it online: http://games.spottedzebrasoftware.com/seconds-showdown
 
 ## How to Build
 
