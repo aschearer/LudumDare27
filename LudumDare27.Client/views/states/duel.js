@@ -271,11 +271,11 @@ var views;
 
                     p2Timeline.to(this.player2Bullet, 0.5, { left: 400, delay: 2, ease: Linear.easeNone });
                     p2Timeline.to(this.player2Bullet, 1, { left: 900, ease: Linear.easeNone });
-                    p2Timeline.to(this.player2Bullet, 1, { top: -100 }, "-=1");
+                    p2Timeline.to(this.player2Bullet, 1, { top: -100, onComplete: this.updatePlayersHealth.bind(this) }, "-=1");
                 } else if (winningPlayer.playerId == players[0].playerId) {
-                    p1Timeline.to(this.player1Bullet, 1, { left: 900, delay: 2, ease: Linear.easeNone });
+                    p1Timeline.to(this.player1Bullet, 1, { left: 900, delay: 2, ease: Linear.easeNone, onComplete: this.updatePlayersHealth.bind(this) });
                 } else {
-                    p2Timeline.to(this.player2Bullet, 1, { left: -136, delay: 2, ease: Linear.easeNone });
+                    p2Timeline.to(this.player2Bullet, 1, { left: -136, delay: 2, ease: Linear.easeNone, onComplete: this.updatePlayersHealth.bind(this) });
                 }
 
                 p1Timeline.play();
@@ -289,21 +289,21 @@ var views;
                 };
             };
 
+            Duel.prototype.updatePlayersHealth = function () {
+                for (var i = 0; i < this.players.length; ++i) {
+                    this.players[i].onTurnResult(this.turnResults.winningPlayer);
+                }
+
+                // Update turn information
+                this.updateTurnInformation(this.turnResults.players[0].currentBet, this.turnResults.players[1].currentBet, this.turnResults.betType, this.turnResults.winningPlayer ? this.turnResults.winningPlayer.playerId : null);
+            };
+
             Duel.prototype.startNewTurn = function () {
                 if (this.turnInProgress) {
                     return;
                 }
 
-                if (this.turnResults != null) {
-                    for (var i = 0; i < this.players.length; ++i) {
-                        this.players[i].onTurnResult(this.turnResults.winningPlayer);
-                    }
-
-                    // Update turn information
-                    this.updateTurnInformation(this.turnResults.players[0].currentBet, this.turnResults.players[1].currentBet, this.turnResults.betType, this.turnResults.winningPlayer ? this.turnResults.winningPlayer.playerId : null);
-
-                    this.datacontext.AdvanceGame();
-                }
+                this.datacontext.AdvanceGame();
 
                 this.turnResults = null;
                 this.turnInProgress = true;
