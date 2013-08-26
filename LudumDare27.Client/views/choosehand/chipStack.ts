@@ -44,15 +44,25 @@ module views.choosehand {
             }, 200 * (this.column + 1));
         }
 
+        public hideChips() {
+            for (var i = 0; i < this.activeChips.length; i++) {
+                this.activeChips[i].style.top = this.topOffset + "px";
+                this.activeChips[i].onclick = null;
+            }
+
+            for (var i = 0; i < this.inactiveChips.length; i++) {
+                this.inactiveChips[i].style.top = this.bottomOffset + "px";
+                this.inactiveChips[i].onclick = null;
+            }
+        }
+
         public exit() {
             for (var j = 0; j < this.activeChips.length; j++) {
                 this.activeChips[j].onclick = null;
-                this.root.removeChild(this.activeChips[j]);
             }
             this.activeChips = [];
             for (var j = 0; j < this.inactiveChips.length; j++) {
                 this.inactiveChips[j].onclick = null;
-                this.root.removeChild(this.inactiveChips[j]);
             }
             this.inactiveChips = [];
         }

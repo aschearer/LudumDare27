@@ -15,6 +15,9 @@ var views;
                 this.chipStacks = [];
                 var chips = this.layer.getElementsByClassName('chips')[0];
 
+                // Remove all children
+                chips.innerHTML = "";
+
                 var bets = this.datacontext.GetAvailableBets();
                 var lastType = null;
                 var lastCount = 0;
@@ -55,7 +58,14 @@ var views;
                 this.datacontext.showCanCommit.add(this.showCanCommit, this);
 
                 this.readyButton.onclick = function (event) {
-                    _this.datacontext.chooseHand();
+                    for (var i = 0; i < _this.chipStacks.length; i++) {
+                        _this.chipStacks[i].hideChips();
+                    }
+                    _this.readyButton.onclick = null;
+                    var that = _this;
+                    window.setTimeout(function () {
+                        that.datacontext.chooseHand();
+                    }, 200);
                 };
             };
 

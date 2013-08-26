@@ -29,6 +29,9 @@ module views.states {
             this.chipStacks = [];
             var chips: HTMLDivElement = <HTMLDivElement>this.layer.getElementsByClassName('chips')[0];
 
+            // Remove all children
+            chips.innerHTML = "";
+
             var bets: Array<models.entities.BetType> = this.datacontext.GetAvailableBets();
             var lastType = null;
             var lastCount = 0;
@@ -69,7 +72,14 @@ module views.states {
             this.datacontext.showCanCommit.add(this.showCanCommit, this);
 
             this.readyButton.onclick = (event) => {
-                this.datacontext.chooseHand();
+                for (var i = 0; i < this.chipStacks.length; i++) {
+                    this.chipStacks[i].hideChips();
+                }
+                this.readyButton.onclick = null;
+                var that = this;
+                window.setTimeout(function () {
+                    that.datacontext.chooseHand()
+                }, 200);
             };
         }
 
