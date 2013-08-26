@@ -319,8 +319,8 @@ module views.states {
             p1ChipTimeline.to(this.player1Chip.element, 0.1, { scaleX: 1 });
             var fadeOutDelay: string = "+=2";
             if (winningPlayer != null && winningPlayer.playerId == players[0].playerId) {
-                p1ChipTimeline.to(this.player1Chip.element, 0.2, { scaleX: 0, delay: 1 });
-                p1ChipTimeline.to(this.player1Chip.element, 0.2, { scaleX: 1 });
+                p1ChipTimeline.to(this.player1Chip.element, 0.1, { scaleX: 0, delay: 1 });
+                p1ChipTimeline.to(this.player1Chip.element, 0.1, { scaleX: 1 });
                 fadeOutDelay = "+=0.6";
             }
 
@@ -338,8 +338,8 @@ module views.states {
             p2ChipTimeline.to(this.player2Chip.element, 0.1, { scaleX: 1 });
             fadeOutDelay = "+=2";
             if (winningPlayer != null && winningPlayer.playerId == players[1].playerId) {
-                p2ChipTimeline.to(this.player2Chip.element, 0.2, { scaleX: 0, delay: 1 });
-                p2ChipTimeline.to(this.player2Chip.element, 0.2, { scaleX: 1 });
+                p2ChipTimeline.to(this.player2Chip.element, 0.1, { scaleX: 0, delay: 1 });
+                p2ChipTimeline.to(this.player2Chip.element, 0.1, { scaleX: 1 });
                 fadeOutDelay = "+=0.6";
             }
 
