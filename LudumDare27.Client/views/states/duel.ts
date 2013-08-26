@@ -7,21 +7,36 @@ module views.states {
         private nameElement: HTMLParagraphElement;
         private healthElement: HTMLDivElement;
         private readyElement: HTMLSpanElement;
+        private playerId: number;
+        private health: number;
 
         constructor(root: HTMLElement, playerInfo: models.simulations.PlayerResult) {
-            var playerId: number = playerInfo.player.playerId;
-            var playerElement: HTMLDivElement = <HTMLDivElement>root.getElementsByClassName('player' + (playerId + 1))[0];
+            this.playerId = playerInfo.player.playerId;
+            this.health = playerInfo.score;
+            var playerElement: HTMLDivElement = <HTMLDivElement>root.getElementsByClassName('player' + (this.playerId + 1))[0];
             this.iconElement = <HTMLImageElement>playerElement.getElementsByClassName('playericon')[0];
             this.nameElement = <HTMLParagraphElement>playerElement.getElementsByClassName('playername')[0];
             this.nameElement.innerText = playerInfo.player.name;
             this.healthElement = <HTMLDivElement>playerElement.getElementsByClassName('health')[0];
-            this.healthElement.style.width = ((playerInfo.score / 5) * 100) + '%';
             this.readyElement = <HTMLSpanElement>playerElement.getElementsByClassName('playerready')[0];
             this.showReady(false);
+            this.updateHealth();
         }
 
         public showReady(show: boolean) {
             this.readyElement.style.visibility = show ? '' : 'hidden';
+        }
+
+        public updateHealth() {
+            this.healthElement.style.width = ((this.health / 5) * 100) + '%';
+        }
+
+        public onTurnResult(winningPlayer: models.entities.Player) {
+            this.showReady(false);
+            if (winningPlayer && winningPlayer.playerId !== this.playerId) {
+                --this.health;
+                this.updateHealth();
+            }
         }
     }
 
@@ -50,6 +65,9 @@ module views.states {
 
         private scoreboardShown: boolean = false;
 
+        private countdownElement: HTMLSpanElement;
+        private countdown: number;
+
         constructor(datacontext: viewmodels.states.Duel) {
             this.datacontext = datacontext;
             this.layer = document.getElementById('duel-layer');
@@ -58,9 +76,16 @@ module views.states {
             var gamePlayers: Array<models.simulations.PlayerResult> = datacontext.GetCurrentPlayers();
             this.players[0] = new PlayerInfo(this.layer, gamePlayers[0]);
             this.players[1] = new PlayerInfo(this.layer, gamePlayers[1]);
+
+            this.countdownElement = <HTMLSpanElement>document.getElementById('countdown');
+            this.countdownElement.style.visibility = 'hidden';
+            this.countdown = 3;
         }
 
         public enter(previousState: IState) {
+            this.datacontext.turnReady.add(this.onTurnReady, this);
+            this.datacontext.turnResult.add(this.onTurnResult, this);
+
             var that = this;
             this.showScoreboardButton.onclick = (event) => {
                 if (this.scoreboardShown) {
@@ -84,6 +109,8 @@ module views.states {
         }
 
         public exit(nextState: IState) {
+            this.datacontext.turnReady.remove(this.onTurnReady, this);
+            this.datacontext.turnResult.remove(this.onTurnResult, this);
             this.showScoreboardButton.onclick = null;
             document.onkeyup = null;
         }
@@ -96,6 +123,31 @@ module views.states {
                     }
                 }
             }
+        }
+
+        private onTurnReady() {
+            if (this.countdown > 0) {
+                this.countdownElement.innerText = "" + this.countdown;
+                this.countdownElement.style.visibility = "";
+                --this.countdown;
+
+                // Kick off timer
+                var that = this;
+                window.setTimeout(function () {
+                    that.onTurnReady();
+                }, 1000);
+            } else {
+                this.countdownElement.style.visibility = "hidden";
+                this.countdown = 3;
+                this.datacontext.TakeTurn();
+            }
+        }
+
+        private onTurnResult(winningPlayer: models.entities.Player, betType: models.entities.BetType) {
+            for (var i = 0; i < this.players.length; ++i) {
+                this.players[i].onTurnResult(winningPlayer);
+            }
+            this.datacontext.AdvanceGame();
         }
     }
 }

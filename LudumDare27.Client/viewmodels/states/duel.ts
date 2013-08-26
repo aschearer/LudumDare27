@@ -7,6 +7,8 @@ module viewmodels.states {
 
         public id: string = "viewmodels.states.Duel";
 
+        public turnReady: Signal = new Signal();
+        public turnResult: Signal = new Signal();
         public stateChanged: Signal = new Signal();
 
         private simulation: models.simulations.Simulation;
@@ -16,9 +18,15 @@ module viewmodels.states {
         }
 
         public enter() {
+            this.simulation.gameOver.add(this.onGameOver, this);
+            this.simulation.turnReady.add(this.onTurnReady, this);
+            this.simulation.turnResult.add(this.onTurnResult, this);
         }
 
         public exit() {
+            this.simulation.gameOver.remove(this.onGameOver, this);
+            this.simulation.turnReady.remove(this.onTurnReady, this);
+            this.simulation.turnResult.remove(this.onTurnResult, this);
         }
 
         public GetCurrentPlayers(): Array<models.simulations.PlayerResult> {
@@ -29,8 +37,24 @@ module viewmodels.states {
             return this.simulation.MakeBet(playerId, betType);
         }
 
-        public goBack() {
+        public TakeTurn() {
+            this.simulation.TakeTurn();
+        }
+
+        public AdvanceGame(): boolean {
+            return this.simulation.AdvanceGame();
+        }
+
+        private onGameOver() {
             this.stateChanged.dispatch(new GameOver(this.simulation), true);
+        }
+
+        private onTurnReady() {
+            this.turnReady.dispatch();
+        }
+
+        private onTurnResult(winningPlayer: models.entities.Player, betType: models.entities.BetType) {
+            this.turnResult.dispatch(winningPlayer, betType);
         }
     }
 }

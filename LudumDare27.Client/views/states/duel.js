@@ -5,18 +5,31 @@ var views;
     (function (states) {
         var PlayerInfo = (function () {
             function PlayerInfo(root, playerInfo) {
-                var playerId = playerInfo.player.playerId;
-                var playerElement = root.getElementsByClassName('player' + (playerId + 1))[0];
+                this.playerId = playerInfo.player.playerId;
+                this.health = playerInfo.score;
+                var playerElement = root.getElementsByClassName('player' + (this.playerId + 1))[0];
                 this.iconElement = playerElement.getElementsByClassName('playericon')[0];
                 this.nameElement = playerElement.getElementsByClassName('playername')[0];
                 this.nameElement.innerText = playerInfo.player.name;
                 this.healthElement = playerElement.getElementsByClassName('health')[0];
-                this.healthElement.style.width = ((playerInfo.score / 5) * 100) + '%';
                 this.readyElement = playerElement.getElementsByClassName('playerready')[0];
                 this.showReady(false);
+                this.updateHealth();
             }
             PlayerInfo.prototype.showReady = function (show) {
                 this.readyElement.style.visibility = show ? '' : 'hidden';
+            };
+
+            PlayerInfo.prototype.updateHealth = function () {
+                this.healthElement.style.width = ((this.health / 5) * 100) + '%';
+            };
+
+            PlayerInfo.prototype.onTurnResult = function (winningPlayer) {
+                this.showReady(false);
+                if (winningPlayer && winningPlayer.playerId !== this.playerId) {
+                    --this.health;
+                    this.updateHealth();
+                }
             };
             return PlayerInfo;
         })();
@@ -44,9 +57,16 @@ var views;
                 var gamePlayers = datacontext.GetCurrentPlayers();
                 this.players[0] = new PlayerInfo(this.layer, gamePlayers[0]);
                 this.players[1] = new PlayerInfo(this.layer, gamePlayers[1]);
+
+                this.countdownElement = document.getElementById('countdown');
+                this.countdownElement.style.visibility = 'hidden';
+                this.countdown = 3;
             }
             Duel.prototype.enter = function (previousState) {
                 var _this = this;
+                this.datacontext.turnReady.add(this.onTurnReady, this);
+                this.datacontext.turnResult.add(this.onTurnResult, this);
+
                 var that = this;
                 this.showScoreboardButton.onclick = function (event) {
                     if (_this.scoreboardShown) {
@@ -68,6 +88,8 @@ var views;
             };
 
             Duel.prototype.exit = function (nextState) {
+                this.datacontext.turnReady.remove(this.onTurnReady, this);
+                this.datacontext.turnResult.remove(this.onTurnResult, this);
                 this.showScoreboardButton.onclick = null;
                 document.onkeyup = null;
             };
@@ -80,6 +102,31 @@ var views;
                         }
                     }
                 }
+            };
+
+            Duel.prototype.onTurnReady = function () {
+                if (this.countdown > 0) {
+                    this.countdownElement.innerText = "" + this.countdown;
+                    this.countdownElement.style.visibility = "";
+                    --this.countdown;
+
+                    // Kick off timer
+                    var that = this;
+                    window.setTimeout(function () {
+                        that.onTurnReady();
+                    }, 1000);
+                } else {
+                    this.countdownElement.style.visibility = "hidden";
+                    this.countdown = 3;
+                    this.datacontext.TakeTurn();
+                }
+            };
+
+            Duel.prototype.onTurnResult = function (winningPlayer, betType) {
+                for (var i = 0; i < this.players.length; ++i) {
+                    this.players[i].onTurnResult(winningPlayer);
+                }
+                this.datacontext.AdvanceGame();
             };
             return Duel;
         })();

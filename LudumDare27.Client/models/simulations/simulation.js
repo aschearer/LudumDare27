@@ -42,6 +42,8 @@ var models;
             };
 
             Simulation.prototype.AdvanceGame = function () {
+                var nextRound = false;
+
                 if (this.hat.IsDone()) {
                     this.simulationState = SimulationState.GameOver;
                     var results = this.GetGameResults();
@@ -53,7 +55,10 @@ var models;
                     }
                     this.simulationState = SimulationState.ChooseBets;
                     this.chooseBets.dispatch(this.players);
+                    nextRound = true;
                 }
+
+                return nextRound;
             };
 
             Simulation.prototype.GetGameResults = function () {
@@ -189,4 +194,4 @@ var models;
     })(models.simulations || (models.simulations = {}));
     var simulations = models.simulations;
 })(models || (models = {}));
-//# sourceMappingURL=simulation.js.map
+//# sourceMappingURL=Simulation.js.map

@@ -49,7 +49,9 @@ module models.simulations {
             this.changingPlayer.dispatch(this.players[this.currentPlayer]);
         }
 
-        public AdvanceGame() {
+        public AdvanceGame(): boolean {
+            var nextRound = false;
+
             if (this.hat.IsDone()) {
                 this.simulationState = SimulationState.GameOver;
                 var results = this.GetGameResults();
@@ -62,7 +64,10 @@ module models.simulations {
                 }
                 this.simulationState = SimulationState.ChooseBets;
                 this.chooseBets.dispatch(this.players);
+                nextRound = true;
             }
+
+            return nextRound;
         }
 
         public GetGameResults(): PlayerResult {
