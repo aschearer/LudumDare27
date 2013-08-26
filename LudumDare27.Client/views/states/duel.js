@@ -186,8 +186,10 @@ var views;
             };
 
             Duel.prototype.onKeyUp = function (keyCode) {
-                if (keyCode == 32 && !this.turnInProgress) {
-                    this.startNewTurn();
+                if (!this.turnInProgress) {
+                    if (keyCode == 32) {
+                        this.startNewTurn();
+                    }
                     return;
                 }
 

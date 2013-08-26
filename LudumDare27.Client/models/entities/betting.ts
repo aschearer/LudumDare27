@@ -59,13 +59,12 @@ module models.entities {
     export class Hand {
         private possibleBets: Array<PossibleBets>;
 
-        constructor() {
-            // $TEMP: hardcoding hand
+        constructor(possibleBets: number[]) {
             this.possibleBets = [];
-            this.possibleBets[BetType.Up] = new PossibleBets(BetType.Up, 1);
-            this.possibleBets[BetType.Left] = new PossibleBets(BetType.Left, 2);
-            this.possibleBets[BetType.Down] = new PossibleBets(BetType.Down, 2);
-            this.possibleBets[BetType.Right] = new PossibleBets(BetType.Right, 2);
+            this.possibleBets[BetType.Up] = new PossibleBets(BetType.Up, possibleBets[0]);
+            this.possibleBets[BetType.Left] = new PossibleBets(BetType.Left, possibleBets[1]);
+            this.possibleBets[BetType.Down] = new PossibleBets(BetType.Down, possibleBets[2]);
+            this.possibleBets[BetType.Right] = new PossibleBets(BetType.Right, possibleBets[3]);
         }
 
         public AddBetToHat(betType: BetType) {
@@ -127,9 +126,9 @@ module models.entities {
         public points: number;
         public name: string;
 
-        constructor(playerId: number) {
+        constructor(playerId: number, possibleBets: number[]) {
             this.playerId = playerId;
-            this.hand = new Hand();
+            this.hand = new Hand(possibleBets);
             this.currentBet = null;
             this.points = 0;
 

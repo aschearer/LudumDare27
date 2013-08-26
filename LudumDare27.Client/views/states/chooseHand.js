@@ -9,6 +9,8 @@ var views;
         var lastGreeting = null;
         var lastInsult = null;
 
+        var discardText = [null, "one trap", "two traps", "three traps", "four traps"];
+
         function getRandomInstruction(instructions, lastInstruction) {
             var random = null;
 
@@ -55,6 +57,8 @@ var views;
                     lastType = null;
                     lastCount = 0;
                 } while(iBet < cBets);
+
+                document.getElementById('instruction-discard-count').innerHTML = discardText[cBets - 5] || ("" + (cBets - 5) + " traps");
             }
             ChooseHand.prototype.enter = function (previousState) {
                 var _this = this;

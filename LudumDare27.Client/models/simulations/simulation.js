@@ -20,6 +20,19 @@ var models;
         })();
         simulations.PlayerResult = PlayerResult;
 
+        var gameTypes = [
+            [1, 2, 2, 2],
+            [1, 2, 2, 2],
+            [2, 1, 2, 2],
+            [2, 1, 2, 2],
+            [2, 2, 1, 2],
+            [2, 2, 1, 2],
+            [2, 2, 2, 1],
+            [2, 2, 2, 1],
+            [1, 3, 2, 2],
+            [1, 3, 1, 1]
+        ];
+
         var Simulation = (function () {
             function Simulation() {
                 this.changingPlayer = new Signal();
@@ -28,10 +41,12 @@ var models;
                 this.turnReady = new Signal();
                 this.turnResult = new Signal();
                 this.gameOver = new Signal();
+                var gameType = gameTypes[Math.floor(Math.random() * gameTypes.length)];
+
                 this.hat = new models.entities.Hat();
                 this.players = [];
-                this.players[0] = new models.entities.Player(0);
-                this.players[1] = new models.entities.Player(1);
+                this.players[0] = new models.entities.Player(0, gameType);
+                this.players[1] = new models.entities.Player(1, gameType);
 
                 this.currentPlayer = 0;
                 this.simulationState = SimulationState.NewGame;

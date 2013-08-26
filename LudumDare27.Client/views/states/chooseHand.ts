@@ -9,6 +9,8 @@ module views.states {
     var lastGreeting = null;
     var lastInsult = null;
 
+    var discardText = [null, "one trap", "two traps", "three traps", "four traps"];
+
     function getRandomInstruction(instructions: string[], lastInstruction: string): string {
         var random = null;
 
@@ -69,6 +71,8 @@ module views.states {
                 lastType = null;
                 lastCount = 0;
             } while (iBet < cBets);
+
+            document.getElementById('instruction-discard-count').innerHTML = discardText[cBets - 5] || ("" + (cBets - 5) + " traps");
         }
 
         public enter(previousState: IState) {

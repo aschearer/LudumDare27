@@ -55,13 +55,12 @@ var models;
         entities.PossibleBets = PossibleBets;
 
         var Hand = (function () {
-            function Hand() {
-                // $TEMP: hardcoding hand
+            function Hand(possibleBets) {
                 this.possibleBets = [];
-                this.possibleBets[BetType.Up] = new PossibleBets(BetType.Up, 1);
-                this.possibleBets[BetType.Left] = new PossibleBets(BetType.Left, 2);
-                this.possibleBets[BetType.Down] = new PossibleBets(BetType.Down, 2);
-                this.possibleBets[BetType.Right] = new PossibleBets(BetType.Right, 2);
+                this.possibleBets[BetType.Up] = new PossibleBets(BetType.Up, possibleBets[0]);
+                this.possibleBets[BetType.Left] = new PossibleBets(BetType.Left, possibleBets[1]);
+                this.possibleBets[BetType.Down] = new PossibleBets(BetType.Down, possibleBets[2]);
+                this.possibleBets[BetType.Right] = new PossibleBets(BetType.Right, possibleBets[3]);
             }
             Hand.prototype.AddBetToHat = function (betType) {
                 var possibleBet = this.possibleBets[betType];
@@ -118,9 +117,9 @@ var models;
         playerIdentities[1] = "Riley Roundbottom";
 
         var Player = (function () {
-            function Player(playerId) {
+            function Player(playerId, possibleBets) {
                 this.playerId = playerId;
-                this.hand = new Hand();
+                this.hand = new Hand(possibleBets);
                 this.currentBet = null;
                 this.points = 0;
 

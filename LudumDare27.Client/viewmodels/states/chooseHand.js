@@ -24,6 +24,13 @@ var viewmodels;
 
             ChooseHand.prototype.onCanCommitHat = function (enable) {
                 this.showCanCommit.dispatch(enable);
+                if (enable && (this.currentInstruction !== 2)) {
+                    this.currentInstruction = 2;
+                    this.instructionChanged.dispatch(this.currentInstruction);
+                } else if (!enable && (this.currentInstruction === 2)) {
+                    this.currentInstruction = 1;
+                    this.instructionChanged.dispatch(this.currentInstruction);
+                }
             };
 
             ChooseHand.prototype.GetCurrentPlayerName = function () {
@@ -45,7 +52,7 @@ var viewmodels;
 
             ChooseHand.prototype.RemoveBetFromHat = function (betType) {
                 this.simulation.RemoveBetFromHat(betType);
-                if (this.currentInstruction < 2) {
+                if (this.currentInstruction < 1) {
                     this.currentInstruction++;
                     this.instructionChanged.dispatch(this.currentInstruction);
                 }
