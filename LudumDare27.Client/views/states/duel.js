@@ -113,7 +113,7 @@ var views;
                     _this.onKeyUp(event.keyCode);
                 };
 
-                window.setTimeout(this.flipNextChip.bind(this), 2000);
+                this.chips[this.chips.length - 1].element.onclick = this.startNewTurn.bind(this);
             };
 
             Duel.prototype.exit = function (nextState) {
@@ -229,23 +229,32 @@ var views;
                     }
                 });
 
-                var that = this;
-                window.setTimeout(function () {
-                    for (var i = 0; i < that.players.length; ++i) {
-                        that.players[i].onTurnResult(winningPlayer);
+                this.turnResults = {
+                    winningPlayer: winningPlayer,
+                    players: players,
+                    betType: betType
+                };
+            };
+
+            Duel.prototype.startNewTurn = function () {
+                if (this.turnResults != null) {
+                    for (var i = 0; i < this.players.length; ++i) {
+                        this.players[i].onTurnResult(this.turnResults.winningPlayer);
                     }
 
                     // Update turn information
-                    that.updateTurnInformation(players[0].currentBet, players[1].currentBet, betType, winningPlayer ? winningPlayer.playerId : null);
+                    this.updateTurnInformation(this.turnResults.players[0].currentBet, this.turnResults.players[1].currentBet, this.turnResults.betType, this.turnResults.winningPlayer ? this.turnResults.winningPlayer.playerId : null);
 
-                    that.datacontext.AdvanceGame();
+                    this.datacontext.AdvanceGame();
+                }
 
-                    that.flipNextChip();
-                }, 4000);
+                this.flipNextChip();
             };
 
             Duel.prototype.flipNextChip = function () {
                 if (this.activeChip != null) {
+                    this.activeChip.element.onclick = null;
+
                     TweenMax.to(this.activeChip.element, 0.4, { autoAlpha: 0 });
 
                     var p1Chip = this.player1Chip;
@@ -272,6 +281,8 @@ var views;
 
                     TweenMax.fromTo(this.startTurnLabel, 0.5, { opacity: 0 }, { autoAlpha: 1, yoyo: true, repeat: 1, repeatDelay: 1 });
                     TweenMax.fromTo(this.startTurnLabel, 2, { marginLeft: 20 }, { marginLeft: -20 });
+
+                    this.chips[this.chips.length - 1].element.onclick = this.startNewTurn.bind(this);
                 }
             };
             return Duel;
