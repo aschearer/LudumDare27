@@ -190,28 +190,14 @@ var views;
 
                             playerChip.element.style.opacity = "1";
                             playerChip.element.style.visibility = "visible";
-                            TweenLite.fromTo(playerChip.element, 0.5, { top: 1000 }, { top: 300, ease: Cubic.easeOut });
+                            TweenMax.fromTo(playerChip.element, 0.2, { top: 1000 }, { top: 300, ease: Cubic.easeOut });
                         }
                     }
                 }
             };
 
             Duel.prototype.onTurnReady = function () {
-                if (this.countdown > 0) {
-                    this.countdownElement.innerText = "" + this.countdown;
-                    this.countdownElement.style.visibility = "";
-                    --this.countdown;
-
-                    // Kick off timer
-                    var that = this;
-                    window.setTimeout(function () {
-                        that.onTurnReady();
-                    }, 1000);
-                } else {
-                    this.countdownElement.style.visibility = "hidden";
-                    this.countdown = 3;
-                    this.datacontext.TakeTurn();
-                }
+                window.setTimeout(this.datacontext.TakeTurn.bind(this.datacontext), 1000);
             };
 
             Duel.prototype.onTurnResult = function (winningPlayer, betType, players) {
