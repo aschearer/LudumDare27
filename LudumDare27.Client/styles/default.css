@@ -166,6 +166,10 @@
             min-width: 60px;
         }
 
+        #duel-layer .chip {
+            transition: none;
+        }
+
     #duel-layer #scoreboard .chip {
         border-radius: 50%;
         width: 16px;

@@ -15,20 +15,13 @@ var views;
                 this.nameElement = playerElement.getElementsByClassName('playername')[0];
                 this.nameElement.innerText = playerInfo.player.name;
                 this.healthElement = playerElement.getElementsByClassName('remainingHealth')[0];
-                this.readyElement = playerElement.getElementsByClassName('playerready')[0];
-                this.showReady(false);
                 this.updateHealth();
             }
-            PlayerInfo.prototype.showReady = function (show) {
-                this.readyElement.style.visibility = show ? '' : 'hidden';
-            };
-
             PlayerInfo.prototype.updateHealth = function () {
                 this.healthElement.style.width = ((this.health / 5) * 100) + '%';
             };
 
             PlayerInfo.prototype.onTurnResult = function (winningPlayer) {
-                this.showReady(false);
                 if (winningPlayer && winningPlayer.playerId !== this.playerId) {
                     --this.health;
                     this.updateHealth();
@@ -79,6 +72,8 @@ var views;
 
                 this.resetScoreboard();
                 this.chips = [];
+                this.player1Chip = new views.choosehand.Chip(models.entities.BetType.Unknown, 25, 1000, 400);
+                this.player2Chip = new views.choosehand.Chip(models.entities.BetType.Unknown, 650, 1000, 400);
             }
             Duel.prototype.enter = function (previousState) {
                 var _this = this;
@@ -100,15 +95,18 @@ var views;
                     _this.scoreboardShown = !_this.scoreboardShown;
                 };
 
-                var chips = this.layer.getElementsByClassName('chips')[0];
+                var chipsContainer = this.layer.getElementsByClassName('chips')[0];
                 for (var i = 0; i < 10; i++) {
                     var chip = new views.choosehand.Chip(models.entities.BetType.Unknown, x, -100, 10 + 10 * i);
                     var x = i % 2 == 0 ? -200 : 1000;
-                    chips.appendChild(chip.element);
+                    chipsContainer.appendChild(chip.element);
                     this.chips.push(chip);
 
                     TweenLite.to(chip.element, 0.5, { top: 440 - 10 * i, left: 338, delay: i * 0.05, ease: Cubic.easeOut });
                 }
+
+                chipsContainer.appendChild(this.player1Chip.element);
+                chipsContainer.appendChild(this.player2Chip.element);
 
                 document.onkeyup = function (event) {
                     _this.onKeyUp(event.keyCode);
@@ -121,6 +119,11 @@ var views;
                 this.datacontext.turnReady.remove(this.onTurnReady, this);
                 this.datacontext.turnResult.remove(this.onTurnResult, this);
                 this.showScoreboardButton.onclick = null;
+                var chipsContainer = this.layer.getElementsByClassName('chips')[0];
+                while (chipsContainer.childElementCount > 0) {
+                    chipsContainer.removeChild(chipsContainer.children[0]);
+                }
+
                 document.onkeyup = null;
             };
 
@@ -183,7 +186,11 @@ var views;
                 for (var playerId = 0; playerId < playerKeys.length; ++playerId) {
                     if (keyCode in playerKeys[playerId]) {
                         if (this.datacontext.MakeBet(playerId, playerKeys[playerId][keyCode])) {
-                            this.players[playerId].showReady(true);
+                            var playerChip = playerId == 0 ? this.player1Chip : this.player2Chip;
+
+                            playerChip.element.style.opacity = "1";
+                            playerChip.element.style.visibility = "visible";
+                            TweenLite.fromTo(playerChip.element, 0.5, { top: 1000 }, { top: 300, ease: Cubic.easeOut });
                         }
                     }
                 }
@@ -209,9 +216,31 @@ var views;
 
             Duel.prototype.onTurnResult = function (winningPlayer, betType, players) {
                 this.activeChip.setBetType(betType);
-                TweenLite.to(this.activeChip.element, 0.5, { top: 300 });
+                TweenLite.to(this.activeChip.element, 1, { top: 300 });
                 TweenMax.to(this.activeChip.element, 0, { scaleY: 1 });
                 TweenMax.to(this.activeChip.element, .2, { scaleX: 0, yoyo: true, repeat: 5, ease: Cubic.easeIn });
+
+                var p1Chip = this.player1Chip;
+                TweenMax.to(this.player1Chip.element, 0.1, {
+                    scaleX: 0,
+                    yoyo: true,
+                    repeat: 1,
+                    delay: 1,
+                    onRepeat: function () {
+                        p1Chip.setBetType(players[0].currentBet);
+                    }
+                });
+
+                var p2Chip = this.player2Chip;
+                TweenMax.to(this.player2Chip.element, 0.1, {
+                    scaleX: 0,
+                    yoyo: true,
+                    repeat: 1,
+                    delay: 1.5,
+                    onRepeat: function () {
+                        p2Chip.setBetType(players[1].currentBet);
+                    }
+                });
 
                 var that = this;
                 window.setTimeout(function () {
@@ -231,11 +260,27 @@ var views;
             Duel.prototype.flipNextChip = function () {
                 if (this.activeChip != null) {
                     TweenMax.to(this.activeChip.element, 0.4, { autoAlpha: 0 });
+
+                    var p1Chip = this.player1Chip;
+                    TweenLite.to(this.player1Chip.element, 0.4, {
+                        autoAlpha: 0,
+                        onComplete: function () {
+                            p1Chip.setBetType(models.entities.BetType.Unknown);
+                        }
+                    });
+
+                    var p2Chip = this.player2Chip;
+                    TweenLite.to(this.player2Chip.element, 0.4, {
+                        autoAlpha: 0,
+                        onComplete: function () {
+                            p2Chip.setBetType(models.entities.BetType.Unknown);
+                        }
+                    });
                 }
 
                 if (this.chips.length > 0) {
                     this.activeChip = this.chips.pop();
-                    TweenLite.to(this.activeChip.element, .5, { top: -100, ease: Cubic.easeOut });
+                    TweenLite.to(this.activeChip.element, 1.5, { top: -100 });
                     TweenMax.to(this.activeChip.element, 0.1, { scaleY: 0, yoyo: true, repeat: 8 });
 
                     TweenMax.fromTo(this.startTurnLabel, 0.5, { opacity: 0 }, { autoAlpha: 1, yoyo: true, repeat: 1, repeatDelay: 1 });

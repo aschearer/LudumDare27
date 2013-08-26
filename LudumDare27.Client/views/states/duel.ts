@@ -9,7 +9,6 @@ module views.states {
         private iconElement: HTMLImageElement;
         private nameElement: HTMLParagraphElement;
         private healthElement: HTMLDivElement;
-        private readyElement: HTMLSpanElement;
         private playerId: number;
         private health: number;
 
@@ -21,13 +20,7 @@ module views.states {
             this.nameElement = <HTMLParagraphElement>playerElement.getElementsByClassName('playername')[0];
             this.nameElement.innerText = playerInfo.player.name;
             this.healthElement = <HTMLDivElement>playerElement.getElementsByClassName('remainingHealth')[0];
-            this.readyElement = <HTMLSpanElement>playerElement.getElementsByClassName('playerready')[0];
-            this.showReady(false);
             this.updateHealth();
-        }
-
-        public showReady(show: boolean) {
-            this.readyElement.style.visibility = show ? '' : 'hidden';
         }
 
         public updateHealth() {
@@ -35,7 +28,6 @@ module views.states {
         }
 
         public onTurnResult(winningPlayer: models.entities.Player) {
-            this.showReady(false);
             if (winningPlayer && winningPlayer.playerId !== this.playerId) {
                 --this.health;
                 this.updateHealth();
@@ -81,6 +73,8 @@ module views.states {
 
         private activeChip: choosehand.Chip;
         private chips: choosehand.Chip[];
+        private player1Chip: choosehand.Chip;
+        private player2Chip: choosehand.Chip;
 
         private countdownElement: HTMLSpanElement;
         private countdown: number;
@@ -103,6 +97,8 @@ module views.states {
 
             this.resetScoreboard();
             this.chips = [];
+            this.player1Chip = new choosehand.Chip(models.entities.BetType.Unknown, 25, 1000, 400);
+            this.player2Chip = new choosehand.Chip(models.entities.BetType.Unknown, 650, 1000, 400);
         }
 
         public enter(previousState: IState) {
@@ -125,15 +121,18 @@ module views.states {
                 this.scoreboardShown = !this.scoreboardShown;
             };
 
-            var chips: HTMLDivElement = <HTMLDivElement>this.layer.getElementsByClassName('chips')[0];
+            var chipsContainer: HTMLDivElement = <HTMLDivElement>this.layer.getElementsByClassName('chips')[0];
             for (var i = 0; i < 10; i++) {
                 var chip: choosehand.Chip = new choosehand.Chip(models.entities.BetType.Unknown, x, -100, 10 + 10 * i);
                 var x: number = i % 2 == 0 ? -200 : 1000;
-                chips.appendChild(chip.element);
+                chipsContainer.appendChild(chip.element);
                 this.chips.push(chip);
 
                 TweenLite.to(chip.element, 0.5, { top: 440 - 10 * i, left: 338, delay: i * 0.05, ease: Cubic.easeOut });
             }
+
+            chipsContainer.appendChild(this.player1Chip.element);
+            chipsContainer.appendChild(this.player2Chip.element);
 
             document.onkeyup = (event) => {
                 this.onKeyUp(event.keyCode);
@@ -146,6 +145,11 @@ module views.states {
             this.datacontext.turnReady.remove(this.onTurnReady, this);
             this.datacontext.turnResult.remove(this.onTurnResult, this);
             this.showScoreboardButton.onclick = null;
+            var chipsContainer: HTMLDivElement = <HTMLDivElement>this.layer.getElementsByClassName('chips')[0];
+            while (chipsContainer.childElementCount > 0) {
+                chipsContainer.removeChild(chipsContainer.children[0]);
+            }
+
             document.onkeyup = null;
         }
 
@@ -208,7 +212,11 @@ module views.states {
             for (var playerId = 0; playerId < playerKeys.length; ++playerId) {
                 if (keyCode in playerKeys[playerId]) {
                     if (this.datacontext.MakeBet(playerId, playerKeys[playerId][keyCode])) {
-                        this.players[playerId].showReady(true);
+                        var playerChip: choosehand.Chip = playerId == 0 ? this.player1Chip : this.player2Chip;
+
+                        playerChip.element.style.opacity = "1";
+                        playerChip.element.style.visibility = "visible";
+                        TweenLite.fromTo(playerChip.element, 0.5, { top: 1000 }, { top: 300, ease: Cubic.easeOut });
                     }
                 }
             }
@@ -234,9 +242,23 @@ module views.states {
 
         private onTurnResult(winningPlayer: models.entities.Player, betType: models.entities.BetType, players: Array<models.entities.Player>) {
             this.activeChip.setBetType(betType);
-            TweenLite.to(this.activeChip.element, 0.5, { top: 300 });
+            TweenLite.to(this.activeChip.element, 1, { top: 300 });
             TweenMax.to(this.activeChip.element, 0, { scaleY: 1 });
             TweenMax.to(this.activeChip.element, .2, { scaleX: 0, yoyo: true, repeat: 5, ease: Cubic.easeIn });
+
+            var p1Chip = this.player1Chip;
+            TweenMax.to(this.player1Chip.element, 0.1, {
+                scaleX: 0, yoyo: true, repeat: 1, delay: 1, onRepeat: function () {
+                    p1Chip.setBetType(players[0].currentBet);
+                }
+            });
+
+            var p2Chip = this.player2Chip;
+            TweenMax.to(this.player2Chip.element, 0.1, {
+                scaleX: 0, yoyo: true, repeat: 1, delay: 1.5, onRepeat: function () {
+                    p2Chip.setBetType(players[1].currentBet);
+                }
+            });
 
             var that = this;
             window.setTimeout(function () {
@@ -256,11 +278,25 @@ module views.states {
         private flipNextChip() {
             if (this.activeChip != null) {
                 TweenMax.to(this.activeChip.element, 0.4, { autoAlpha: 0 });
+
+                var p1Chip = this.player1Chip;
+                TweenLite.to(this.player1Chip.element, 0.4, {
+                    autoAlpha: 0, onComplete: function () {
+                        p1Chip.setBetType(models.entities.BetType.Unknown);
+                    }
+                });
+
+                var p2Chip = this.player2Chip;
+                TweenLite.to(this.player2Chip.element, 0.4, {
+                    autoAlpha: 0, onComplete: function () {
+                        p2Chip.setBetType(models.entities.BetType.Unknown);
+                    }
+                });
             }
 
             if (this.chips.length > 0) {
                 this.activeChip = this.chips.pop();
-                TweenLite.to(this.activeChip.element, .5, { top: -100, ease: Cubic.easeOut });
+                TweenLite.to(this.activeChip.element, 1.5, { top: -100 });
                 TweenMax.to(this.activeChip.element, 0.1, { scaleY: 0, yoyo: true, repeat: 8 });
 
                 TweenMax.fromTo(this.startTurnLabel, 0.5, { opacity: 0 }, { autoAlpha: 1, yoyo: true, repeat: 1, repeatDelay: 1 });
