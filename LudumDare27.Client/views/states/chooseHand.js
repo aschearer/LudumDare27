@@ -82,7 +82,7 @@ var views;
 
                 this.readyButton.onclick = function (event) {
                     if (!_this.activeEnabled) {
-                        return;
+                        return false;
                     }
 
                     for (var i = 0; i < _this.chipStacks.length; i++) {
@@ -93,6 +93,8 @@ var views;
                     window.setTimeout(function () {
                         that.datacontext.chooseHand();
                     }, 200);
+
+                    return false;
                 };
             };
 

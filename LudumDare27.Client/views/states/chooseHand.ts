@@ -96,7 +96,7 @@ module views.states {
 
             this.readyButton.onclick = (event) => {
                 if (!this.activeEnabled) {
-                    return;
+                    return false;
                 }
 
                 for (var i = 0; i < this.chipStacks.length; i++) {
@@ -107,6 +107,8 @@ module views.states {
                 window.setTimeout(function () {
                     that.datacontext.chooseHand()
                 }, 200);
+
+                return false;
             };
         }
 

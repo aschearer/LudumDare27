@@ -78,8 +78,9 @@ module views.states {
         }
 
         public enter(previousState: IState) {
-            this.readyButton.onclick = (event) => {
+            this.readyButton.onclick = () => {
                 this.datacontext.endGame();
+                return false;
             };
         }
 

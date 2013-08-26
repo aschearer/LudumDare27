@@ -71,8 +71,9 @@ var views;
             }
             GameOver.prototype.enter = function (previousState) {
                 var _this = this;
-                this.readyButton.onclick = function (event) {
+                this.readyButton.onclick = function () {
                     _this.datacontext.endGame();
+                    return false;
                 };
             };
 

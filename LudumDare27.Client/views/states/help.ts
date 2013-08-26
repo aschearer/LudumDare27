@@ -47,6 +47,7 @@ module views.states {
                 this.activeButton = <HTMLAnchorElement>this.activeInstruction.getElementsByClassName('more-button')[0];
                 this.activeButton.onclick = () => {
                     this.activateInstruction(activeInstruction + 1);
+                    return false;
                 };
             }
         }

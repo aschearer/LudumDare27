@@ -39,6 +39,7 @@ var views;
                     this.activeButton = this.activeInstruction.getElementsByClassName('more-button')[0];
                     this.activeButton.onclick = function () {
                         _this.activateInstruction(activeInstruction + 1);
+                        return false;
                     };
                 }
             };
