@@ -4,6 +4,21 @@
 
 module views.states {
 
+    var greetings = ["Welcome", "Howdy", "Ahoy", "Yo", "'Zup"];
+    var insults = ["dastardly", "cowardly", "scurvy", "ill-mannered", "lily-livered"];
+    var lastGreeting = null;
+    var lastInsult = null;
+
+    function getRandomInstruction(instructions: string[], lastInstruction: string): string {
+        var random = null;
+
+        do {
+            random = Math.floor(Math.random() * instructions.length);
+        } while (instructions[random] === lastInstruction);
+
+        return instructions[random];
+    }
+
     export class ChooseHand implements IState {
 
         public id: string = "views.states.ChooseHand";
@@ -58,6 +73,8 @@ module views.states {
 
         public enter(previousState: IState) {
             document.getElementById('instruction-player-name').innerHTML = this.datacontext.GetCurrentPlayerName();
+            document.getElementById('instruction-greeting').innerHTML = lastGreeting = getRandomInstruction(greetings, lastGreeting);
+            document.getElementById('instruction-insult').innerHTML = lastInsult = getRandomInstruction(insults, lastInsult);
 
             if (this.datacontext.currentInstruction >= 0) {
                 this.activateInstruction();
