@@ -88,6 +88,7 @@ module views.states {
 
         private currentTurn: number;
         private turnInProgress: boolean;
+        private turnLocked: boolean;
 
         private turnResults: TurnResults;
 
@@ -114,6 +115,7 @@ module views.states {
 
         public enter(previousState: IState) {
             this.turnInProgress = false;
+            this.turnLocked = false;
             this.datacontext.turnReady.add(this.onTurnReady, this);
             this.datacontext.turnResult.add(this.onTurnResult, this);
 
@@ -147,8 +149,8 @@ module views.states {
             chipsContainer.appendChild(this.player1Chip.element);
             chipsContainer.appendChild(this.player2Chip.element);
 
-            document.onkeyup = (event) => {
-                this.onKeyUp(event.keyCode);
+            document.onkeydown = (event) => {
+                this.onKeyDown(event.keyCode, event);
             };
 
             this.chips[this.chips.length - 1].element.onclick = this.startNewTurn.bind(this);
@@ -167,7 +169,7 @@ module views.states {
                 chipsContainer.removeChild(chipsContainer.children[0]);
             }
 
-            document.onkeyup = null;
+            document.onkeydown = null;
         }
 
         private forEachTurnElement(turn, func) {
@@ -224,16 +226,21 @@ module views.states {
             });
         }
 
-        private onKeyUp(keyCode: number) {
-            if (!this.turnInProgress) {
-                if (keyCode == 32) {
+        private onKeyDown(keyCode: number, e) {
+            if (keyCode == 32) {
+                e.preventDefault();
+                if (!this.turnInProgress && !this.turnLocked) {
                     this.startNewTurn();
                 }
-                return;
             }
 
             for (var playerId = 0; playerId < playerKeys.length; ++playerId) {
                 if (keyCode in playerKeys[playerId]) {
+                    e.preventDefault();
+                    if (!this.turnInProgress || this.turnLocked) {
+                        return;
+                    }
+
                     var newBet: models.entities.BetType = playerKeys[playerId][keyCode];
                     var previousBet: models.entities.BetType = this.datacontext.MakeBet(playerId, newBet);
                     if (null === previousBet) {
@@ -257,7 +264,10 @@ module views.states {
         }
 
         private onTurnReady() {
-            window.setTimeout(this.datacontext.TakeTurn.bind(this.datacontext), 1000);
+            window.setTimeout(function () {
+                this.turnLocked = true;
+                this.datacontext.TakeTurn();
+            }.bind(this), 1000);
         }
 
         private onTurnResult(winningPlayer: models.entities.Player, betType: models.entities.BetType, players: Array<models.entities.Player>) {
@@ -328,6 +338,7 @@ module views.states {
 
         private updatePlayersHealth() {
             this.turnInProgress = false;
+            this.turnLocked = false;
 
             for (var i = 0; i < this.players.length; ++i) {
                 this.players[i].onTurnResult(this.turnResults.winningPlayer);
