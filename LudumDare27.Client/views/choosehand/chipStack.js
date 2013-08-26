@@ -94,7 +94,7 @@ var views;
                     _this.onInactiveChipClicked();
                 };
 
-                this.chipStackChanged.dispatch(this.betType, true);
+                this.chipStackChanged.dispatch(this.betType, false);
             };
 
             ChipStack.prototype.onInactiveChipClicked = function () {
@@ -122,7 +122,7 @@ var views;
                     };
                 }
 
-                this.chipStackChanged.dispatch(this.betType, false);
+                this.chipStackChanged.dispatch(this.betType, true);
             };
             return ChipStack;
         })();

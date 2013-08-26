@@ -51,7 +51,7 @@ module models.entities {
         constructor(betType: BetType, available: number) {
             this.betType = betType;
             this.available = available;
-            this.selected = 0;
+            this.selected = available; // We default to all bets selected, and have the player unselect them
         }
     }
 

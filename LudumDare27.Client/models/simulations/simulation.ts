@@ -130,17 +130,21 @@ module models.simulations {
 
         public AddBetToHat(betType: models.entities.BetType) {
             var hand = this.players[this.currentPlayer].GetHand();
+            var beforeCount = hand.GetBetCount();
             hand.AddBetToHat(betType);
-            if (hand.GetBetCount() >= 5) {
-                this.canCommitHat.dispatch(true);
+            var afterCount = hand.GetBetCount();
+            if (((beforeCount === 5) || (afterCount === 5)) && (beforeCount !== afterCount)) {
+                this.canCommitHat.dispatch(afterCount === 5);
             }
         }
 
         public RemoveBetFromHat(betType: models.entities.BetType) {
             var hand = this.players[this.currentPlayer].GetHand();
+            var beforeCount = hand.GetBetCount();
             hand.RemoveBetFromHat(betType);
-            if (hand.GetBetCount() < 5) {
-                this.canCommitHat.dispatch(false);
+            var afterCount = hand.GetBetCount();
+            if (((beforeCount === 5) || (afterCount === 5)) && (beforeCount !== afterCount)) {
+                this.canCommitHat.dispatch(afterCount === 5);
             }
         }
 

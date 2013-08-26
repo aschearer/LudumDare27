@@ -102,7 +102,7 @@ module views.choosehand {
                 this.onInactiveChipClicked();
             };
 
-            this.chipStackChanged.dispatch(this.betType, true);
+            this.chipStackChanged.dispatch(this.betType, false);
         }
 
         private onInactiveChipClicked() {
@@ -130,7 +130,7 @@ module views.choosehand {
                 };
             }
 
-            this.chipStackChanged.dispatch(this.betType, false);
+            this.chipStackChanged.dispatch(this.betType, true);
         }
     }
 }

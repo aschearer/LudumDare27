@@ -47,7 +47,7 @@ var models;
             function PossibleBets(betType, available) {
                 this.betType = betType;
                 this.available = available;
-                this.selected = 0;
+                this.selected = available;
             }
             return PossibleBets;
         })();
