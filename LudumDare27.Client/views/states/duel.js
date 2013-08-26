@@ -77,6 +77,7 @@ var views;
             }
             Duel.prototype.enter = function (previousState) {
                 var _this = this;
+                this.turnInProgress = false;
                 this.datacontext.turnReady.add(this.onTurnReady, this);
                 this.datacontext.turnResult.add(this.onTurnResult, this);
 
@@ -188,10 +189,15 @@ var views;
             };
 
             Duel.prototype.onKeyUp = function (keyCode) {
+                if (keyCode == 32 && !this.turnInProgress) {
+                    this.startNewTurn();
+                    return;
+                }
+
                 for (var playerId = 0; playerId < playerKeys.length; ++playerId) {
                     if (keyCode in playerKeys[playerId]) {
                         if (this.datacontext.MakeBet(playerId, playerKeys[playerId][keyCode])) {
-                            var playerChip = playerId == 0 ? this.player1Chip : this.player2Chip;
+                            var playerChip = playerId === 0 ? this.player1Chip : this.player2Chip;
 
                             playerChip.element.style.opacity = "1";
                             playerChip.element.style.visibility = "visible";
@@ -233,6 +239,7 @@ var views;
                     }
                 });
 
+                this.turnInProgress = false;
                 this.turnResults = {
                     winningPlayer: winningPlayer,
                     players: players,
@@ -252,6 +259,8 @@ var views;
                     this.datacontext.AdvanceGame();
                 }
 
+                this.turnResults = null;
+                this.turnInProgress = true;
                 this.flipNextChip();
             };
 

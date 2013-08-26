@@ -85,6 +85,7 @@ module views.states {
         private countdownElement: HTMLSpanElement;
         private countdown: number;
         private currentTurn: number;
+        private turnInProgress: boolean;
 
         private turnResults: TurnResults;
 
@@ -110,6 +111,7 @@ module views.states {
         }
 
         public enter(previousState: IState) {
+            this.turnInProgress = false;
             this.datacontext.turnReady.add(this.onTurnReady, this);
             this.datacontext.turnResult.add(this.onTurnResult, this);
 
@@ -222,10 +224,15 @@ module views.states {
         }
 
         private onKeyUp(keyCode: number) {
+            if (keyCode == 32 && !this.turnInProgress) {
+                this.startNewTurn();
+                return;
+            }
+
             for (var playerId = 0; playerId < playerKeys.length; ++playerId) {
                 if (keyCode in playerKeys[playerId]) {
                     if (this.datacontext.MakeBet(playerId, playerKeys[playerId][keyCode])) {
-                        var playerChip: choosehand.Chip = playerId == 0 ? this.player1Chip : this.player2Chip;
+                        var playerChip: choosehand.Chip = playerId === 0 ? this.player1Chip : this.player2Chip;
 
                         playerChip.element.style.opacity = "1";
                         playerChip.element.style.visibility = "visible";
@@ -259,6 +266,7 @@ module views.states {
                 }
             });
 
+            this.turnInProgress = false;
             this.turnResults =
             {
                 winningPlayer: winningPlayer,
@@ -283,6 +291,8 @@ module views.states {
                 this.datacontext.AdvanceGame();
             }
 
+            this.turnResults = null;
+            this.turnInProgress = true;
             this.flipNextChip();
         }
 
