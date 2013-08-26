@@ -101,7 +101,7 @@ var views;
 
                 var chips = this.layer.getElementsByClassName('chips')[0];
                 for (var i = 0; i < 10; i++) {
-                    var chip = new views.choosehand.Chip(models.entities.BetType.Down, x, -100, 10 + 10 * i);
+                    var chip = new views.choosehand.Chip(models.entities.BetType.Unknown, x, -100, 10 + 10 * i);
                     var x = i % 2 == 0 ? -200 : 1000;
                     chips.appendChild(chip.element);
                     this.chips.push(chip);

@@ -6,6 +6,7 @@ var views;
         color[models.entities.BetType.Left] = 'left';
         color[models.entities.BetType.Right] = 'right';
         color[models.entities.BetType.Down] = 'down';
+        color[models.entities.BetType.Unknown] = 'unknown';
 
         var Chip = (function () {
             function Chip(betType, x, y, z) {

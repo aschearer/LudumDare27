@@ -125,7 +125,7 @@ module views.states {
 
             var chips: HTMLDivElement = <HTMLDivElement>this.layer.getElementsByClassName('chips')[0];
             for (var i = 0; i < 10; i++) {
-                var chip: choosehand.Chip = new choosehand.Chip(models.entities.BetType.Down, x, -100, 10 + 10 * i);
+                var chip: choosehand.Chip = new choosehand.Chip(models.entities.BetType.Unknown, x, -100, 10 + 10 * i);
                 var x: number = i % 2 == 0 ? -200 : 1000;
                 chips.appendChild(chip.element);
                 this.chips.push(chip);

@@ -4,6 +4,7 @@ module models.entities {
         Left,
         Down,
         Right,
+        Unknown,
     }
 
     export class Hat {

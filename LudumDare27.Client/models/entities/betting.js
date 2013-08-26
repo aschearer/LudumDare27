@@ -6,6 +6,7 @@ var models;
             BetType[BetType["Left"] = 1] = "Left";
             BetType[BetType["Down"] = 2] = "Down";
             BetType[BetType["Right"] = 3] = "Right";
+            BetType[BetType["Unknown"] = 4] = "Unknown";
         })(entities.BetType || (entities.BetType = {}));
         var BetType = entities.BetType;
 
