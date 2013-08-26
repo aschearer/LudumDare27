@@ -23,6 +23,12 @@ var views;
                 return chip;
             };
 
+            Chip.prototype.setBetType = function (betType) {
+                this.element.classList.remove(color[this.betType]);
+                this.betType = betType;
+                this.element.classList.add(color[this.betType]);
+            };
+
             Chip.GetColor = function (betType) {
                 return color[betType];
             };

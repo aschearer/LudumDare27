@@ -233,26 +233,38 @@ module views.states {
         }
 
         private onTurnResult(winningPlayer: models.entities.Player, betType: models.entities.BetType, players: Array<models.entities.Player>) {
-            for (var i = 0; i < this.players.length; ++i) {
-                this.players[i].onTurnResult(winningPlayer);
-            }
+            this.activeChip.setBetType(betType);
+            TweenLite.to(this.activeChip.element, 0.5, { top: 300 });
+            TweenMax.to(this.activeChip.element, 0, { scaleY: 1 });
+            TweenMax.to(this.activeChip.element, .2, { scaleX: 0, yoyo: true, repeat: 5, ease: Cubic.easeIn });
 
-            // Update turn information
-            this.updateTurnInformation(players[0].currentBet, players[1].currentBet, betType, winningPlayer ? winningPlayer.playerId : null);
+            var that = this;
+            window.setTimeout(function () {
+                for (var i = 0; i < that.players.length; ++i) {
+                    that.players[i].onTurnResult(winningPlayer);
+                }
 
-            this.datacontext.AdvanceGame();
+                // Update turn information
+                that.updateTurnInformation(players[0].currentBet, players[1].currentBet, betType, winningPlayer ? winningPlayer.playerId : null);
 
-            this.flipNextChip();
+                that.datacontext.AdvanceGame();
+
+                that.flipNextChip();
+            }, 4000);
         }
 
         private flipNextChip() {
+            if (this.activeChip != null) {
+                TweenMax.to(this.activeChip.element, 0.4, { autoAlpha: 0 });
+            }
+
             if (this.chips.length > 0) {
                 this.activeChip = this.chips.pop();
                 TweenLite.to(this.activeChip.element, .5, { top: -100, ease: Cubic.easeOut });
                 TweenMax.to(this.activeChip.element, 0.1, { scaleY: 0, yoyo: true, repeat: 8 });
 
-                TweenMax.fromTo(this.startTurnLabel, 1, { opacity: 0 }, { autoAlpha: 1, yoyo: true, repeat: 1, repeatDelay: 2 });
-                TweenMax.fromTo(this.startTurnLabel, 4, { marginLeft: 20 }, { marginLeft: -20 });
+                TweenMax.fromTo(this.startTurnLabel, 0.5, { opacity: 0 }, { autoAlpha: 1, yoyo: true, repeat: 1, repeatDelay: 1 });
+                TweenMax.fromTo(this.startTurnLabel, 2, { marginLeft: 20 }, { marginLeft: -20 });
             }
         }
     }

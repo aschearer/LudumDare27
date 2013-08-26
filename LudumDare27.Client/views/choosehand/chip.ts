@@ -27,6 +27,12 @@ module views.choosehand {
             return chip;
         }
 
+        public setBetType(betType: models.entities.BetType) {
+            this.element.classList.remove(color[this.betType]);
+            this.betType = betType;
+            this.element.classList.add(color[this.betType]);
+        }
+
         static GetColor(betType: models.entities.BetType): string {
             return color[betType];
         }
