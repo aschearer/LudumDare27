@@ -121,6 +121,10 @@ var views;
                 this.datacontext.turnResult.remove(this.onTurnResult, this);
                 this.showScoreboardButton.onclick = null;
                 var chipsContainer = this.layer.getElementsByClassName('chips')[0];
+                for (var i = 0; i < chipsContainer.childElementCount; i++) {
+                    (chipsContainer.children[i]).onclick = null;
+                }
+
                 while (chipsContainer.childElementCount > 0) {
                     chipsContainer.removeChild(chipsContainer.children[0]);
                 }
@@ -279,8 +283,8 @@ var views;
                     TweenLite.to(this.activeChip.element, 1.5, { top: -100 });
                     TweenMax.to(this.activeChip.element, 0.1, { scaleY: 0, yoyo: true, repeat: 8 });
 
-                    TweenMax.fromTo(this.startTurnLabel, 0.5, { opacity: 0 }, { autoAlpha: 1, yoyo: true, repeat: 1, repeatDelay: 1 });
-                    TweenMax.fromTo(this.startTurnLabel, 2, { marginLeft: 20 }, { marginLeft: -20 });
+                    TweenMax.fromTo(this.startTurnLabel, 0.5, { opacity: 0 }, { autoAlpha: 1, yoyo: true, repeat: 1, delay: 1, repeatDelay: 1.5 });
+                    TweenMax.fromTo(this.startTurnLabel, 2.5, { marginLeft: 20 }, { marginLeft: -20, delay: 1 });
 
                     this.chips[this.chips.length - 1].element.onclick = this.startNewTurn.bind(this);
                 }
