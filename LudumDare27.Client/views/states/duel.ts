@@ -82,8 +82,6 @@ module views.states {
         private player1Chip: choosehand.Chip;
         private player2Chip: choosehand.Chip;
 
-        private countdownElement: HTMLSpanElement;
-        private countdown: number;
         private currentTurn: number;
         private turnInProgress: boolean;
 
@@ -99,9 +97,6 @@ module views.states {
             this.players[1] = new PlayerInfo(this.layer, gamePlayers[1]);
             this.startTurnLabel = document.getElementById('start-turn-text');
 
-            this.countdownElement = <HTMLSpanElement>document.getElementById('countdown');
-            this.countdownElement.style.visibility = 'hidden';
-            this.countdown = 3;
             this.currentTurn = 1;
 
             this.resetScoreboard();

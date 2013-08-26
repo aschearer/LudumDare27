@@ -65,9 +65,6 @@ var views;
                 this.players[1] = new PlayerInfo(this.layer, gamePlayers[1]);
                 this.startTurnLabel = document.getElementById('start-turn-text');
 
-                this.countdownElement = document.getElementById('countdown');
-                this.countdownElement.style.visibility = 'hidden';
-                this.countdown = 3;
                 this.currentTurn = 1;
 
                 this.resetScoreboard();
