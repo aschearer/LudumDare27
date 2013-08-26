@@ -1,6 +1,15 @@
 ﻿body {
     padding-top: 20px;
     background: url('../images/page/pattern.png') repeat;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Ewert', cursive;
+}
+
+small {
+    font-family: 'Open Sans', sans-serif;
 }
 
 #main-content {
@@ -43,13 +52,11 @@
 }
 
     #title-layer .content {
-        font-family: 'Ewert', cursive;
         text-align: center;
         padding-top: 230px;
     }
 
         #title-layer .content h1 {
-            font-family: 'Ewert', cursive;
             font-size: 91px;
             color: #91e0f0;
             background: url('../images/title/title.png') no-repeat;
@@ -104,7 +111,6 @@
 }
 
     #duel-layer #start-turn-text {
-        font-family: 'Ewert', cursive;
         font-size: 91px;
         color: #91e0f0;
         background: url('../images/duel/start-turn.png') no-repeat;
@@ -155,7 +161,6 @@
         #duel-layer .player .profile {
             float: right;
             width: 75%;
-            font-family: 'Open Sans', sans-serif;
             font-size: 24px;
         }
 
@@ -190,7 +195,6 @@
     #duel-layer .table {
         background: white;
         width: 800px;
-        font-family: 'Open Sans', sans-serif;
         font-size: 12px;
         margin: 0;
     }
@@ -330,14 +334,13 @@
         margin: 20px 0 auto 180px;
         padding: 4px 8px;
         display: inline-block;
-        font-family: 'Open Sans', sans-serif;
         font-size: 24px;
         background: white;
         border-radius: 6px;
         box-shadow: 5px 5px 2px #636363;
     }
 
-        .tutor .instruction .highlight {
+        .highlight {
             color: green;
             font-weight: bold;
         }
