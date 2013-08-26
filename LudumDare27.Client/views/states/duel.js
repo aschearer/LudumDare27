@@ -6,18 +6,31 @@ var views;
         var Duel = (function () {
             function Duel(datacontext) {
                 this.id = "views.states.Duel";
+                this.scoreboardShown = false;
                 this.datacontext = datacontext;
                 this.layer = document.getElementById('duel-layer');
+                this.showScoreboardButton = document.getElementById('toggle-scoreboard-button');
             }
             Duel.prototype.enter = function (previousState) {
                 var _this = this;
-                this.layer.onclick = function (event) {
-                    _this.datacontext.goBack();
+                var that = this;
+                this.showScoreboardButton.onclick = function (event) {
+                    if (_this.scoreboardShown) {
+                        document.getElementById('scoreboard').style.top = '-300px';
+                        _this.showScoreboardButton.classList.remove('glyphicon-chevron-up');
+                        _this.showScoreboardButton.classList.add('glyphicon-chevron-down');
+                    } else {
+                        document.getElementById('scoreboard').style.top = '84px';
+                        _this.showScoreboardButton.classList.remove('glyphicon-chevron-down');
+                        _this.showScoreboardButton.classList.add('glyphicon-chevron-up');
+                    }
+
+                    _this.scoreboardShown = !_this.scoreboardShown;
                 };
             };
 
             Duel.prototype.exit = function (nextState) {
-                this.layer.onclick = null;
+                this.showScoreboardButton.onclick = null;
             };
             return Duel;
         })();

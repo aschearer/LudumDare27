@@ -171,6 +171,13 @@
     height: 16px;
 }
 
+#toggle-scoreboard-button {
+    float: right;
+    margin-top: -25px;
+    background: none;
+    border: none;
+}
+
 #signed-in-as {
     height: 32px;
     margin-top: 9px;

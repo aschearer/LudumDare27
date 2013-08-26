@@ -19,16 +19,15 @@
     <Content Include="app\ludumdare27.css" />
     <Content Include="app\ludumdare27.js" />
     <Content Include="default.htm" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="images\chooseHand\background.jpg" />
     <Content Include="images\chooseHand\tutor.png" />
     <Content Include="images\duel\background.jpg" />
     <Content Include="images\title\background.jpg" />
     <Content Include="images\title\start.png" />
     <Content Include="images\title\title.png" />
-    <Content Include="libs\bootstrap.min.js" />
     <Content Include="libs\console.js" />
     <Content Include="libs\createjs.min.js" />
-    <Content Include="libs\jquery.min.js" />
     <Content Include="libs\typings\easeljs\easeljs.d.ts" />
     <Content Include="libs\typings\soundjs\soundjs.d.ts" />
     <Content Include="libs\typings\tweenjs\tweenjs.d.ts" />
@@ -44,8 +43,8 @@
     <Content Include="models\simulations\simulation.js">
       <DependentUpon>simulation.ts</DependentUpon>
     </Content>
-    <Content Include="styles\bootstrap-theme.min.css" />
-    <Content Include="styles\bootstrap.min.css" />
+    <Content Include="styles\bootstrap-theme.css" />
+    <Content Include="styles\bootstrap.css" />
     <Content Include="styles\default.css" />
     <TypeScriptCompile Include="viewmodels\states\istate.ts" />
     <TypeScriptCompile Include="viewmodels\states\title.ts" />
@@ -87,6 +86,9 @@
     <Content Include="minify.ajaxmin">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

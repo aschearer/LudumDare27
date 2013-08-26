@@ -32,8 +32,8 @@
     <input path="libs/console.js" />
   </output>
   <output path="app/ludumdare27.css">
-    <input path="styles/bootstrap.min.css" />
-    <input path="styles/bootstrap-theme.min.css" />
+    <input path="styles/bootstrap.css" />
+    <input path="styles/bootstrap-theme.css" />
     <input path="styles/default.css" />
   </output>
 </root>
