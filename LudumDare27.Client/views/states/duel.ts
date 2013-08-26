@@ -3,6 +3,8 @@
 /// <reference path="../../models/entities/betting.ts"/>
 /// <reference path="../choosehand/chip.ts"/>
 /// <reference path="../../libs/typings/greensock.d.ts"/>
+/// <reference path="../../libs/typings/jquery/jquery.d.ts"/>
+/// <reference path="../../libs/typings/jquery/jqueryui.d.ts"/>
 
 module views.states {
     class PlayerInfo {
@@ -322,6 +324,10 @@ module views.states {
         private updatePlayersHealth() {
             for (var i = 0; i < this.players.length; ++i) {
                 this.players[i].onTurnResult(this.turnResults.winningPlayer);
+            }
+
+            if (this.turnResults.winningPlayer != null) {
+                $('#duel-layer').effect('shake', 15);
             }
 
             // Update turn information

@@ -34,8 +34,12 @@
     <Content Include="libs\greensock\TimelineMax.js" />
     <Content Include="libs\greensock\TweenLite.js" />
     <Content Include="libs\greensock\TweenMax.js" />
+    <Content Include="libs\jquery\jquery.js" />
+    <Content Include="libs\jquery\jqueryui.js" />
     <Content Include="libs\typings\easeljs\easeljs.d.ts" />
     <TypeScriptCompile Include="libs\typings\greensock.d.ts" />
+    <TypeScriptCompile Include="libs\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="libs\typings\jquery\jqueryui.d.ts" />
     <Content Include="libs\typings\soundjs\soundjs.d.ts" />
     <TypeScriptCompile Include="models\simulations\simulation.ts" />
     <TypeScriptCompile Include="models\entities\ientity.ts" />
