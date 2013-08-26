@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="app/ludumdare27.css" type="text/css" />
 </head>
 <body>
-    <header class="navbar navbar-default navbar-fixed-top" role="banner">
+    <!--<header class="navbar navbar-default navbar-fixed-top" role="banner">
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/">LD 27</a>
@@ -20,261 +20,295 @@
                 </ul>
             </nav>
         </div>
-    </header>
+    </header>-->
 
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <section id="main-content">
-                    <div id="title-layer" class="layer active-layer">
-                        <div class="content">
-                            <h1 class="hide-text">Second's Showdown</h1>
-                            <ul>
-                                <li><button id="help-button" class="hide-text">The Duel Book</button></li>
-                                <li><button id="play-button" class="hide-text">Start Dueling</button></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="game-over-layer" class="layer">
-                        <div class="tutor">
-                            <ol class="instructions">
-                                <li id="game-over-text" class="instruction active-instruction"></li>
-                            </ol>
-                        </div>
-                    </div>
-                    <div id="game-layer" class="layer">
-                        <div class="tutor">
-                            <ol class="instructions">
-                                <li class="instruction"><span id="instruction-greeting">Howdy</span>, <span id="instruction-player-name">Sally Sissypants</span>'s second. Your job is to determine a location that advantages your dueler. Start by discarding <span id="instruction-discard-count" class="highlight">two traps</span>.</li>
-                                <li class="instruction">Keep your decisions a <span class="highlight">secret</span> from your opponent. Choose wisely to gain an advantage for your dueler.</li>
-                                <li class="instruction">Having more choices means more <span class="highlight">danger</span>. Stay alert, honor depends on you.</li>
-                                <li class="instruction">Be careful: Your <span id="instruction-insult">dastardly</span> opponent also chooses <span class="highlight">five traps</span> for the duel. Click <a id="choose-hand-button" href="#">here</a> to continue.</li>
-                            </ol>
-                        </div>
-                        <div class="chips">
-                        </div>
-                    </div>
-                    <div id="duel-layer" class="layer">
-                        <div id="metadata">
-                            <div id="healthboard">
-                                <div class="player player1">
-                                    <img class="playericon" src="/images/players/sally.png" />
-                                    <div class="profile">
-                                        <p class="playername">Sally Sissypants</p>
-                                        <div class="health">
-                                            <div class="remainingHealth"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="player player2">
-                                    <img class="playericon" src="/images/players/riley.png" />
-                                    <div class="profile">
-                                        <p class="playername">Riley Roundbottom</p>
-                                        <div class="health">
-                                            <div class="remainingHealth"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <button id="toggle-scoreboard-button" class="btn glyphicon glyphicon-chevron-down"></button>
-                            </div>
-                            <div id="scoreboard">
-                                <table class="table table-condensed table-bordered">
-                                    <tr>
-                                        <th></th>
-                                        <th class="text-center turn1 current-turn">1</th>
-                                        <th class="text-center turn2">2</th>
-                                        <th class="text-center turn3">3</th>
-                                        <th class="text-center turn4">4</th>
-                                        <th class="text-center turn5">5</th>
-                                        <th class="text-center turn6">6</th>
-                                        <th class="text-center turn7">7</th>
-                                        <th class="text-center turn8">8</th>
-                                        <th class="text-center turn9">9</th>
-                                        <th class="text-center turn10">10</th>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <img class="profile-pic" src="/images/players/sally.png"  width="16" height="16" />'s Guess</th>
-                                        <td class="rowplayer1 turn1 current-turn">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer1 turn2">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer1 turn3">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer1 turn4">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer1 turn5">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer1 turn6">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer1 turn7">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer1 turn8">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer1 turn9">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer1 turn10">
-                                            <div class="chip"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <img class="profile-pic" src="/images/players/riley.png" width="16" height="16" />'s Guess</th>
-                                        <td class="rowplayer2 turn1 current-turn">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer2 turn2">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer2 turn3">
-                                            <div class="chip "></div>
-                                        </td>
-                                        <td class="rowplayer2 turn4">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer2 turn5">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer2 turn6">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer2 turn7">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer2 turn8">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer2 turn9">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowplayer2 turn10">
-                                            <div class="chip"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Actual</th>
-                                        <td class="rowactual turn1 current-turn">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowactual turn2">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowactual turn3">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowactual turn4">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowactual turn5">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowactual turn6">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowactual turn7">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowactual turn8">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowactual turn9">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowactual turn10">
-                                            <div class="chip"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Winner</th>
-                                        <td class="rowwinner text-center turn1 current-turn">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowwinner text-center turn2">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowwinner text-center turn3">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowwinner text-center turn4">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowwinner text-center turn5">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowwinner text-center turn6">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowwinner text-center turn7">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowwinner text-center turn8">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowwinner text-center turn9">
-                                            <div class="chip"></div>
-                                        </td>
-                                        <td class="rowwinner text-center turn10">
-                                            <div class="chip"></div>
-                                        </td>
-                                    </tr>
-                                </table>
+                    <div id="game-area">
+                        <div id="title-layer" class="layer active-layer">
+                            <div class="content">
+                                <h1 class="hide-text">Second's Showdown</h1>
+                                <ul>
+                                    <li>
+                                        <button id="help-button" class="hide-text">The Duel Book</button></li>
+                                    <li>
+                                        <button id="play-button" class="hide-text">Start Dueling</button></li>
+                                </ul>
                             </div>
                         </div>
-                        <h2 id="start-turn-text" class="hide-text">Guess the Next Trap</h2>
-                        <div class="chips"></div>
-                        <div id="player1-bullet" class="bullet"></div>
-                        <div id="player2-bullet" class="bullet"></div>
-                        <table id="left-controls" class="controls">
-                            <tr>
-                                <td></td>
-                                <td><span class="key up">W</span></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><span class="key left">A</span></td>
-                                <td><span class="key down">S</span></td>
-                                <td><span class="key right">D</span></td>
-                            </tr>
-                        </table>
-                        <table id="right-controls" class="controls">
-                            <tr>
-                                <td></td>
-                                <td><span class="key up">&uarr;</span></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><span class="key left">&larr;</span></td>
-                                <td><span class="key down">&darr;</span></td>
-                                <td><span class="key right">&rarr;</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="help-layer" class="layer">
-                        <div class="tutor">
-                            <ol class="instructions">
-                                <li class="instruction">Welcome to <span class="highlight">Duel City</span>. The weather is fair, the ladies are pretty, and our diet is high in lead. I can help you get situated. <a class="more-button" href="#">More</a></li>
-                                <li class="instruction">You probably heard some yelling when you arrived, that would be <span class="highlight">Sally Sissypants</span> and <span class="highlight">Riley Roundbottom</span>. They are always getting into arguments over the most trivial of things: missing steps during the box dance, overcooking vegetables, extra-marital affairs, century-long blood feuds, etc. <a class="more-button" href="#">More</a></li>
-                                <li class="instruction">I wouldn't be surprised if one of them asked you to be their <span class="highlight">second</span>. <a class="more-button" href="#">More</a></li>
-                                <li class="instruction">You don't know what a <span class="highlight">second</span> is?!? Well, fry me up in peanut butter (once that is invented) and call me Cork-o-roo! <a class="more-button" href="#">More</a></li>
-                                <li class="instruction">There are <span class="highlight">four parts</span> to a duel: the challenge, determining the location, the ten paces, and the aftermath. <a class="more-button" href="#">More</a></li>
-                                <li class="instruction">1. <span class="highlight">The Challenge</span>: Those two knuckleheads are always challenging each other. Why, just this morning I heard Sally challenge Riley because Riley's underwear was too yellow. Now, how did Sally even know that? <a class="more-button" href="#">More</a></li>
-                                <li class="instruction">2. <span class="highlight">The Location</span>: As a second, this will be your most important responsibility. You should choose terrain that benefits your duelist. Why not one <span class="highlight">full of traps</span>? Duel City is full of traps, so there shouldn't be an ethical problem. <a class="more-button" href="#">More</a></li>
-                                <li class="instruction">3. <span class="highlight">The Ten Paces</span>: The duelists take ten paces, turn, and fire.  Ten <span class="highlight">trap filled</span> paces.  That's where you come in: advise the duelist about the traps they should expect.  Too many traps and they'll be shot and killed like a dog in a trap at a duel. <a class="more-button" href="#">More</a></li>
-                                <li class="instruction">4. <span class="highlight">The Aftermath</span>: If all goes well, honor is restored and drinks flow freely. Don't dwell on the alternative: the alcohol doesn't taste as sweet. <a class="more-button" href="#">More</a></li>
-                                <li class="instruction">Uh oh, here they come, and they seem angry. Click <a class="more-button" href="#">here</a> to be a second.</li>
-                            </ol>
+                        <div id="game-over-layer" class="layer">
+                            <div class="tutor">
+                                <ol class="instructions">
+                                    <li id="game-over-text" class="instruction active-instruction"></li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div id="game-layer" class="layer">
+                            <div class="tutor">
+                                <ol class="instructions">
+                                    <li class="instruction"><span id="instruction-greeting">Howdy</span>, <span id="instruction-player-name">Sally Sissypants</span>'s second. Your job is to determine a location that advantages your dueler. Start by discarding <span id="instruction-discard-count" class="highlight">two traps</span>.</li>
+                                    <li class="instruction">Keep your decisions a <span class="highlight">secret</span> from your opponent. Choose wisely to gain an advantage for your dueler.</li>
+                                    <li class="instruction">Having more choices means more <span class="highlight">danger</span>. Stay alert, honor depends on you.</li>
+                                    <li class="instruction">Be careful: Your <span id="instruction-insult">dastardly</span> opponent also chooses <span class="highlight">five traps</span> for the duel. Click <a id="choose-hand-button" href="#">here</a> to continue.</li>
+                                </ol>
+                            </div>
+                            <div class="chips">
+                            </div>
+                        </div>
+                        <div id="duel-layer" class="layer">
+                            <div id="metadata">
+                                <div id="healthboard">
+                                    <div class="player player1">
+                                        <img class="playericon" src="/images/players/sally.png" />
+                                        <div class="profile">
+                                            <p class="playername">Sally Sissypants</p>
+                                            <div class="health">
+                                                <div class="remainingHealth"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="player player2">
+                                        <img class="playericon" src="/images/players/riley.png" />
+                                        <div class="profile">
+                                            <p class="playername">Riley Roundbottom</p>
+                                            <div class="health">
+                                                <div class="remainingHealth"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <button id="toggle-scoreboard-button" class="btn glyphicon glyphicon-chevron-down"></button>
+                                </div>
+                                <div id="scoreboard">
+                                    <table class="table table-condensed table-bordered">
+                                        <tr>
+                                            <th></th>
+                                            <th class="text-center turn1 current-turn">1</th>
+                                            <th class="text-center turn2">2</th>
+                                            <th class="text-center turn3">3</th>
+                                            <th class="text-center turn4">4</th>
+                                            <th class="text-center turn5">5</th>
+                                            <th class="text-center turn6">6</th>
+                                            <th class="text-center turn7">7</th>
+                                            <th class="text-center turn8">8</th>
+                                            <th class="text-center turn9">9</th>
+                                            <th class="text-center turn10">10</th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <img class="profile-pic" src="/images/players/sally.png" width="16" height="16" />'s Guess</th>
+                                            <td class="rowplayer1 turn1 current-turn">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer1 turn2">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer1 turn3">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer1 turn4">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer1 turn5">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer1 turn6">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer1 turn7">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer1 turn8">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer1 turn9">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer1 turn10">
+                                                <div class="chip"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <img class="profile-pic" src="/images/players/riley.png" width="16" height="16" />'s Guess</th>
+                                            <td class="rowplayer2 turn1 current-turn">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer2 turn2">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer2 turn3">
+                                                <div class="chip "></div>
+                                            </td>
+                                            <td class="rowplayer2 turn4">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer2 turn5">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer2 turn6">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer2 turn7">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer2 turn8">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer2 turn9">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowplayer2 turn10">
+                                                <div class="chip"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Actual</th>
+                                            <td class="rowactual turn1 current-turn">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowactual turn2">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowactual turn3">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowactual turn4">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowactual turn5">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowactual turn6">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowactual turn7">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowactual turn8">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowactual turn9">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowactual turn10">
+                                                <div class="chip"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Winner</th>
+                                            <td class="rowwinner text-center turn1 current-turn">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowwinner text-center turn2">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowwinner text-center turn3">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowwinner text-center turn4">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowwinner text-center turn5">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowwinner text-center turn6">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowwinner text-center turn7">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowwinner text-center turn8">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowwinner text-center turn9">
+                                                <div class="chip"></div>
+                                            </td>
+                                            <td class="rowwinner text-center turn10">
+                                                <div class="chip"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <h2 id="start-turn-text" class="hide-text">Guess the Next Trap</h2>
+                            <div class="chips"></div>
+                            <div id="player1-bullet" class="bullet"></div>
+                            <div id="player2-bullet" class="bullet"></div>
+                            <table id="left-controls" class="controls">
+                                <tr>
+                                    <td></td>
+                                    <td><span class="key up">W</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="key left">A</span></td>
+                                    <td><span class="key down">S</span></td>
+                                    <td><span class="key right">D</span></td>
+                                </tr>
+                            </table>
+                            <table id="right-controls" class="controls">
+                                <tr>
+                                    <td></td>
+                                    <td><span class="key up">&uarr;</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="key left">&larr;</span></td>
+                                    <td><span class="key down">&darr;</span></td>
+                                    <td><span class="key right">&rarr;</span></td>
+                                </tr>
+                            </table>
+                            <h2 id="start-turn-text" class="hide-text">Guess the Next Trap</h2>
+                            <div class="chips"></div>
+                            <div id="player1-bullet" class="bullet"></div>
+                            <div id="player2-bullet" class="bullet"></div>
+                            <table id="left-controls" class="controls">
+                                <tr>
+                                    <td></td>
+                                    <td><span class="key up">W</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="key left">A</span></td>
+                                    <td><span class="key down">S</span></td>
+                                    <td><span class="key right">D</span></td>
+                                </tr>
+                            </table>
+                            <table id="right-controls" class="controls">
+                                <tr>
+                                    <td></td>
+                                    <td><span class="key up">&uarr;</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="key left">&larr;</span></td>
+                                    <td><span class="key down">&darr;</span></td>
+                                    <td><span class="key right">&rarr;</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="help-layer" class="layer">
+                            <div class="tutor">
+                                <ol class="instructions">
+                                    <li class="instruction">Welcome to <span class="highlight">Duel City</span>. The weather is fair, the ladies are pretty, and our diet is high in lead. I can help you get situated. <a class="more-button" href="#">More</a></li>
+                                    <li class="instruction">You probably heard some yelling when you arrived, that would be <span class="highlight">Sally Sissypants</span> and <span class="highlight">Riley Roundbottom</span>. They are always getting into arguments over the most trivial of things: missing steps during the box dance, overcooking vegetables, extra-marital affairs, century-long blood feuds, etc. <a class="more-button" href="#">More</a></li>
+                                    <li class="instruction">I wouldn't be surprised if one of them asked you to be their <span class="highlight">second</span>. <a class="more-button" href="#">More</a></li>
+                                    <li class="instruction">You don't know what a <span class="highlight">second</span> is?!? Well, fry me up in peanut butter (once that is invented) and call me Cork-o-roo! <a class="more-button" href="#">More</a></li>
+                                    <li class="instruction">There are <span class="highlight">four parts</span> to a duel: the challenge, determining the location, the ten paces, and the aftermath. <a class="more-button" href="#">More</a></li>
+                                    <li class="instruction">1. <span class="highlight">The Challenge</span>: Those two knuckleheads are always challenging each other. Why, just this morning I heard Sally challenge Riley because Riley's underwear was too yellow. Now, how did Sally even know that? <a class="more-button" href="#">More</a></li>
+                                    <li class="instruction">2. <span class="highlight">The Location</span>: As a second, this will be your most important responsibility. You should choose terrain that benefits your duelist. Why not one <span class="highlight">full of traps</span>? Duel City is full of traps, so there shouldn't be an ethical problem. <a class="more-button" href="#">More</a></li>
+                                    <li class="instruction">3. <span class="highlight">The Ten Paces</span>: The duelists take ten paces, turn, and fire.  Ten <span class="highlight">trap filled</span> paces.  That's where you come in: advise the duelist about the traps they should expect.  Too many traps and they'll be shot and killed like a dog in a trap at a duel. <a class="more-button" href="#">More</a></li>
+                                    <li class="instruction">4. <span class="highlight">The Aftermath</span>: If all goes well, honor is restored and drinks flow freely. Don't dwell on the alternative: the alcohol doesn't taste as sweet. <a class="more-button" href="#">More</a></li>
+                                    <li class="instruction">Uh oh, here they come, and they seem angry. Click <a class="more-button" href="#">here</a> to be a second.</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
+                </section>
+                <section id="about">
                 </section>
             </div>
         </div>

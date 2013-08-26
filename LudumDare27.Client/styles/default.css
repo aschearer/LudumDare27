@@ -1,12 +1,23 @@
 ﻿body {
-    padding-top: 80px;
+    padding-top: 20px;
+    background: url('../images/page/pattern.png') repeat;
 }
 
 #main-content {
     position: relative;
+    width: 1024px;
+    height: 768px;
+    background: url('../images/page/game-background.png');
+    margin: auto;
+}
+
+#game-area {
     width: 800px;
     height: 600px;
-    background: #488b97;
+    position: relative;
+    background: #448692;
+    margin: auto;
+    top: 86px;
 }
 
 .layer {
