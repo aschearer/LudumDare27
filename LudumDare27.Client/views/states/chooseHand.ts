@@ -54,6 +54,8 @@ module views.states {
         }
 
         public enter(previousState: IState) {
+            document.getElementById('instruction-player-name').innerHTML = this.datacontext.GetCurrentPlayerName();
+
             if (this.datacontext.currentInstruction >= 0) {
                 this.activateInstruction();
             }
