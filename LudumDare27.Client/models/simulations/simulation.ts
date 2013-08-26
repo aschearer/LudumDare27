@@ -114,17 +114,17 @@ module models.simulations {
             return allPlayersReady;
         }
 
-        public MakeBet(playerId: number, betType: models.entities.BetType): boolean {
+        public MakeBet(playerId: number, betType: models.entities.BetType): models.entities.BetType {
             var player = this.players[playerId];
-            var wasPlayerNotReady = (null === player.currentBet);
+            var previousBet = player.currentBet;
 
             player.MakeBet(betType);
 
-            if (wasPlayerNotReady && this.AreAllPlayersReady()) {
+            if ((null === previousBet) && this.AreAllPlayersReady()) {
                 this.turnReady.dispatch();
             }
 
-            return wasPlayerNotReady;
+            return previousBet;
         }
 
         public TakeTurn() {

@@ -107,15 +107,15 @@ var models;
 
             Simulation.prototype.MakeBet = function (playerId, betType) {
                 var player = this.players[playerId];
-                var wasPlayerNotReady = (null === player.currentBet);
+                var previousBet = player.currentBet;
 
                 player.MakeBet(betType);
 
-                if (wasPlayerNotReady && this.AreAllPlayersReady()) {
+                if ((null === previousBet) && this.AreAllPlayersReady()) {
                     this.turnReady.dispatch();
                 }
 
-                return wasPlayerNotReady;
+                return previousBet;
             };
 
             Simulation.prototype.TakeTurn = function () {

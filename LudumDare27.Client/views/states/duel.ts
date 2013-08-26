@@ -234,12 +234,23 @@ module views.states {
 
             for (var playerId = 0; playerId < playerKeys.length; ++playerId) {
                 if (keyCode in playerKeys[playerId]) {
-                    if (this.datacontext.MakeBet(playerId, playerKeys[playerId][keyCode])) {
+                    var newBet: models.entities.BetType = playerKeys[playerId][keyCode];
+                    var previousBet: models.entities.BetType = this.datacontext.MakeBet(playerId, newBet);
+                    if (null === previousBet) {
                         var playerChip: choosehand.Chip = playerId === 0 ? this.player1Chip : this.player2Chip;
 
                         playerChip.element.style.opacity = "1";
                         playerChip.element.style.visibility = "visible";
                         TweenMax.fromTo(playerChip.element, 0.2, { top: 1000 }, { top: 300, ease: Cubic.easeOut });
+                    } else if (newBet !== previousBet) {
+                        // flip chip
+                        var playerChip: choosehand.Chip = playerId === 0 ? this.player1Chip : this.player2Chip;
+                        // flip guesses to reveal them
+                        var p1ChipTimeline: TimelineMax = new TimelineMax();
+                        p1ChipTimeline.to(playerChip.element, 0.1, { scaleX: 0 });
+                        p1ChipTimeline.to(playerChip.element, 0.1, { scaleX: 1 });
+                        p1ChipTimeline.play();
+
                     }
                 }
             }
