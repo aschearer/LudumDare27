@@ -24,6 +24,7 @@ var views;
         var ChooseHand = (function () {
             function ChooseHand(datacontext) {
                 this.id = "views.states.ChooseHand";
+                this.activeEnabled = false;
                 this.datacontext = datacontext;
                 this.layer = document.getElementById('game-layer');
                 this.instructions = this.layer.getElementsByClassName('instructions')[0];
@@ -67,7 +68,7 @@ var views;
                 document.getElementById('instruction-insult').innerHTML = lastInsult = getRandomInstruction(insults, lastInsult);
 
                 if (this.datacontext.currentInstruction >= 0) {
-                    this.activateInstruction();
+                    this.activateInstruction(this.datacontext.currentInstruction);
                 }
 
                 for (var i = 0; i < this.chipStacks.length; i++) {
@@ -79,6 +80,10 @@ var views;
                 this.datacontext.showCanCommit.add(this.showCanCommit, this);
 
                 this.readyButton.onclick = function (event) {
+                    if (!_this.activeEnabled) {
+                        return;
+                    }
+
                     for (var i = 0; i < _this.chipStacks.length; i++) {
                         _this.chipStacks[i].hideChips();
                     }
@@ -109,11 +114,11 @@ var views;
                     this.activeInstruction.classList.remove('active-instruction');
                 }
 
-                this.activateInstruction();
+                this.activateInstruction(activeInstruction);
             };
 
-            ChooseHand.prototype.activateInstruction = function () {
-                this.activeInstruction = this.instructions.children[this.datacontext.currentInstruction];
+            ChooseHand.prototype.activateInstruction = function (activeInstruction) {
+                this.activeInstruction = this.instructions.children[activeInstruction];
                 this.activeInstruction.classList.add('active-instruction');
             };
 
@@ -126,6 +131,7 @@ var views;
             };
 
             ChooseHand.prototype.showCanCommit = function (enable) {
+                this.activeEnabled = enable;
                 for (var i = 0; i < this.chipStacks.length; i++) {
                     this.chipStacks[i].setActiveEnabled(!enable);
                 }

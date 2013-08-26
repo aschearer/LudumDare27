@@ -37,6 +37,8 @@ module views.states {
 
         private chipStacks: choosehand.ChipStack[];
 
+        private activeEnabled: boolean = false;
+
         constructor(datacontext: viewmodels.states.ChooseHand) {
             this.datacontext = datacontext;
             this.layer = <HTMLDivElement>document.getElementById('game-layer');
@@ -81,7 +83,7 @@ module views.states {
             document.getElementById('instruction-insult').innerHTML = lastInsult = getRandomInstruction(insults, lastInsult);
 
             if (this.datacontext.currentInstruction >= 0) {
-                this.activateInstruction();
+                this.activateInstruction(this.datacontext.currentInstruction);
             }
 
             for (var i = 0; i < this.chipStacks.length; i++) {
@@ -93,6 +95,10 @@ module views.states {
             this.datacontext.showCanCommit.add(this.showCanCommit, this);
 
             this.readyButton.onclick = (event) => {
+                if (!this.activeEnabled) {
+                    return;
+                }
+
                 for (var i = 0; i < this.chipStacks.length; i++) {
                     this.chipStacks[i].hideChips();
                 }
@@ -123,11 +129,11 @@ module views.states {
                 this.activeInstruction.classList.remove('active-instruction');
             }
 
-            this.activateInstruction();
+            this.activateInstruction(activeInstruction);
         }
 
-        private activateInstruction() {
-            this.activeInstruction = <HTMLElement>this.instructions.children[this.datacontext.currentInstruction];
+        private activateInstruction(activeInstruction: number) {
+            this.activeInstruction = <HTMLElement>this.instructions.children[activeInstruction];
             this.activeInstruction.classList.add('active-instruction');
         }
 
@@ -140,6 +146,7 @@ module views.states {
         }
 
         private showCanCommit(enable: boolean) {
+            this.activeEnabled = enable;
             for (var i = 0; i < this.chipStacks.length; i++) {
                 this.chipStacks[i].setActiveEnabled(!enable);
             }

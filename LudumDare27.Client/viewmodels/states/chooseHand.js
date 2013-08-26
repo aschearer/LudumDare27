@@ -24,12 +24,8 @@ var viewmodels;
 
             ChooseHand.prototype.onCanCommitHat = function (enable) {
                 this.showCanCommit.dispatch(enable);
-                if (enable && (this.currentInstruction !== 2)) {
-                    this.currentInstruction = 2;
-                    this.instructionChanged.dispatch(this.currentInstruction);
-                } else if (!enable && (this.currentInstruction === 2)) {
-                    this.currentInstruction = 1;
-                    this.instructionChanged.dispatch(this.currentInstruction);
+                if (enable && (this.currentInstruction !== 3)) {
+                    this.instructionChanged.dispatch(3);
                 }
             };
 
@@ -43,19 +39,19 @@ var viewmodels;
             };
 
             ChooseHand.prototype.AddBetToHat = function (betType) {
-                this.simulation.AddBetToHat(betType);
                 if (this.currentInstruction > 0) {
                     this.currentInstruction--;
                     this.instructionChanged.dispatch(this.currentInstruction);
                 }
+                this.simulation.AddBetToHat(betType);
             };
 
             ChooseHand.prototype.RemoveBetFromHat = function (betType) {
-                this.simulation.RemoveBetFromHat(betType);
-                if (this.currentInstruction < 1) {
+                if (this.currentInstruction < 3) {
                     this.currentInstruction++;
                     this.instructionChanged.dispatch(this.currentInstruction);
                 }
+                this.simulation.RemoveBetFromHat(betType);
             };
 
             ChooseHand.prototype.chooseHand = function () {
