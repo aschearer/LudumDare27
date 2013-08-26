@@ -256,24 +256,6 @@ var views;
 
                 TweenMax.to(this.activeChip.element, 0.4, { autoAlpha: 0, delay: 3.2 });
 
-                //var p1Chip = this.player1Chip;
-                //TweenLite.to(this.player1Chip.element, 0.4, {
-                //    autoAlpha: 0, onComplete: function () {
-                //        p1Chip.setBetType(models.entities.BetType.Unknown);
-                //    }
-                //});
-                //var p2Chip = this.player2Chip;
-                //TweenLite.to(this.player2Chip.element, 0.4, {
-                //    autoAlpha: 0, onComplete: function () {
-                //        p2Chip.setBetType(models.entities.BetType.Unknown);
-                //    }
-                //});
-                //var p2Chip = this.player2Chip;
-                //TweenMax.to(this.player2Chip.element, 0.1, {
-                //    scaleX: 0, yoyo: true, repeat: 1, delay: 1.5, onRepeat: function () {
-                //        p2Chip.setBetType(players[1].currentBet);
-                //    }
-                //});
                 this.player1Bullet.style.left = "-136px";
                 this.player1Bullet.style.top = "300px";
                 this.player2Bullet.style.left = "900px";
