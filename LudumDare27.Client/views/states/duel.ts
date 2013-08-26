@@ -16,7 +16,7 @@ module views.states {
 
         constructor(root: HTMLElement, playerInfo: models.simulations.PlayerResult) {
             this.playerId = playerInfo.player.playerId;
-            this.health = playerInfo.score;
+            this.health = 3 - playerInfo.score;
             var playerElement: HTMLDivElement = <HTMLDivElement>root.getElementsByClassName('player' + (this.playerId + 1))[0];
             this.iconElement = <HTMLImageElement>playerElement.getElementsByClassName('playericon')[0];
             this.nameElement = <HTMLParagraphElement>playerElement.getElementsByClassName('playername')[0];
@@ -26,7 +26,7 @@ module views.states {
         }
 
         public updateHealth() {
-            this.healthElement.style.width = ((this.health / 5) * 100) + '%';
+            this.healthElement.style.width = ((Math.max(0, this.health) / 3) * 100) + '%';
         }
 
         public onTurnResult(winningPlayer: models.entities.Player) {

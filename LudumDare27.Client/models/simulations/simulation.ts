@@ -67,7 +67,7 @@ module models.simulations {
         public AdvanceGame(): boolean {
             var nextRound = false;
 
-            if (this.hat.IsDone()) {
+            if (this.hat.IsDone() || this.HasPlayerWon()) {
                 this.simulationState = SimulationState.GameOver;
                 var results = this.GetGameResults();
                 this.gameOver.dispatch(results);
@@ -207,7 +207,20 @@ module models.simulations {
 
             for (var i = 0, col = this.players, c = col.length; i < c; ++i) {
                 var player = col[i];
-                ret.push(new PlayerResult(player, 5 - (totalScore - player.points)));
+                ret.push(new PlayerResult(player, totalScore - player.points));
+            }
+
+            return ret;
+        }
+
+        public HasPlayerWon(): boolean {
+            var ret = false;
+            for (var i = 0, col = this.players, c = col.length; i < c; ++i) {
+                var player = col[i];
+                if (player.points >= 3) {
+                    ret = true;
+                    break;
+                }
             }
 
             return ret;

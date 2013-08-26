@@ -11,7 +11,7 @@ var views;
         var PlayerInfo = (function () {
             function PlayerInfo(root, playerInfo) {
                 this.playerId = playerInfo.player.playerId;
-                this.health = playerInfo.score;
+                this.health = 3 - playerInfo.score;
                 var playerElement = root.getElementsByClassName('player' + (this.playerId + 1))[0];
                 this.iconElement = playerElement.getElementsByClassName('playericon')[0];
                 this.nameElement = playerElement.getElementsByClassName('playername')[0];
@@ -20,7 +20,7 @@ var views;
                 this.updateHealth();
             }
             PlayerInfo.prototype.updateHealth = function () {
-                this.healthElement.style.width = ((this.health / 5) * 100) + '%';
+                this.healthElement.style.width = ((Math.max(0, this.health) / 3) * 100) + '%';
             };
 
             PlayerInfo.prototype.onTurnResult = function (winningPlayer) {
