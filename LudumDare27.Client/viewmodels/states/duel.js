@@ -19,6 +19,10 @@ var viewmodels;
                 return this.simulation.GetCurrentPlayers();
             };
 
+            Duel.prototype.MakeBet = function (playerId, betType) {
+                return this.simulation.MakeBet(playerId, betType);
+            };
+
             Duel.prototype.goBack = function () {
                 this.stateChanged.dispatch(new states.GameOver(this.simulation), true);
             };

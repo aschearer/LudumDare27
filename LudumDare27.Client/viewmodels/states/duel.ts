@@ -25,6 +25,10 @@ module viewmodels.states {
             return this.simulation.GetCurrentPlayers();
         }
 
+        public MakeBet(playerId: number, betType: models.entities.BetType) {
+            return this.simulation.MakeBet(playerId, betType);
+        }
+
         public goBack() {
             this.stateChanged.dispatch(new GameOver(this.simulation), true);
         }

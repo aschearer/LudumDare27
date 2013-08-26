@@ -189,4 +189,4 @@ var models;
     })(models.simulations || (models.simulations = {}));
     var simulations = models.simulations;
 })(models || (models = {}));
-//# sourceMappingURL=Simulation.js.map
+//# sourceMappingURL=simulation.js.map
