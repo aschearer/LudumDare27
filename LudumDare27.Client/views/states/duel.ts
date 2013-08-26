@@ -74,6 +74,7 @@ module views.states {
         private datacontext: viewmodels.states.Duel;
         private playButton: HTMLButtonElement;
         private showScoreboardButton: HTMLButtonElement;
+        private startTurnLabel: HTMLElement;
         private players: Array<PlayerInfo>;
 
         private scoreboardShown: boolean = false;
@@ -93,6 +94,7 @@ module views.states {
             var gamePlayers: Array<models.simulations.PlayerResult> = datacontext.GetCurrentPlayers();
             this.players[0] = new PlayerInfo(this.layer, gamePlayers[0]);
             this.players[1] = new PlayerInfo(this.layer, gamePlayers[1]);
+            this.startTurnLabel = document.getElementById('start-turn-text');
 
             this.countdownElement = <HTMLSpanElement>document.getElementById('countdown');
             this.countdownElement.style.visibility = 'hidden';
@@ -248,6 +250,9 @@ module views.states {
                 this.activeChip = this.chips.pop();
                 TweenLite.to(this.activeChip.element, .5, { top: -100, ease: Cubic.easeOut });
                 TweenMax.to(this.activeChip.element, 0.1, { scaleY: 0, yoyo: true, repeat: 8 });
+
+                TweenMax.fromTo(this.startTurnLabel, 1, { opacity: 0 }, { autoAlpha: 1, yoyo: true, repeat: 1, repeatDelay: 2 });
+                TweenMax.fromTo(this.startTurnLabel, 4, { marginLeft: 20 }, { marginLeft: -20 });
             }
         }
     }

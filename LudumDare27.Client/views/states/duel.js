@@ -70,6 +70,7 @@ var views;
                 var gamePlayers = datacontext.GetCurrentPlayers();
                 this.players[0] = new PlayerInfo(this.layer, gamePlayers[0]);
                 this.players[1] = new PlayerInfo(this.layer, gamePlayers[1]);
+                this.startTurnLabel = document.getElementById('start-turn-text');
 
                 this.countdownElement = document.getElementById('countdown');
                 this.countdownElement.style.visibility = 'hidden';
@@ -224,6 +225,9 @@ var views;
                     this.activeChip = this.chips.pop();
                     TweenLite.to(this.activeChip.element, .5, { top: -100, ease: Cubic.easeOut });
                     TweenMax.to(this.activeChip.element, 0.1, { scaleY: 0, yoyo: true, repeat: 8 });
+
+                    TweenMax.fromTo(this.startTurnLabel, 1, { opacity: 0 }, { autoAlpha: 1, yoyo: true, repeat: 1, repeatDelay: 2 });
+                    TweenMax.fromTo(this.startTurnLabel, 4, { marginLeft: 20 }, { marginLeft: -20 });
                 }
             };
             return Duel;
