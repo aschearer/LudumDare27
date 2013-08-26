@@ -307,7 +307,6 @@ module views.states {
             p1Timeline.play();
             p2Timeline.play();
 
-            this.turnInProgress = false;
             this.turnResults =
             {
                 winningPlayer: winningPlayer,
@@ -317,6 +316,8 @@ module views.states {
         }
 
         private updatePlayersHealth() {
+            this.turnInProgress = false;
+
             for (var i = 0; i < this.players.length; ++i) {
                 this.players[i].onTurnResult(this.turnResults.winningPlayer);
             }

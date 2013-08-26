@@ -46,7 +46,9 @@ module viewmodels.states {
         }
 
         private onGameOver() {
-            this.stateChanged.dispatch(new GameOver(this.simulation), true);
+            window.setTimeout(function () {
+                this.stateChanged.dispatch(new GameOver(this.simulation), true);
+            }.bind(this), 350);
         }
 
         private onTurnReady() {

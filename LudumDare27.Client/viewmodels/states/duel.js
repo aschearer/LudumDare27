@@ -40,7 +40,9 @@ var viewmodels;
             };
 
             Duel.prototype.onGameOver = function () {
-                this.stateChanged.dispatch(new states.GameOver(this.simulation), true);
+                window.setTimeout(function () {
+                    this.stateChanged.dispatch(new states.GameOver(this.simulation), true);
+                }.bind(this), 350);
             };
 
             Duel.prototype.onTurnReady = function () {
