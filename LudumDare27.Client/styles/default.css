@@ -150,9 +150,13 @@
     #duel-layer .player .remainingHealth {
         width: 100%;
         height: 10px;
-        background: #fefd9f;
+        background: #EDE000;
         border-radius: 2px;
         transition: width 0.2s ease-out;
+    }
+
+    #duel-layer .player2 .remainingHealth {
+        background: #8dc63f;
     }
 
     #duel-layer .table {
