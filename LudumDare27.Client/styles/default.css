@@ -386,3 +386,7 @@
     border-radius: 10px;
     box-shadow: 0 2px 5px #636363;
 }
+
+#game-over-layer {
+    background: url('../images/gameOver/background.jpg');
+}
