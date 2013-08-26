@@ -176,9 +176,8 @@ var views;
                         chip.classList.add(views.choosehand.Chip.GetColor(betWin));
                     } else if (element.classList.contains('rowwinner')) {
                         if (playerWin !== null) {
-                            // $TODO: put correct player image here
-                            element.innerHTML = "" + (playerWin + 1);
-                            //element.innerHTML = "<img class=\"profile-pic\" src =\"http://lorempixel.com/16/16\" />";
+                            var imageName = playerWin == 0 ? 'sally' : 'riley';
+                            element.innerHTML = "<img class=\"profile-pic\" src =\"/images/players/" + imageName + ".png\" width=\"16\" height=\"16\" />";
                         } else {
                             element.innerHTML = "&ndash;";
                         }

@@ -150,7 +150,7 @@
     #duel-layer .player .remainingHealth {
         width: 100%;
         height: 10px;
-        background: #EDE000;
+        background: #fefd9f;
         border-radius: 2px;
         transition: width 0.2s ease-out;
     }
@@ -211,7 +211,7 @@
         background: #ffeeff;
     }
 
-    #duel-layer #healthboard .profile-pic {
+    #duel-layer #healthboard .profile-pic, #duel-layer #scoreboard .profile-pic {
         border-radius: 50%;
         background: lightgray;
         width: 16px;
