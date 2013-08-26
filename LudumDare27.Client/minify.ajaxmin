@@ -5,7 +5,6 @@
   <arguments config="Release">-rename:all</arguments>
 
   <output path="app/ludumdare27.js">
-    <input path="libs/createjs.min.js" />
     <input path="libs/greensock/TweenMax.js" />
     <input path="libs/jquery/jquery.js" />
     <input path="libs/jquery/jqueryui.js" />
