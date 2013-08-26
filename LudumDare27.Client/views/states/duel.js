@@ -58,6 +58,7 @@ var views;
             function Duel(datacontext) {
                 this.id = "views.states.Duel";
                 this.scoreboardShown = false;
+                this.currentInstruction = -1;
                 this.datacontext = datacontext;
                 this.layer = document.getElementById('duel-layer');
                 this.showScoreboardButton = document.getElementById('toggle-scoreboard-button');
@@ -76,6 +77,8 @@ var views;
 
                 this.player1Bullet = document.getElementById('player1-bullet');
                 this.player2Bullet = document.getElementById('player2-bullet');
+
+                this.instructions = this.layer.getElementsByClassName('instructions')[0];
             }
             Duel.prototype.enter = function (previousState) {
                 var _this = this;
@@ -118,6 +121,11 @@ var views;
                 };
 
                 this.chips[this.chips.length - 1].element.onclick = this.startNewTurn.bind(this);
+
+                var tutor = this.layer.getElementsByClassName('tutor')[0];
+                tutor.style.display = 'block';
+                this.currentInstruction = 0;
+                this.activateInstruction(this.currentInstruction);
             };
 
             Duel.prototype.exit = function (nextState) {
@@ -131,6 +139,14 @@ var views;
 
                 while (chipsContainer.childElementCount > 0) {
                     chipsContainer.removeChild(chipsContainer.children[0]);
+                }
+
+                if (this.activeButton) {
+                    this.activeButton.onclick = null;
+                }
+
+                if (this.lessButton) {
+                    this.lessButton.onclick = null;
                 }
 
                 document.onkeydown = null;
@@ -350,6 +366,42 @@ var views;
                         this.chips[this.chips.length - 1].element.onclick = this.startNewTurn.bind(this);
                     }
                 }
+            };
+
+            Duel.prototype.activateInstruction = function (activeInstruction) {
+                var _this = this;
+                if ((this.activeInstruction != null) && this.activeInstruction.classList.contains('active-instruction')) {
+                    this.activeInstruction.classList.remove('active-instruction');
+                }
+                if (this.activeButton) {
+                    this.activeButton.onclick = null;
+                }
+
+                if (activeInstruction >= this.instructions.children.length) {
+                    this.hideInstructions();
+                } else {
+                    this.activeInstruction = this.instructions.children[activeInstruction];
+                    this.activeInstruction.classList.add('active-instruction');
+                    this.activeButton = this.activeInstruction.getElementsByClassName('more-button')[0];
+                    this.activeButton.onclick = function () {
+                        _this.activateInstruction(activeInstruction + 1);
+                        return false;
+                    };
+
+                    this.lessButton = this.activeInstruction.getElementsByClassName('less-button')[0];
+                    if (this.lessButton) {
+                        this.lessButton.onclick = function () {
+                            _this.hideInstructions();
+                            return false;
+                        };
+                    }
+                }
+            };
+
+            Duel.prototype.hideInstructions = function () {
+                this.activeInstruction.classList.remove('active-instruction');
+                var tutor = this.layer.getElementsByClassName('tutor')[0];
+                tutor.style.display = 'none';
             };
             return Duel;
         })();
