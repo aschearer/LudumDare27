@@ -31,13 +31,11 @@
     <Content Include="images\duel\start-turn.png" />
     <Content Include="images\gameOver\background-draw.jpg" />
     <Content Include="images\gameOver\background-victory.jpg" />
-    <Content Include="images\help\background.jpg" />
     <Content Include="images\page\game-background.png" />
     <Content Include="images\page\pattern.png" />
     <Content Include="images\players\riley.png" />
     <Content Include="images\players\sally.png" />
     <Content Include="images\title\background.jpg" />
-    <Content Include="images\title\help.png" />
     <Content Include="images\title\start.png" />
     <Content Include="images\title\title.png" />
     <Content Include="libs\console.js" />
@@ -83,8 +81,6 @@
     <TypeScriptCompile Include="viewmodels\states\gameOver.ts" />
     <TypeScriptCompile Include="views\states\gameOver.ts" />
     <TypeScriptCompile Include="views\choosehand\chip.ts" />
-    <TypeScriptCompile Include="viewmodels\states\help.ts" />
-    <TypeScriptCompile Include="views\states\help.ts" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

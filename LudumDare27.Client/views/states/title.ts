@@ -10,28 +10,21 @@ module views.states {
 
         private datacontext: viewmodels.states.Title;
         private playButton: HTMLButtonElement;
-        private helpButton: HTMLButtonElement;
 
         constructor(datacontext: viewmodels.states.Title) {
             this.datacontext = datacontext;
             this.layer = document.getElementById('title-layer');
             this.playButton = <HTMLButtonElement> document.getElementById('play-button');
-            this.helpButton = <HTMLButtonElement> document.getElementById('help-button');
         }
 
         public enter(previousState: IState) {
             this.playButton.onclick = (event) => {
                 this.datacontext.onPlayGame();
             };
-
-            this.helpButton.onclick = (event) => {
-                this.datacontext.showHelp();
-            };
         }
 
         public exit(nextState: IState) {
             this.playButton.onclick = null;
-            this.helpButton.onclick = null;
         }
     }
 }

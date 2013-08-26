@@ -88,12 +88,6 @@ small {
         background: url('../images/title/start.png') no-repeat;
     }
 
-    #title-layer #help-button {
-        width: 410px;
-        height: 30px;
-        background: url('../images/title/help.png') no-repeat;
-    }
-
         #title-layer button:hover {
             top: -3px;
         }
@@ -447,10 +441,6 @@ small {
 
 .game-over-victory {
     background: url('../images/gameOver/background-victory.jpg');
-}
-
-#help-layer {
-    background: url('../images/help/background.jpg')
 }
 
 .social-buttons {
