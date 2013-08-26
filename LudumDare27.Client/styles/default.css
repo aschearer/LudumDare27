@@ -345,7 +345,7 @@ small {
             font-weight: bold;
         }
 
-        .tutor .instruction #instruction-player-name {
+        .player-name {
             color: red;
             font-weight: bold;
         }
