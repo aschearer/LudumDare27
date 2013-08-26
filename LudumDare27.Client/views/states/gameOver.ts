@@ -18,7 +18,6 @@ module views.states {
         " for a rematch.",
         " to make them pay.  Make them all pay.",
         " to restore your honor. Your poor, poor honor.",
-        " to show them [the TV show] Who's the Boss.",
         " to play again.",
         ", please.",
     ];
@@ -29,8 +28,6 @@ module views.states {
         "<span id='game-over-winner-name' class='highlight'></span>'s second is a trap master.",
         "You ded. Unless you are <span id='game-over-winner-name' class='highlight'></span>. Then you only have a flesh wound.",
         "<span id='game-over-winner-name' class='highlight'></span>'s second is handsome and smart and witty.  Oh, and a winner.",
-        "The only thing I like more than winning is waffles. Do you like waffles <span id='game-over-winner-name' class='highlight'></span>'s second? I just came back from the store where I bought a whole bunch of waffle toppings: whip creme, strawberries, nuts, butter, and fried chicken. I didn't buy any syrup, since I still have some from when I visited my cousin back in New Hampshire last autumn. He owns a pet goat, but that's not important. What is important &mdash; other than winning &mdash; is waffles. We should have a waffle party at my place... Wait! Where are you going? Don't you want some thick Belgian in your mouth?",
-        "Hehehehe. <span id='game-over-winner-name' class='highlight'></span>'s second sure got a perdy mouth.",
         "Good job, <span id='game-over-winner-name' class='highlight'></span>'s second! You are the best.",
     ];
     var lastWinMessage = null;
