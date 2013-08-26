@@ -22,7 +22,6 @@ var views;
                 var iBet = 0;
                 var cBets = bets.length;
                 var iColumn = 0;
-                var color = ['green', 'pink', 'yellow', 'purple'];
                 do {
                     for (; iBet < cBets; ++iBet) {
                         if (lastType === bets[iBet]) {
@@ -34,7 +33,7 @@ var views;
                             break;
                         }
                     }
-                    this.chipStacks.push(new views.choosehand.ChipStack(chips, iColumn, lastType, color[iColumn], lastCount));
+                    this.chipStacks.push(new views.choosehand.ChipStack(chips, iColumn, lastType, lastCount));
                     ++iColumn;
                     lastType = null;
                     lastCount = 0;

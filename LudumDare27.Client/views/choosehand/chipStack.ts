@@ -3,7 +3,6 @@ module views.choosehand {
         private root: HTMLElement;
         private column: number;
         private betType: models.entities.BetType;
-        private color: string;
         private numberOfChips: number;
 
         private activeEnabled: boolean = true;
@@ -17,10 +16,9 @@ module views.choosehand {
 
         public chipStackChanged: Signal = new Signal();
 
-        constructor(root: HTMLElement, column: number, betType: models.entities.BetType, color: string, numberOfChips: number) {
+        constructor(root: HTMLElement, column: number, betType: models.entities.BetType, numberOfChips: number) {
             this.root = root;
             this.betType = betType;
-            this.color = color;
             this.column = column;
             this.numberOfChips = numberOfChips;
             this.activeChips = [];
@@ -36,15 +34,12 @@ module views.choosehand {
                 this.root.removeChild(this.inactiveChips.pop());
             }
 
+            var x: number = (20 + 128 * this.column + 82 * (this.column));
             for (var i: number = 0; i < this.numberOfChips; i++) {
-                var chip: HTMLDivElement = document.createElement('div');
-                chip.classList.add('chip');
-                chip.classList.add(this.color);
-                chip.style.left = (20 + 128 * this.column + 82 * (this.column)) + "px";
-                chip.style.top = this.topOffset + "px";
-                chip.style.zIndex = (i * 10) + "";
-                this.activeChips.push(chip);
-                this.root.appendChild(chip);
+                var chip: Chip = new Chip(this.betType);
+                var chipElement: HTMLDivElement = chip.createElement(x, this.topOffset, i * 10);
+                this.activeChips.push(chipElement);
+                this.root.appendChild(chipElement);
             }
 
             var that = this;
@@ -52,7 +47,7 @@ module views.choosehand {
                 for (var j = 0; j < that.activeChips.length; j++) {
                     that.activeChips[j].style.top = that.activeOffset + (j * -10) + "px";
                 }
-            }, 200 * this.column);
+            }, 200 * (this.column + 1));
 
             this.peek(this.activeChips).onclick = (event) => {
                 this.onActiveChipClicked();

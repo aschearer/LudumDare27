@@ -36,7 +36,6 @@ module views.states {
             var iBet = 0;
             var cBets = bets.length;
             var iColumn = 0;
-            var color = ['green', 'pink', 'yellow', 'purple']; // TEMP: this should be in a shared place, and map to BetType
             do {
                 for (; iBet < cBets; ++iBet) {
                     if (lastType === bets[iBet]) {
@@ -48,7 +47,7 @@ module views.states {
                         break;
                     }
                 }
-                this.chipStacks.push(new choosehand.ChipStack(chips, iColumn, lastType, color[iColumn], lastCount));
+                this.chipStacks.push(new choosehand.ChipStack(chips, iColumn, lastType, lastCount));
                 ++iColumn;
                 lastType = null;
                 lastCount = 0;

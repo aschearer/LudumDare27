@@ -63,6 +63,7 @@
     <TypeScriptCompile Include="viewmodels\states\changingPlayer.ts" />
     <TypeScriptCompile Include="viewmodels\states\gameOver.ts" />
     <TypeScriptCompile Include="views\states\gameOver.ts" />
+    <TypeScriptCompile Include="views\choosehand\chip.ts" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

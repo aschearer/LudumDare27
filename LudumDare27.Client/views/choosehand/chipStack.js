@@ -2,7 +2,7 @@ var views;
 (function (views) {
     (function (choosehand) {
         var ChipStack = (function () {
-            function ChipStack(root, column, betType, color, numberOfChips) {
+            function ChipStack(root, column, betType, numberOfChips) {
                 this.activeEnabled = true;
                 this.topOffset = -300;
                 this.activeOffset = 200;
@@ -11,7 +11,6 @@ var views;
                 this.chipStackChanged = new Signal();
                 this.root = root;
                 this.betType = betType;
-                this.color = color;
                 this.column = column;
                 this.numberOfChips = numberOfChips;
                 this.activeChips = [];
@@ -27,15 +26,12 @@ var views;
                     this.root.removeChild(this.inactiveChips.pop());
                 }
 
+                var x = (20 + 128 * this.column + 82 * (this.column));
                 for (var i = 0; i < this.numberOfChips; i++) {
-                    var chip = document.createElement('div');
-                    chip.classList.add('chip');
-                    chip.classList.add(this.color);
-                    chip.style.left = (20 + 128 * this.column + 82 * (this.column)) + "px";
-                    chip.style.top = this.topOffset + "px";
-                    chip.style.zIndex = (i * 10) + "";
-                    this.activeChips.push(chip);
-                    this.root.appendChild(chip);
+                    var chip = new choosehand.Chip(this.betType);
+                    var chipElement = chip.createElement(x, this.topOffset, i * 10);
+                    this.activeChips.push(chipElement);
+                    this.root.appendChild(chipElement);
                 }
 
                 var that = this;
@@ -43,7 +39,7 @@ var views;
                     for (var j = 0; j < that.activeChips.length; j++) {
                         that.activeChips[j].style.top = that.activeOffset + (j * -10) + "px";
                     }
-                }, 200 * this.column);
+                }, 200 * (this.column + 1));
 
                 this.peek(this.activeChips).onclick = function (event) {
                     _this.onActiveChipClicked();

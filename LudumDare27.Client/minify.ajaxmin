@@ -27,6 +27,7 @@
     <input path="views/states/chooseHand.js" />
     <input path="views/states/duel.js" />
     <input path="views/states/gameOver.js" />
+    <input path="views/choosehand/chip.js" />
     <input path="views/choosehand/chipStack.js" />
     <input path="main.js" />
     <input path="libs/console.js" />

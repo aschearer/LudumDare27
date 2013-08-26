@@ -61,10 +61,10 @@ module models.entities {
         constructor() {
             // $TEMP: hardcoding hand
             this.possibleBets = [];
-            this.possibleBets[BetType.Down] = new PossibleBets(BetType.Down, 2);
-            this.possibleBets[BetType.Left] = new PossibleBets(BetType.Left, 2);
-            this.possibleBets[BetType.Right] = new PossibleBets(BetType.Right, 2);
             this.possibleBets[BetType.Up] = new PossibleBets(BetType.Up, 1);
+            this.possibleBets[BetType.Left] = new PossibleBets(BetType.Left, 2);
+            this.possibleBets[BetType.Down] = new PossibleBets(BetType.Down, 2);
+            this.possibleBets[BetType.Right] = new PossibleBets(BetType.Right, 2);
         }
 
         public AddBetToHat(betType: BetType) {
