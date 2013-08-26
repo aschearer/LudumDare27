@@ -128,7 +128,8 @@ module views.states {
                 chipsContainer.appendChild(chip.element);
                 this.chips.push(chip);
 
-                TweenLite.to(chip.element, 0.5, { top: 440 - 10 * i, left: 338, delay: i * 0.05, ease: Cubic.easeOut });
+                TweenLite.to(chip.element, 0.75, { top: 440 - 10 * i, delay: i * 0.05 });
+                TweenLite.to(chip.element, 0.75, { left: 338, delay: i * 0.05, ease: Cubic.easeOut });
             }
 
             chipsContainer.appendChild(this.player1Chip.element);
