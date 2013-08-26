@@ -10,12 +10,12 @@ module models.simulations {
         GameOver,
     }
 
-    export class GameResults {
-        public winner: models.entities.Player;
+    export class PlayerResult {
+        public player: models.entities.Player;
         public score: number;
 
-        constructor(winner: models.entities.Player, score: number) {
-            this.winner = winner;
+        constructor(player: models.entities.Player, score: number) {
+            this.player = player;
             this.score = score;
         }
     }
@@ -65,7 +65,7 @@ module models.simulations {
             }
         }
 
-        public GetGameResults(): GameResults {
+        public GetGameResults(): PlayerResult {
             var winningScore = Number.MIN_VALUE;
             var winningPlayer = null;
             for (var iPlayer in this.players) {
@@ -79,7 +79,7 @@ module models.simulations {
                 }
             }
 
-            return new GameResults(winningPlayer, winningScore);
+            return new PlayerResult(winningPlayer, winningScore);
         }
 
         private AreAllPlayersReady(): boolean {
@@ -175,6 +175,22 @@ module models.simulations {
 
         public GetAvailableBets(): Array<models.entities.BetType> {
             return this.players[this.currentPlayer].GetHand().GetAvailableBets();
+        }
+
+        public GetCurrentPlayers(): Array<PlayerResult> {
+            var ret = new Array<PlayerResult>();
+            var totalScore = 0;
+            for (var i = 0, col = this.players, c = col.length; i < c; ++i) {
+                var player = col[i];
+                totalScore += player.points;
+            }
+
+            for (var i = 0, col = this.players, c = col.length; i < c; ++i) {
+                var player = col[i];
+                ret.push(new PlayerResult(player, 5 - (totalScore - player.points)));
+            }
+
+            return ret;
         }
     }
 }

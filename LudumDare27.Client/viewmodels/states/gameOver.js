@@ -17,7 +17,7 @@ var viewmodels;
 
             GameOver.prototype.GetWinningPlayerName = function () {
                 var results = this.simulation.GetGameResults();
-                return (results.winner) ? results.winner.name : null;
+                return (results.player) ? results.player.name : null;
             };
 
             GameOver.prototype.endGame = function () {

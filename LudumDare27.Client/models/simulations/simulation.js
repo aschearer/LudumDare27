@@ -11,14 +11,14 @@ var models;
             SimulationState[SimulationState["GameOver"] = 4] = "GameOver";
         })(SimulationState || (SimulationState = {}));
 
-        var GameResults = (function () {
-            function GameResults(winner, score) {
-                this.winner = winner;
+        var PlayerResult = (function () {
+            function PlayerResult(player, score) {
+                this.player = player;
                 this.score = score;
             }
-            return GameResults;
+            return PlayerResult;
         })();
-        simulations.GameResults = GameResults;
+        simulations.PlayerResult = PlayerResult;
 
         var Simulation = (function () {
             function Simulation() {
@@ -70,7 +70,7 @@ var models;
                     }
                 }
 
-                return new GameResults(winningPlayer, winningScore);
+                return new PlayerResult(winningPlayer, winningScore);
             };
 
             Simulation.prototype.AreAllPlayersReady = function () {
@@ -167,10 +167,26 @@ var models;
             Simulation.prototype.GetAvailableBets = function () {
                 return this.players[this.currentPlayer].GetHand().GetAvailableBets();
             };
+
+            Simulation.prototype.GetCurrentPlayers = function () {
+                var ret = new Array();
+                var totalScore = 0;
+                for (var i = 0, col = this.players, c = col.length; i < c; ++i) {
+                    var player = col[i];
+                    totalScore += player.points;
+                }
+
+                for (var i = 0, col = this.players, c = col.length; i < c; ++i) {
+                    var player = col[i];
+                    ret.push(new PlayerResult(player, 5 - (totalScore - player.points)));
+                }
+
+                return ret;
+            };
             return Simulation;
         })();
         simulations.Simulation = Simulation;
     })(models.simulations || (models.simulations = {}));
     var simulations = models.simulations;
 })(models || (models = {}));
-//# sourceMappingURL=simulation.js.map
+//# sourceMappingURL=Simulation.js.map

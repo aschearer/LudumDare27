@@ -21,8 +21,8 @@ module viewmodels.states {
         }
 
         public GetWinningPlayerName() : string {
-            var results: models.simulations.GameResults = this.simulation.GetGameResults();
-            return (results.winner) ? results.winner.name : null;
+            var results: models.simulations.PlayerResult = this.simulation.GetGameResults();
+            return (results.player) ? results.player.name : null;
         }
 
         public endGame() {

@@ -21,6 +21,10 @@ module viewmodels.states {
         public exit() {
         }
 
+        public GetCurrentPlayers(): Array<models.simulations.PlayerResult> {
+            return this.simulation.GetCurrentPlayers();
+        }
+
         public goBack() {
             this.stateChanged.dispatch(new GameOver(this.simulation), true);
         }

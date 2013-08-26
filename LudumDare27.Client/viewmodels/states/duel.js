@@ -15,6 +15,10 @@ var viewmodels;
             Duel.prototype.exit = function () {
             };
 
+            Duel.prototype.GetCurrentPlayers = function () {
+                return this.simulation.GetCurrentPlayers();
+            };
+
             Duel.prototype.goBack = function () {
                 this.stateChanged.dispatch(new states.GameOver(this.simulation), true);
             };
