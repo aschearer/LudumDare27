@@ -1,5 +1,8 @@
 /// <reference path="istate.ts"/>
 /// <reference path="../../viewmodels/states/duel.ts"/>
+/// <reference path="../../models/entities/betting.ts"/>
+/// <reference path="../choosehand/chip.ts"/>
+/// <reference path="../../libs/typings/greensock.d.ts"/>
 
 module views.states {
     class PlayerInfo {
@@ -75,6 +78,9 @@ module views.states {
 
         private scoreboardShown: boolean = false;
 
+        private activeChip: choosehand.Chip;
+        private chips: choosehand.Chip[];
+
         private countdownElement: HTMLSpanElement;
         private countdown: number;
         private currentTurn: number;
@@ -94,6 +100,7 @@ module views.states {
             this.currentTurn = 1;
 
             this.resetScoreboard();
+            this.chips = [];
         }
 
         public enter(previousState: IState) {
@@ -102,23 +109,40 @@ module views.states {
 
             var that = this;
             this.showScoreboardButton.onclick = (event) => {
-                if (this.scoreboardShown) {
+                if (that.scoreboardShown) {
                     document.getElementById('scoreboard').style.top = '-300px';
-                    this.showScoreboardButton.classList.remove('glyphicon-chevron-up');
-                    this.showScoreboardButton.classList.add('glyphicon-chevron-down');
+                    that.showScoreboardButton.classList.remove('glyphicon-chevron-up');
+                    that.showScoreboardButton.classList.add('glyphicon-chevron-down');
                 }
                 else {
                     document.getElementById('scoreboard').style.top = '84px';
-                    this.showScoreboardButton.classList.remove('glyphicon-chevron-down');
-                    this.showScoreboardButton.classList.add('glyphicon-chevron-up');
+                    that.showScoreboardButton.classList.remove('glyphicon-chevron-down');
+                    that.showScoreboardButton.classList.add('glyphicon-chevron-up');
                 }
 
                 this.scoreboardShown = !this.scoreboardShown;
             };
 
+            var chips: HTMLDivElement = <HTMLDivElement>this.layer.getElementsByClassName('chips')[0];
+            for (var i = 0; i < 10; i++) {
+                var chip: choosehand.Chip = new choosehand.Chip(models.entities.BetType.Down, x, -100, 10 + 10 * i);
+                var x: number = i % 2 == 0 ? -200 : 1000;
+                chips.appendChild(chip.element);
+                this.chips.push(chip);
+
+                TweenLite.to(chip.element, 0.5, { top: 440 - 10 * i, left: 338, delay: i * 0.05, ease: Cubic.easeOut });
+            }
 
             document.onkeyup = (event) => {
                 this.onKeyUp(event.keyCode);
+            };
+
+            this.layer.onclick = function () {
+                if (that.chips.length > 0) {
+                    this.activeChip = that.chips.pop();
+                    TweenLite.to(this.activeChip.element, .5, { top: -100, ease: Cubic.easeOut });
+                    TweenMax.to(this.activeChip.element, 0.1, { rotationX: 90, yoyo: true, repeat: 4 });
+                }
             };
         }
 

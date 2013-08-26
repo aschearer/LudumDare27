@@ -28,10 +28,9 @@ var views;
 
                 var x = (20 + 128 * this.column + 82 * (this.column));
                 for (var i = 0; i < this.numberOfChips; i++) {
-                    var chip = new choosehand.Chip(this.betType);
-                    var chipElement = chip.createElement(x, this.topOffset, i * 10);
-                    this.activeChips.push(chipElement);
-                    this.root.appendChild(chipElement);
+                    var chip = new choosehand.Chip(this.betType, x, this.topOffset, i * 10);
+                    this.activeChips.push(chip.element);
+                    this.root.appendChild(chip.element);
                 }
 
                 var that = this;

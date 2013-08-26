@@ -6,6 +6,7 @@
 
   <output path="app/ludumdare27.js">
     <input path="libs/createjs.min.js" />
+    <input path="libs/greensock/TweenMax.js" />
     <input path="models/entities/ientity.js" />
     <input path="models/entities/betting.js" />
     <input path="models/signals/signal.js" />

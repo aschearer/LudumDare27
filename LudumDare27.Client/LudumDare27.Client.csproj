@@ -28,9 +28,14 @@
     <Content Include="images\title\title.png" />
     <Content Include="libs\console.js" />
     <Content Include="libs\createjs.min.js" />
+    <Content Include="libs\greensock\easing\EasePack.js" />
+    <Content Include="libs\greensock\TimelineLite.js" />
+    <Content Include="libs\greensock\TimelineMax.js" />
+    <Content Include="libs\greensock\TweenLite.js" />
+    <Content Include="libs\greensock\TweenMax.js" />
     <Content Include="libs\typings\easeljs\easeljs.d.ts" />
+    <TypeScriptCompile Include="libs\typings\greensock.d.ts" />
     <Content Include="libs\typings\soundjs\soundjs.d.ts" />
-    <Content Include="libs\typings\tweenjs\tweenjs.d.ts" />
     <TypeScriptCompile Include="models\simulations\simulation.ts" />
     <TypeScriptCompile Include="models\entities\ientity.ts" />
     <TypeScriptCompile Include="models\entities\betting.ts" />

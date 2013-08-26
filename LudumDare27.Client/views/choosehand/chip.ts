@@ -9,11 +9,14 @@ module views.choosehand {
     export class Chip {
         private betType: models.entities.BetType;
 
-        constructor(betType: models.entities.BetType) {
+        public element: HTMLDivElement;
+
+        constructor(betType: models.entities.BetType, x: number, y: number, z: number) {
             this.betType = betType;
+            this.element = this.createElement(x, y, z);
         }
 
-        public createElement(x, y, z): HTMLDivElement {
+        private createElement(x, y, z): HTMLDivElement {
             var chip: HTMLDivElement = document.createElement('div');
             chip.classList.add('chip');
             chip.classList.add(color[this.betType]);

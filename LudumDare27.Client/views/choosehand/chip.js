@@ -8,8 +8,9 @@ var views;
         color[models.entities.BetType.Down] = 'purple';
 
         var Chip = (function () {
-            function Chip(betType) {
+            function Chip(betType, x, y, z) {
                 this.betType = betType;
+                this.element = this.createElement(x, y, z);
             }
             Chip.prototype.createElement = function (x, y, z) {
                 var chip = document.createElement('div');

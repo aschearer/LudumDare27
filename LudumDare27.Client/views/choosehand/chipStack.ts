@@ -36,10 +36,9 @@ module views.choosehand {
 
             var x: number = (20 + 128 * this.column + 82 * (this.column));
             for (var i: number = 0; i < this.numberOfChips; i++) {
-                var chip: Chip = new Chip(this.betType);
-                var chipElement: HTMLDivElement = chip.createElement(x, this.topOffset, i * 10);
-                this.activeChips.push(chipElement);
-                this.root.appendChild(chipElement);
+                var chip: Chip = new Chip(this.betType, x, this.topOffset, i * 10);
+                this.activeChips.push(chip.element);
+                this.root.appendChild(chip.element);
             }
 
             var that = this;
