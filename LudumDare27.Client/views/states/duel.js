@@ -178,7 +178,7 @@ var views;
                     } else if (element.classList.contains('rowwinner')) {
                         if (playerWin !== null) {
                             var imageName = playerWin == 0 ? 'sally' : 'riley';
-                            element.innerHTML = "<img class=\"profile-pic\" src =\"/images/players/" + imageName + ".png\" width=\"16\" height=\"16\" />";
+                            element.innerHTML = "<img class=\"profile-pic\" src =\"images/players/" + imageName + ".png\" width=\"16\" height=\"16\" />";
                         } else {
                             element.innerHTML = "&ndash;";
                         }
