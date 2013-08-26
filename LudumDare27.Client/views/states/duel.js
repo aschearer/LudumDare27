@@ -223,7 +223,7 @@ var views;
                 if (this.chips.length > 0) {
                     this.activeChip = this.chips.pop();
                     TweenLite.to(this.activeChip.element, .5, { top: -100, ease: Cubic.easeOut });
-                    TweenMax.to(this.activeChip.element, 0.1, { rotationX: 90, yoyo: true, repeat: 8 });
+                    TweenMax.to(this.activeChip.element, 0.1, { scaleY: 0, yoyo: true, repeat: 8 });
                 }
             };
             return Duel;
