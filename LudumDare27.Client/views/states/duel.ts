@@ -362,7 +362,9 @@ module views.states {
                 TweenMax.fromTo(this.startTurnLabel, 0.5, { opacity: 0 }, { autoAlpha: 1, yoyo: true, repeat: 1, delay: 1, repeatDelay: 1.5 });
                 TweenMax.fromTo(this.startTurnLabel, 2.5, { marginLeft: 20 }, { marginLeft: -20, delay: 1 });
 
-                this.chips[this.chips.length - 1].element.onclick = this.startNewTurn.bind(this);
+                if (this.chips.length > 0) {
+                    this.chips[this.chips.length - 1].element.onclick = this.startNewTurn.bind(this);
+                }
             }
         }
     }

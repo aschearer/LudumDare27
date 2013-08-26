@@ -11,7 +11,7 @@ module views.states {
 
     var discardText = [null, "one trap", "two traps", "three traps", "four traps"];
 
-    function getRandomInstruction(instructions: string[], lastInstruction: string): string {
+    export function getRandomInstruction(instructions: string[], lastInstruction: string): string {
         var random = null;
 
         do {

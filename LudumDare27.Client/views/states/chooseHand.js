@@ -20,6 +20,7 @@ var views;
 
             return instructions[random];
         }
+        states.getRandomInstruction = getRandomInstruction;
 
         var ChooseHand = (function () {
             function ChooseHand(datacontext) {
