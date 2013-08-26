@@ -20,7 +20,7 @@ module views.states {
             this.iconElement = <HTMLImageElement>playerElement.getElementsByClassName('playericon')[0];
             this.nameElement = <HTMLParagraphElement>playerElement.getElementsByClassName('playername')[0];
             this.nameElement.innerText = playerInfo.player.name;
-            this.healthElement = <HTMLDivElement>playerElement.getElementsByClassName('health')[0];
+            this.healthElement = <HTMLDivElement>playerElement.getElementsByClassName('remainingHealth')[0];
             this.readyElement = <HTMLSpanElement>playerElement.getElementsByClassName('playerready')[0];
             this.showReady(false);
             this.updateHealth();
@@ -161,7 +161,7 @@ module views.states {
                     removeClasses(element.classList, 'past-turn current-turn');
                     if (element.classList.contains('rowplayer1') || element.classList.contains('rowplayer2') || element.classList.contains('rowactual')) {
                         var chip: HTMLElement = <HTMLElement>element.getElementsByClassName('chip')[0];
-                        removeClasses(chip.classList, 'pink green yellow purple');
+                        removeClasses(chip.classList, 'up down left right');
                     } else if (element.classList.contains('rowwinner')) {
                         element.innerHTML = "";
                     }

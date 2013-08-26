@@ -1,10 +1,10 @@
 module views.choosehand {
 
     var color : Array<string> = [];
-    color[models.entities.BetType.Up] = 'green';
-    color[models.entities.BetType.Left] = 'pink';
-    color[models.entities.BetType.Right] = 'yellow';
-    color[models.entities.BetType.Down] = 'purple';
+    color[models.entities.BetType.Up] = 'up';
+    color[models.entities.BetType.Left] = 'left';
+    color[models.entities.BetType.Right] = 'right';
+    color[models.entities.BetType.Down] = 'down';
 
     export class Chip {
         private betType: models.entities.BetType;

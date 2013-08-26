@@ -14,7 +14,7 @@ var views;
                 this.iconElement = playerElement.getElementsByClassName('playericon')[0];
                 this.nameElement = playerElement.getElementsByClassName('playername')[0];
                 this.nameElement.innerText = playerInfo.player.name;
-                this.healthElement = playerElement.getElementsByClassName('health')[0];
+                this.healthElement = playerElement.getElementsByClassName('remainingHealth')[0];
                 this.readyElement = playerElement.getElementsByClassName('playerready')[0];
                 this.showReady(false);
                 this.updateHealth();
@@ -137,7 +137,7 @@ var views;
                         removeClasses(element.classList, 'past-turn current-turn');
                         if (element.classList.contains('rowplayer1') || element.classList.contains('rowplayer2') || element.classList.contains('rowactual')) {
                             var chip = element.getElementsByClassName('chip')[0];
-                            removeClasses(chip.classList, 'pink green yellow purple');
+                            removeClasses(chip.classList, 'up down left right');
                         } else if (element.classList.contains('rowwinner')) {
                             element.innerHTML = "";
                         }

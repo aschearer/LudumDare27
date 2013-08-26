@@ -2,10 +2,10 @@ var views;
 (function (views) {
     (function (choosehand) {
         var color = [];
-        color[models.entities.BetType.Up] = 'green';
-        color[models.entities.BetType.Left] = 'pink';
-        color[models.entities.BetType.Right] = 'yellow';
-        color[models.entities.BetType.Down] = 'purple';
+        color[models.entities.BetType.Up] = 'up';
+        color[models.entities.BetType.Left] = 'left';
+        color[models.entities.BetType.Right] = 'right';
+        color[models.entities.BetType.Down] = 'down';
 
         var Chip = (function () {
             function Chip(betType, x, y, z) {

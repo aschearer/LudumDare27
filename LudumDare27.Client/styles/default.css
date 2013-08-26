@@ -29,41 +29,41 @@
     background: url('../images/title/background.jpg');
 }
 
-#title-layer .content {
-    font-family: 'Ewert', cursive;
-    text-align: center;
-    padding-top: 330px;
-}
+    #title-layer .content {
+        font-family: 'Ewert', cursive;
+        text-align: center;
+        padding-top: 330px;
+    }
 
-#title-layer .content h1 {
-    font-family: 'Ewert', cursive;
-    font-size: 91px;
-    color: #91e0f0;
-    background: url('../images/title/title.png') no-repeat;
-    background-position: center;
-    height: 170px;
-    margin-bottom: 30px;
-}
+        #title-layer .content h1 {
+            font-family: 'Ewert', cursive;
+            font-size: 91px;
+            color: #91e0f0;
+            background: url('../images/title/title.png') no-repeat;
+            background-position: center;
+            height: 170px;
+            margin-bottom: 30px;
+        }
 
-#title-layer button {
-    font-size: 33px;
-    color: #f6f325;
-    background: none;
-    border: none;
-    transition: margin-top 0.1s ease-out;
-    width: 120px;
-    height: 30px;
-    background: url('../images/title/start.png') no-repeat;
-    background-position: center;
-}
+    #title-layer button {
+        font-size: 33px;
+        color: #f6f325;
+        background: none;
+        border: none;
+        transition: margin-top 0.1s ease-out;
+        width: 120px;
+        height: 30px;
+        background: url('../images/title/start.png') no-repeat;
+        background-position: center;
+    }
 
-#title-layer button:hover {
-    margin-top: -3px;
-}
+        #title-layer button:hover {
+            margin-top: -3px;
+        }
 
-#title-layer button:active {
-    margin-top: -1px;
-}
+        #title-layer button:active {
+            margin-top: -1px;
+        }
 
 #game-layer {
     background: url('../images/chooseHand/background.jpg') no-repeat;
@@ -73,111 +73,125 @@
     background: url('../images/duel/background.jpg');
 }
 
-#duel-layer #scoreboard {
-    background: white;
-    position: absolute;
-    z-index: 300;
-    top: -200px;
-}
+    #duel-layer #scoreboard {
+        background: white;
+        position: absolute;
+        z-index: 300;
+        top: -200px;
+    }
 
-#duel-layer #metadata {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    clip: rect(0, 800px, 600px, 0);
-}
+    #duel-layer #metadata {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        clip: rect(0, 800px, 600px, 0);
+    }
 
-#duel-layer #healthboard {
-    position: absolute;
-    background: white;
-    z-index: 400;
-}
+    #duel-layer #healthboard {
+        position: absolute;
+        background: white;
+        z-index: 400;
+    }
 
-#duel-layer .player {
-    padding: 10px;
-    width: 400px;
-}
+    #duel-layer .player {
+        padding: 10px;
+        width: 400px;
+    }
 
-#duel-layer .player img {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: lightgray;
-    float: left;
-}
+        #duel-layer .player img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: lightgray;
+            float: left;
+        }
 
-#duel-layer .player .profile {
-    float: right;
-    width: 75%;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 24px;
-}
+        #duel-layer .player .profile {
+            float: right;
+            width: 75%;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 24px;
+        }
 
-#duel-layer .player1 {
-    float: left;
-}
+    #duel-layer .player1 {
+        float: left;
+    }
 
-#duel-layer .player2 {
-    float: right;
-}
+    #duel-layer .player2 {
+        float: right;
+    }
 
-#duel-layer .player .health {
-    width: 100%;
-    height: 10px;
-    margin-top: -5px;
-    background: #636363;
-    border-radius: 2px;
-}
+    #duel-layer .player .health {
+        width: 100%;
+        height: 10px;
+        margin-top: -5px;
+        background: #636363;
+        border-radius: 2px;
+    }
 
-#duel-layer .player .remainingHealth {
-    width: 100%;
-    height: 10px;
-    background: #EDE000;
-    border-radius: 2px;
-    transition: width 0.2s ease-out;
-}
+    #duel-layer .player .remainingHealth {
+        width: 100%;
+        height: 10px;
+        background: #EDE000;
+        border-radius: 2px;
+        transition: width 0.2s ease-out;
+    }
 
-#duel-layer .table {
-    background: white;
-    width: 800px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
-    margin: 0;
-}
+    #duel-layer .table {
+        background: white;
+        width: 800px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        margin: 0;
+    }
 
-#duel-layer .table td {
-    min-width: 60px;
-}
+        #duel-layer .table td {
+            min-width: 60px;
+        }
 
-#duel-layer #scoreboard .chip {
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    border: 1px solid black;
-    margin: 2px auto;
-    visibility: collapse;
-}
+    #duel-layer #scoreboard .chip {
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        border: 1px solid black;
+        margin: 2px auto;
+        visibility: collapse;
+    }
 
-#duel-layer #scoreboard .past-turn .chip {
-    visibility: visible;
-}
+    #duel-layer #scoreboard .past-turn .chip {
+        visibility: visible;
+    }
 
-#duel-layer #scoreboard .past-turn {
-    background: #ebebeb;
-}
+    #duel-layer #scoreboard .past-turn {
+        background: #ebebeb;
+    }
 
-#duel-layer #scoreboard .current-turn {
-    background: #ffeeff;
-}
+    #duel-layer #scoreboard .current-turn {
+        background: #ffeeff;
+    }
 
-#duel-layer #healthboard .profile-pic {
-    border-radius: 50%;
-    background: lightgray;
-    width: 16px;
-    height: 16px;
-}
+    #duel-layer #healthboard .profile-pic {
+        border-radius: 50%;
+        background: lightgray;
+        width: 16px;
+        height: 16px;
+    }
+
+
+    #duel-layer .controls {
+        position: absolute;
+        bottom: 20px;
+    }
+
+    #duel-layer #left-controls {
+        left: 20px;
+    }
+
+    #duel-layer #right-controls {
+        right: 20px;
+    }
 
 #toggle-scoreboard-button {
     float: right;
@@ -192,12 +206,12 @@
     margin-bottom: 9px;
 }
 
-#signed-in-as img {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    background-color: lightgrey;
-}
+    #signed-in-as img {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background-color: lightgrey;
+    }
 
 .hide-text {
     overflow: hidden;
@@ -221,40 +235,40 @@
     z-index: 100;
 }
 
-.tutor .instructions {
-    position: relative;
-    margin-left: -30px;
-}
+    .tutor .instructions {
+        position: relative;
+        margin-left: -30px;
+    }
 
-.tutor .instructions li {
-    position: absolute;
-    list-style: none;
-}
+        .tutor .instructions li {
+            position: absolute;
+            list-style: none;
+        }
 
-.tutor .instruction {
-    margin: 20px 0 auto 180px;
-    padding: 4px 8px;
-    display: inline-block;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 24px;
-    background: white;
-    border-radius: 6px;
-    box-shadow: 5px 5px 2px #636363;
-}
+    .tutor .instruction {
+        margin: 20px 0 auto 180px;
+        padding: 4px 8px;
+        display: inline-block;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 24px;
+        background: white;
+        border-radius: 6px;
+        box-shadow: 5px 5px 2px #636363;
+    }
 
-.tutor .instruction .highlight {
-    color: green;
-    font-weight: bold;
-}
+        .tutor .instruction .highlight {
+            color: green;
+            font-weight: bold;
+        }
 
-.tutor .instruction #instruction-player-name {
-    color: red;
-    font-weight: bold;
-}
+        .tutor .instruction #instruction-player-name {
+            color: red;
+            font-weight: bold;
+        }
 
-.tutor .instruction a {
-    font-weight: bold;
-}
+        .tutor .instruction a {
+            font-weight: bold;
+        }
 
 .instruction {
     transition: visibility 0.5s linear, opacity 0.5s linear;
@@ -277,17 +291,17 @@
     overflow: hidden;
 }
 
-.chips .chip {
-    position: absolute;
-    border-radius: 50%;
-    width: 125px;
-    height: 125px;
-    padding-top: 3px;
-    text-align: center;
-    border: 4px solid black;
-    transition: margin-top 0.1s ease-out, top 0.5s ease-out;
-    cursor: pointer;
-}
+    .chips .chip {
+        position: absolute;
+        border-radius: 50%;
+        width: 125px;
+        height: 125px;
+        padding-top: 3px;
+        text-align: center;
+        border: 4px solid black;
+        transition: margin-top 0.1s ease-out, top 0.5s ease-out;
+        cursor: pointer;
+    }
 
 .chip:hover {
     margin-top: -3px;
@@ -297,22 +311,40 @@
     margin-top: -1px;
 }
 
-.brown {
+.unknown {
     background-color: #400000;
 }
 
-.purple {
+.down {
     background-color: #004e81;
+    color: white;
 }
 
-.yellow {
+.right {
     background-color: #ede000;
 }
 
-.green {
+.up {
     background-color: #6cd2e0;
 }
 
-.pink {
+.left {
     background-color: #d2889f;
+}
+
+.key {
+    color: black;
+    display: inline-block;
+    padding: 6px;
+    margin: 1px;
+    width: 40px;
+    font-size: 25px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: none;
+    letter-spacing: 0;
+    bottom: 10px;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #636363;
 }
