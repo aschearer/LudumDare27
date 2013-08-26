@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 20px;
+    padding: 20px 0 40px 0;
     background: url('../images/page/pattern.png') repeat;
     font-family: 'Open Sans', sans-serif;
 }
@@ -442,4 +442,15 @@ small {
 
 #help-layer {
     background: url('../images/help/background.jpg')
+}
+
+.social-buttons {
+    margin: 0;
+    padding: 0;
+}
+
+.social-buttons li {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
 }

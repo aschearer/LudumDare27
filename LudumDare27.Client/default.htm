@@ -330,37 +330,86 @@
         </div>
         <div class="row">
             <section id="how-to">
-                <div class="col-lg-12">
-                    <h2>Surviving in Duel City</h2>
+                <div class="col-lg-8">
+                    <h2>The Story of Duel City</h2>
                     <p>
                         <span class="highlight">Duel City</span> is a middle-sized city located somewhere between
-                        Pheonix and Greensboro...
+                        Pheonix and Greensboro. 
+                        Nulla vitae ante elementum mauris ultricies mattis a vitae nibh. Quisque in molestie turpis. Cras eu interdum nulla. Nunc non ligula ut quam malesuada laoreet non a leo. Curabitur venenatis eu massa at malesuada. Duis eget massa eu lorem cursus tincidunt et nec dui. Duis adipiscing tellus vitae ante iaculis, nec luctus nunc mollis. Etiam posuere tristique sem, quis molestie lectus aliquet ut. Curabitur ut dictum nibh. Nunc ac purus nec purus mollis ultricies eu non turpis. In hac habitasse platea dictumst. Morbi luctus metus at imperdiet placerat.
                     </p>
-                    <p>
-                        With that said here are some tips taken directly from the municipal employee 
-                        orientation manual:
-                    </p>
-                    <h3>Three tips to be first among the seconds</h3>
+
+                    <h2>Three Tips to be First among the Seconds</h2>
                     <ol>
-                        <li>
-                            Always remember what traps were available at the start of the duel
+                        <li>Always remember what traps were available at the start of the duel
                         </li>
-                        <li>
-                            When choosing to remove traps, try to remove a class of traps from the duel altogether
+                        <li>When choosing to remove traps, try to remove a class of traps from the duel altogether
                         </li>
-                        <li>
-                            Keep track of which traps have been sprung over the course of the duel
+                        <li>Keep track of which traps have been sprung over the course of the duel
                         </li>
                     </ol>
-                    <h3>Just how tough are Duelites?</h3>
+                    <h2>Just how Tough are Duelites?</h2>
                     <p>
-                        The latest studies commissioned by the Duel U. have found that on average a Duelite can 
-                        withstand three bullet wounds.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus dignissim ipsum, imperdiet interdum risus auctor eu. Cras tempus massa sed lacus interdum, et mattis quam sodales. Nunc non pellentesque quam, sed fringilla mi. Vestibulum ultrices, nisl ac sodales viverra, justo felis ullamcorper neque, ac interdum dui tellus quis libero. Fusce iaculis vitae eros ut tincidunt. Donec sagittis elit est, a iaculis eros adipiscing non. Donec ultrices facilisis auctor. Sed venenatis viverra odio, congue ultrices massa scelerisque sit amet. Sed neque nisi, aliquam ac mollis at, eleifend non nisl. Vestibulum et odio vel lorem pharetra elementum.
                     </p>
+                </div>
+                <div class="col-lg-4">
+                    <h2>Enough Fighting, Spread the Love</h2>
+                    <p>
+                        Put down your pistols and fire up Facebook. It's time to share this bad-ass 
+                        game with your friends:
+                    </p>
+                    <ul class="social-buttons">
+                        <li>
+                            <div class="fb-like" data-href="" data-send="false" data-width="350" data-show-faces="true"></div>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/share" class="twitter-share-button" data-via="ZebraSpotted">Tweet</a>
+                        </li>
+                        <li>
+                            <div class="g-plusone" data-annotation="inline" data-width="350"></div>
+                        </li>
+                    </ul>
+                    
+                    <h2>Hastily Built for Ludum Dare</h2>
+                    <p>
+                        We built this game for Ludum Dare 27 &ndash; a 48-hour game making competition. 
+                        The theme of the contest was "10 seconds". Please vote for our game on the Ludum 
+                        Dare website:
+                    </p>
+                    <a href="#">Vote for Second's Showdown</a>
+
+                    <h2>Nuts & Bolts</h2>
+                    <p>
+                        Don't just settle for fun and games. Roll up your sleeves and poke around!
+                        Second's Showdown is an <span class="highlight">open source</span> project, 
+                        so download the code and create your own Duelopolis!
+                    </p>
+                    <a href="https://github.com/aschearer/LudumDare27">Visit the project on GitHub</a>
                 </div>
             </section>
         </div>
     </div>
     <script type="text/javascript" src="app/ludumdare27.js"></script>
+        <script>
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=413244862102986";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+    </script>
+    
+    <script>
+        !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
+    </script>
+    <script type="text/javascript">
+        (function () {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
 </body>
 </html>
