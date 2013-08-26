@@ -113,13 +113,7 @@ var views;
                     _this.onKeyUp(event.keyCode);
                 };
 
-                this.layer.onclick = function () {
-                    if (that.chips.length > 0) {
-                        this.activeChip = that.chips.pop();
-                        TweenLite.to(this.activeChip.element, .5, { top: -100, ease: Cubic.easeOut });
-                        TweenMax.to(this.activeChip.element, 0.1, { rotationX: 90, yoyo: true, repeat: 4 });
-                    }
-                };
+                window.setTimeout(this.flipNextChip.bind(this), 2000);
             };
 
             Duel.prototype.exit = function (nextState) {
@@ -221,6 +215,16 @@ var views;
                 this.updateTurnInformation(players[0].currentBet, players[1].currentBet, betType, winningPlayer ? winningPlayer.playerId : null);
 
                 this.datacontext.AdvanceGame();
+
+                this.flipNextChip();
+            };
+
+            Duel.prototype.flipNextChip = function () {
+                if (this.chips.length > 0) {
+                    this.activeChip = this.chips.pop();
+                    TweenLite.to(this.activeChip.element, .5, { top: -100, ease: Cubic.easeOut });
+                    TweenMax.to(this.activeChip.element, 0.1, { rotationX: 90, yoyo: true, repeat: 8 });
+                }
             };
             return Duel;
         })();
