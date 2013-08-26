@@ -370,7 +370,7 @@
     background-color: #d2889f;
 }
 
-.key {
+.key {  
     color: black;
     display: inline-block;
     padding: 6px;
@@ -387,6 +387,10 @@
     box-shadow: 0 2px 5px #636363;
 }
 
-#game-over-layer {
-    background: url('../images/gameOver/background.jpg');
+.game-over-draw {
+    background: url('../images/gameOver/background-draw.jpg');
+}
+
+.game-over-victory {
+    background: url('../images/gameOver/background-victory.jpg');
 }

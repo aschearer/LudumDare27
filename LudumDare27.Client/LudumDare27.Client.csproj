@@ -24,7 +24,8 @@
     <Content Include="images\chooseHand\tutor.png" />
     <Content Include="images\duel\background.jpg" />
     <Content Include="images\duel\start-turn.png" />
-    <Content Include="images\gameOver\background.jpg" />
+    <Content Include="images\gameOver\background-draw.jpg" />
+    <Content Include="images\gameOver\background-victory.jpg" />
     <Content Include="images\title\background.jpg" />
     <Content Include="images\title\start.png" />
     <Content Include="images\title\title.png" />
